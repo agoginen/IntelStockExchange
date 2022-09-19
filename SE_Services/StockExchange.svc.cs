@@ -14,9 +14,7 @@ namespace SE_Services
             bool registerSucceeded = false;
             using (var ctx = new IntelStockExchange())
             {
-                var q = from user in ctx.Users
-                        where user.UserName == userName && user.Password == password
-                        select user;
+                var q = ctx.Users.Where(x => x.UserName == userName && x.Password == password);
 
                 if (q.ToList().Count == 0)
                 {
@@ -39,14 +37,13 @@ namespace SE_Services
         {
             using (var ctx = new IntelStockExchange())
             {
-                var q = from u in ctx.Users
-                        where u.UserName == user.UserName && user.Password == user.Password
-                        select u;
+                var q = ctx.Users.Where(x => x.UserName == user.UserName && x.Password == user.Password);
 
                 // the database contains the user-pass pair
                 if (q.ToList().Count == 1)
                 {
-                    return SessionManager.Instance.AddUser(user.UserName);
+                    SessionManager.Instance.AddUser(user.UserName);
+                    return q.First().Id;
                 }
                 // the database does not contain the user-pass pair
                 else
