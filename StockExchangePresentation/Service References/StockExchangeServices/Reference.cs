@@ -26,6 +26,15 @@ namespace StockExchangePresentation.StockExchangeServices {
         private System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.Balance> BalancesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime DateTimeAddedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> DateTimeDeletedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> DateTimeUpdatedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EmailAddressField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -62,6 +71,45 @@ namespace StockExchangePresentation.StockExchangeServices {
                 if ((object.ReferenceEquals(this.BalancesField, value) != true)) {
                     this.BalancesField = value;
                     this.RaisePropertyChanged("Balances");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime DateTimeAdded {
+            get {
+                return this.DateTimeAddedField;
+            }
+            set {
+                if ((this.DateTimeAddedField.Equals(value) != true)) {
+                    this.DateTimeAddedField = value;
+                    this.RaisePropertyChanged("DateTimeAdded");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> DateTimeDeleted {
+            get {
+                return this.DateTimeDeletedField;
+            }
+            set {
+                if ((this.DateTimeDeletedField.Equals(value) != true)) {
+                    this.DateTimeDeletedField = value;
+                    this.RaisePropertyChanged("DateTimeDeleted");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> DateTimeUpdated {
+            get {
+                return this.DateTimeUpdatedField;
+            }
+            set {
+                if ((this.DateTimeUpdatedField.Equals(value) != true)) {
+                    this.DateTimeUpdatedField = value;
+                    this.RaisePropertyChanged("DateTimeUpdated");
                 }
             }
         }
@@ -167,6 +215,15 @@ namespace StockExchangePresentation.StockExchangeServices {
         private int Balance1Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime DateTimeAddedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> DateTimeDeletedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> DateTimeUpdatedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -194,6 +251,45 @@ namespace StockExchangePresentation.StockExchangeServices {
                 if ((this.Balance1Field.Equals(value) != true)) {
                     this.Balance1Field = value;
                     this.RaisePropertyChanged("Balance1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime DateTimeAdded {
+            get {
+                return this.DateTimeAddedField;
+            }
+            set {
+                if ((this.DateTimeAddedField.Equals(value) != true)) {
+                    this.DateTimeAddedField = value;
+                    this.RaisePropertyChanged("DateTimeAdded");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> DateTimeDeleted {
+            get {
+                return this.DateTimeDeletedField;
+            }
+            set {
+                if ((this.DateTimeDeletedField.Equals(value) != true)) {
+                    this.DateTimeDeletedField = value;
+                    this.RaisePropertyChanged("DateTimeDeleted");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> DateTimeUpdated {
+            get {
+                return this.DateTimeUpdatedField;
+            }
+            set {
+                if ((this.DateTimeUpdatedField.Equals(value) != true)) {
+                    this.DateTimeUpdatedField = value;
+                    this.RaisePropertyChanged("DateTimeUpdated");
                 }
             }
         }
@@ -257,6 +353,15 @@ namespace StockExchangePresentation.StockExchangeServices {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime DateTimeAddedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> DateTimeDeletedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> DateTimeUpdatedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -278,6 +383,45 @@ namespace StockExchangePresentation.StockExchangeServices {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime DateTimeAdded {
+            get {
+                return this.DateTimeAddedField;
+            }
+            set {
+                if ((this.DateTimeAddedField.Equals(value) != true)) {
+                    this.DateTimeAddedField = value;
+                    this.RaisePropertyChanged("DateTimeAdded");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> DateTimeDeleted {
+            get {
+                return this.DateTimeDeletedField;
+            }
+            set {
+                if ((this.DateTimeDeletedField.Equals(value) != true)) {
+                    this.DateTimeDeletedField = value;
+                    this.RaisePropertyChanged("DateTimeDeleted");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> DateTimeUpdated {
+            get {
+                return this.DateTimeUpdatedField;
+            }
+            set {
+                if ((this.DateTimeUpdatedField.Equals(value) != true)) {
+                    this.DateTimeUpdatedField = value;
+                    this.RaisePropertyChanged("DateTimeUpdated");
+                }
             }
         }
         
@@ -366,6 +510,15 @@ namespace StockExchangePresentation.StockExchangeServices {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime DateTimeAddedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> DateTimeDeletedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> DateTimeUpdatedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<decimal> HighPriceField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -384,6 +537,45 @@ namespace StockExchangePresentation.StockExchangeServices {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime DateTimeAdded {
+            get {
+                return this.DateTimeAddedField;
+            }
+            set {
+                if ((this.DateTimeAddedField.Equals(value) != true)) {
+                    this.DateTimeAddedField = value;
+                    this.RaisePropertyChanged("DateTimeAdded");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> DateTimeDeleted {
+            get {
+                return this.DateTimeDeletedField;
+            }
+            set {
+                if ((this.DateTimeDeletedField.Equals(value) != true)) {
+                    this.DateTimeDeletedField = value;
+                    this.RaisePropertyChanged("DateTimeDeleted");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> DateTimeUpdated {
+            get {
+                return this.DateTimeUpdatedField;
+            }
+            set {
+                if ((this.DateTimeUpdatedField.Equals(value) != true)) {
+                    this.DateTimeUpdatedField = value;
+                    this.RaisePropertyChanged("DateTimeUpdated");
+                }
             }
         }
         

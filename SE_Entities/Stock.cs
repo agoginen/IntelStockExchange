@@ -17,5 +17,11 @@ namespace SE_Entities
         public decimal? HighPrice { get; set; }
 
         public decimal? LowPrice { get; set; }
+
+        public DateTime DateTimeAdded { get; set; }
+
+        public DateTime? DateTimeUpdated { get; set; }
+
+        public DateTime? DateTimeDeleted { get; set; }
     }
 }

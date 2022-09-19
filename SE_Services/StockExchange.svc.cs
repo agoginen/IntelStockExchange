@@ -1,5 +1,6 @@
 ﻿using SE_Entities;
 using StockExchangeApp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,7 +24,9 @@ namespace SE_Services
                     {
                         UserName = userName,
                         Password = password,
-                        EmailAddress = emailAddress
+                        EmailAddress = emailAddress,
+                        UserType = 1,
+                        DateTimeAdded = DateTime.Now
                     });
                     ctx.SaveChanges();
                     registerSucceeded = true;

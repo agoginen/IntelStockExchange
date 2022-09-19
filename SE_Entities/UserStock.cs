@@ -16,6 +16,12 @@ namespace SE_Entities
 
         public int UserId { get; set; }
 
+        public DateTime DateTimeAdded { get; set; }
+
+        public DateTime? DateTimeUpdated { get; set; }
+
+        public DateTime? DateTimeDeleted { get; set; }
+
         public virtual User User { get; set; }
     }
 }

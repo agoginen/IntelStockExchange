@@ -31,6 +31,12 @@ namespace SE_Entities
         [StringLength(50)]
         public string Password { get; set; }
 
+        public DateTime? DateTimeUpdated { get; set; }
+
+        public DateTime? DateTimeDeleted { get; set; }
+
+        public DateTime DateTimeAdded { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Balance> Balances { get; set; }
 
