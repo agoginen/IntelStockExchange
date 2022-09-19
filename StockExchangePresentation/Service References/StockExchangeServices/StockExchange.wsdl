@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" name="StockExchange" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:4416/StockExchange.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:4416/StockExchange.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:4416/StockExchange.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SE_Entities" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IStockExchangeOrder_Register_InputMessage">
+    <wsdl:part name="parameters" element="tns:Register" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_Register_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_Login_InputMessage">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_Login_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_Logout_InputMessage">
+    <wsdl:part name="parameters" element="tns:Logout" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_Logout_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LogoutResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_GetAllStocks_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllStocks" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_GetAllStocks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllStocksResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_GetAllUserStocks_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUserStocks" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_GetAllUserStocks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUserStocksResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_GetStockPrice_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStockPrice" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_GetStockPrice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStockPriceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_ProceedOrder_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProceedOrder" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_ProceedOrder_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ProceedOrderResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IStockExchangeOrder">
+    <wsdl:operation name="Register">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/Register" message="tns:IStockExchangeOrder_Register_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/RegisterResponse" message="tns:IStockExchangeOrder_Register_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/Login" message="tns:IStockExchangeOrder_Login_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/LoginResponse" message="tns:IStockExchangeOrder_Login_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/Logout" message="tns:IStockExchangeOrder_Logout_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/LogoutResponse" message="tns:IStockExchangeOrder_Logout_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllStocks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/GetAllStocks" message="tns:IStockExchangeOrder_GetAllStocks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/GetAllStocksResponse" message="tns:IStockExchangeOrder_GetAllStocks_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUserStocks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/GetAllUserStocks" message="tns:IStockExchangeOrder_GetAllUserStocks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/GetAllUserStocksResponse" message="tns:IStockExchangeOrder_GetAllUserStocks_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStockPrice">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/GetStockPrice" message="tns:IStockExchangeOrder_GetStockPrice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/GetStockPriceResponse" message="tns:IStockExchangeOrder_GetStockPrice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ProceedOrder">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/ProceedOrder" message="tns:IStockExchangeOrder_ProceedOrder_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/ProceedOrderResponse" message="tns:IStockExchangeOrder_ProceedOrder_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IStockExchangeOrder" type="tns:IStockExchangeOrder">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Register">
+      <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/Register" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/Logout" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllStocks">
+      <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/GetAllStocks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUserStocks">
+      <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/GetAllUserStocks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStockPrice">
+      <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/GetStockPrice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProceedOrder">
+      <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/ProceedOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="StockExchange">
+    <wsdl:port name="BasicHttpBinding_IStockExchangeOrder" binding="tns:BasicHttpBinding_IStockExchangeOrder">
+      <soap:address location="http://localhost:4416/StockExchange.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

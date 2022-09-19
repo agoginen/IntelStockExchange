@@ -1,0 +1,128 @@
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
+using StockExchangePresentation.StockExchangeServices;
+using System;
+using System.Windows.Input;
+
+namespace StockExchangePresentation.ViewModel
+{
+    public class LoginViewModel : ViewModelBase
+    {
+        private User user;
+        private int userId;
+
+        public ICommand LoginCommand { get; set; }
+        public ICommand RegisterCommand { get; set; }
+        public string LoginLabel { get; set; }
+        public string UserName
+        {
+            get
+            {
+                return user.UserName;
+            }
+            set
+            {
+                user.UserName = value;
+                RaisePropertyChanged("UserName");
+            }
+        }
+
+        public string Password
+        {
+            get
+            {
+                return user.Password;
+            }
+            set
+            {
+                user.Password = value;
+                RaisePropertyChanged("Password");
+            }
+        }
+
+        public string EmailAddress
+        {
+            get
+            {
+                return user.EmailAddress;
+            }
+            set
+            {
+                user.EmailAddress = value;
+                RaisePropertyChanged("EmailAddress");
+            }
+        }
+
+        public LoginViewModel()
+        {
+            this.user = new User();
+
+            LoginCommand = new RelayCommand(LoginUser, () => { return LoginLabel == "Login"; });
+            RegisterCommand = new RelayCommand(RegisterUser);
+
+            LoginLabel = "Login";
+        }
+
+        private async void RegisterUser()
+        {
+            StockExchangeOrderClient client = new StockExchangeOrderClient();
+            var success = await client.RegisterAsync(UserName, Password, EmailAddress);
+            client.Close();
+
+            if (success)
+            {
+                Messenger.Default.Send(new ViewModelMessage
+                {
+                    Message = ViewModelMessage.Message_OpenDialog,
+                    Dialog = ViewModelMessage.Dialog_RegistrationSuccess
+                });
+            }
+            else
+            {
+                Messenger.Default.Send(new ViewModelMessage
+                {
+                    Message = ViewModelMessage.Message_OpenDialog,
+                    Dialog = ViewModelMessage.Dialog_RegistrationFailed
+                });
+            }
+        }
+
+        private async void LoginUser()
+        {
+			LoginLabel = "Logging in...";
+			RaisePropertyChanged("LoginLabel");
+			((RelayCommand)LoginCommand).RaiseCanExecuteChanged();
+
+            StockExchangeOrderClient client = new StockExchangeOrderClient();
+			var loginId = await client.LoginAsync(user);
+			userId = loginId;
+			client.Close();
+
+			LoginLabel = "Login";
+			RaisePropertyChanged("LoginLabel");
+			((RelayCommand)LoginCommand).RaiseCanExecuteChanged();
+
+			// if login succeeded and we got a valid Id
+			if (userId > 0)
+			{
+				Messenger.Default.Send(new ViewModelMessage
+				{
+					Id = userId,
+					Message = ViewModelMessage.Message_Navigate,
+					NavigateTo = ViewModelMessage.Navigation_ProceedOrder
+				});
+				UserName = "";
+				Password = "";
+			}
+			else
+			{
+				Messenger.Default.Send(new ViewModelMessage
+				{
+					Message = ViewModelMessage.Message_OpenDialog,
+					Dialog = ViewModelMessage.Dialog_LoginFailed
+				});
+			}
+		}
+    }
+}
