@@ -80,8 +80,71 @@
             </ListView.ItemTemplate>
         </ListView>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1">
-            <Button Content="Submit All" Command="{Binding SubmitAll}" Margin="3,3,3,3" Width="80"/>
-            <Button Content="Cancel All" Command="{Binding CancelAll}" Margin="3,3,3,3" Width="80"/>
+            <Button x:Name="SubmitAll" 
+                            Command="{Binding SubmitAll}"
+                            BorderThickness="0"
+                            Content="Submit All"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"                           
+                            Margin="0,30,0,0">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#462AD8"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#28AEED"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="150" Height="40"
+                                        CornerRadius="20"
+                                        Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Button x:Name="CancelAll" 
+                            Command="{Binding CancelAll}"
+                            BorderThickness="0"
+                            Content="Cancel All"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"                           
+                            Margin="0,30,0,0">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#462AD8"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#28AEED"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="150" Height="40"
+                                        CornerRadius="20"
+                                        Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>

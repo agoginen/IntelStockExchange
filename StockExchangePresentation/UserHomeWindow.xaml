@@ -9,8 +9,6 @@
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Background="Transparent"
-        AllowsTransparency="True"
         MouseDown="Window_MouseDown">
 
     <Border CornerRadius="12">

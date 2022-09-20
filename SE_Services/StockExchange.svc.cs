@@ -75,19 +75,12 @@ namespace SE_Services
             }
         }
 
-        public List<Stock> GetAllStocks(int userId)
+        public List<Stock> GetAllStocks()
         {
-            if (SessionManager.Instance.ValidateUser(userId))
+            using (var ctx = new IntelStockExchange())
             {
-                using (var ctx = new IntelStockExchange())
-                {
-                    List<Stock> stocks = ctx.Stocks.ToList();
-                    return stocks;
-                }
-            }
-            else
-            {
-                return null;
+                List<Stock> stocks = ctx.Stocks.ToList();
+                return stocks;
             }
         }
         
