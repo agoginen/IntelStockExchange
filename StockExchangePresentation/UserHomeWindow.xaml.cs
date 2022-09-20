@@ -10,14 +10,12 @@ namespace StockExchangePresentation
 	/// </summary>
 	public partial class UserHomeWindow : Window
 	{
-        public List<Stock> Stocks { get; set; }
 
         public UserHomeWindow(int userId)
 		{
 			InitializeComponent();
             StockExchangeOrderClient client = new StockExchangeOrderClient();
-            Stocks = client.GetAllStocks();
-            this.StockGrid.ItemsSource = Stocks;
+            this.StockGrid.ItemsSource = client.GetAllStocks(userId);
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

@@ -31,6 +31,15 @@ namespace SE_Entities
 				.Property(e => e.LowPrice)
 				.HasPrecision(19, 4);
 
+			modelBuilder.Entity<Stock>()
+				.Property(e => e.Price)
+				.HasPrecision(19, 4);
+
+			modelBuilder.Entity<Stock>()
+				.HasMany(e => e.UserStocks)
+				.WithRequired(e => e.Stock)
+				.WillCascadeOnDelete(false);
+
 			modelBuilder.Entity<User>()
 				.Property(e => e.UserName)
 				.IsFixedLength();

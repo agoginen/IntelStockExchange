@@ -365,6 +365,9 @@ namespace StockExchangePresentation.StockExchangeServices {
         private int IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private StockExchangePresentation.StockExchangeServices.Stock StockField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int StockCountField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -434,6 +437,19 @@ namespace StockExchangePresentation.StockExchangeServices {
                 if ((this.IdField.Equals(value) != true)) {
                     this.IdField = value;
                     this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public StockExchangePresentation.StockExchangeServices.Stock Stock {
+            get {
+                return this.StockField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StockField, value) != true)) {
+                    this.StockField = value;
+                    this.RaisePropertyChanged("Stock");
                 }
             }
         }
@@ -528,7 +544,13 @@ namespace StockExchangePresentation.StockExchangeServices {
         private System.Nullable<decimal> LowPriceField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> PriceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string StockNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.UserStock> UserStocksField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -619,6 +641,19 @@ namespace StockExchangePresentation.StockExchangeServices {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> Price {
+            get {
+                return this.PriceField;
+            }
+            set {
+                if ((this.PriceField.Equals(value) != true)) {
+                    this.PriceField = value;
+                    this.RaisePropertyChanged("Price");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string StockName {
             get {
                 return this.StockNameField;
@@ -627,6 +662,19 @@ namespace StockExchangePresentation.StockExchangeServices {
                 if ((object.ReferenceEquals(this.StockNameField, value) != true)) {
                     this.StockNameField = value;
                     this.RaisePropertyChanged("StockName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.UserStock> UserStocks {
+            get {
+                return this.UserStocksField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UserStocksField, value) != true)) {
+                    this.UserStocksField = value;
+                    this.RaisePropertyChanged("UserStocks");
                 }
             }
         }
@@ -664,10 +712,10 @@ namespace StockExchangePresentation.StockExchangeServices {
         System.Threading.Tasks.Task<bool> LogoutAsync(int userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetAllStocks", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetAllStocksResponse")]
-        System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.Stock> GetAllStocks(int userId);
+        System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel> GetAllStocks(int userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetAllStocks", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetAllStocksResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.Stock>> GetAllStocksAsync(int userId);
+        System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel>> GetAllStocksAsync(int userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetAllUserStocks", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetAllUserStocksResponse")]
         System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.UserStock> GetAllUserStocks(int userId);
@@ -739,11 +787,11 @@ namespace StockExchangePresentation.StockExchangeServices {
             return base.Channel.LogoutAsync(userId);
         }
         
-        public System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.Stock> GetAllStocks(int userId) {
+        public System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel> GetAllStocks(int userId) {
             return base.Channel.GetAllStocks(userId);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.Stock>> GetAllStocksAsync(int userId) {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel>> GetAllStocksAsync(int userId) {
             return base.Channel.GetAllStocksAsync(userId);
         }
         

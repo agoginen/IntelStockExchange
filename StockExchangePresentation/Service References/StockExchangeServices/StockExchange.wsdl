@@ -5,6 +5,7 @@
       <xsd:import schemaLocation="http://localhost:4416/StockExchange.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:4416/StockExchange.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:4416/StockExchange.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SE_Entities" />
+      <xsd:import schemaLocation="http://localhost:4416/StockExchange.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/SE_Services.ViewModels" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IStockExchangeOrder_Register_InputMessage">

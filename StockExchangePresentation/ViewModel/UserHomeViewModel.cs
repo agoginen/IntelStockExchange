@@ -10,8 +10,6 @@ namespace StockExchangePresentation.ViewModel
 		public List<Stock> Stocks { get; set; }
 		public UserHomeViewModel()
 		{
-			StockExchangeOrderClient client = new StockExchangeOrderClient();
-			Stocks = client.GetAllStocks();
 		}
 	}
 }

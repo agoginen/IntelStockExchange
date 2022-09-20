@@ -1,4 +1,5 @@
 ﻿using SE_Entities;
+using SE_Services.ViewModels;
 using StockExchangeApp;
 using System;
 using System.Collections.Generic;
@@ -75,11 +76,16 @@ namespace SE_Services
             }
         }
 
-        public List<Stock> GetAllStocks(int userId)
+        public List<StockViewModel> GetAllStocks(int userId)
         {
             using (var ctx = new IntelStockExchange())
             {
-                List<Stock> stocks = ctx.Stocks.ToList();
+                List<StockViewModel> stocks = ctx.Stocks.Select(x => new StockViewModel
+                                              {
+                                                StockCount = x.UserStocks.Count == 0 ? 0 : x.UserStocks.FirstOrDefault().StockCount,
+                                                StockName = x.StockName,
+                                                Price = x.Price
+                                              }).ToList();
                 return stocks;
             }
         }

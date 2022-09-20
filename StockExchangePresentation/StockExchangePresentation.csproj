@@ -173,6 +173,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\SE_Services.ViewModels.StockViewModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -188,8 +189,8 @@
     <None Include="Service References\StockExchangeServices\StockExchange2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\StockExchangeServices\StockExchangePresentation.StockExchangeServices.Stock.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
+    <None Include="Service References\StockExchangeServices\StockExchange3.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Service References\StockExchangeServices\StockExchangePresentation.StockExchangeServices.UserStock.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -200,6 +201,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

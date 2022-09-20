@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/SE_Services.ViewModels" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/SE_Services.ViewModels" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfStockViewModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StockViewModel" nillable="true" type="tns:StockViewModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStockViewModel" nillable="true" type="tns:ArrayOfStockViewModel" />
+  <xs:complexType name="StockViewModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateTimeAdded" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateTimeDeleted" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateTimeUpdated" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="HighPrice" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LowPrice" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Price" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="StockCount" type="xs:int" />
+      <xs:element minOccurs="0" name="StockName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StockViewModel" nillable="true" type="tns:StockViewModel" />
+</xs:schema>

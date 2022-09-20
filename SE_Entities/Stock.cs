@@ -8,6 +8,12 @@ namespace SE_Entities
 
     public partial class Stock
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Stock()
+        {
+            UserStocks = new HashSet<UserStock>();
+        }
+
         public int Id { get; set; }
 
         [Required]
@@ -23,5 +29,10 @@ namespace SE_Entities
         public DateTime? DateTimeUpdated { get; set; }
 
         public DateTime? DateTimeDeleted { get; set; }
+
+        public decimal? Price { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserStock> UserStocks { get; set; }
     }
 }

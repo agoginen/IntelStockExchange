@@ -1,5 +1,5 @@
 ﻿using SE_Entities;
-using System;
+using SE_Services.ViewModels;
 using System.Collections.Generic;
 using System.ServiceModel;
 
@@ -15,7 +15,7 @@ namespace StockExchangeApp
         [OperationContract]
         bool Logout(int userId);
         [OperationContract]
-        List<Stock> GetAllStocks(int userId);
+        List<StockViewModel> GetAllStocks(int userId);
         [OperationContract]
         List<UserStock> GetAllUserStocks(int userId);
         [OperationContract]
