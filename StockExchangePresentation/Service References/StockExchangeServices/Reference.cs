@@ -664,10 +664,10 @@ namespace StockExchangePresentation.StockExchangeServices {
         System.Threading.Tasks.Task<bool> LogoutAsync(int userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetAllStocks", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetAllStocksResponse")]
-        System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.Stock> GetAllStocks();
+        System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.Stock> GetAllStocks(int userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetAllStocks", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetAllStocksResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.Stock>> GetAllStocksAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.Stock>> GetAllStocksAsync(int userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetAllUserStocks", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetAllUserStocksResponse")]
         System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.UserStock> GetAllUserStocks(int userId);
@@ -739,12 +739,12 @@ namespace StockExchangePresentation.StockExchangeServices {
             return base.Channel.LogoutAsync(userId);
         }
         
-        public System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.Stock> GetAllStocks() {
-            return base.Channel.GetAllStocks();
+        public System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.Stock> GetAllStocks(int userId) {
+            return base.Channel.GetAllStocks(userId);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.Stock>> GetAllStocksAsync() {
-            return base.Channel.GetAllStocksAsync();
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.Stock>> GetAllStocksAsync(int userId) {
+            return base.Channel.GetAllStocksAsync(userId);
         }
         
         public System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.UserStock> GetAllUserStocks(int userId) {

@@ -127,13 +127,13 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <DataGrid Grid.Row="0" Name="dgStocks" ItemsSource="{Binding StocksCollection}"  Margin="5"
+                    <DataGrid Grid.Row="0" Name="StockGrid" ItemsSource="{Binding Stocks}"  Margin="5"
                       AutoGenerateColumns="False"
                       AlternationCount="2" 
                       AlternatingRowBackground="WhiteSmoke"
                       CanUserAddRows="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Stock" Binding="{Binding Stock}" Width="*" />
+                            <DataGridTextColumn Header="Stock" Binding="{Binding StockName}" Width="*" />
                             <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat=\{0:C2\}}" Width="*"/>
                             <DataGridTextColumn Header="Shares" Binding="{Binding Shares}" Width="*"/>
 

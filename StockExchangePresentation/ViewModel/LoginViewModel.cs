@@ -126,8 +126,10 @@ namespace StockExchangePresentation.ViewModel
 					NavigateTo = ViewModelMessage.Navigation_ProceedOrder
 				});
 
-                UserHomeWindow userWindow = new UserHomeWindow();
+                //Open UserHomeWindow
+                UserHomeWindow userWindow = new UserHomeWindow(userId);
                 userWindow.Show();
+                //Close MainWindow
                 Application.Current.Windows[0].Close();
             }
 			else

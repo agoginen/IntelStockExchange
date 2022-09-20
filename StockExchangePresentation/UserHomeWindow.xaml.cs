@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using StockExchangePresentation.StockExchangeServices;
+using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Input;
 
 namespace StockExchangePresentation
@@ -8,10 +10,15 @@ namespace StockExchangePresentation
 	/// </summary>
 	public partial class UserHomeWindow : Window
 	{
-		public UserHomeWindow()
+        public List<Stock> Stocks { get; set; }
+
+        public UserHomeWindow(int userId)
 		{
 			InitializeComponent();
-		}
+            StockExchangeOrderClient client = new StockExchangeOrderClient();
+            Stocks = client.GetAllStocks();
+            this.StockGrid.ItemsSource = Stocks;
+        }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {

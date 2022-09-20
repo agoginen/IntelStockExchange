@@ -75,7 +75,7 @@ namespace SE_Services
             }
         }
 
-        public List<Stock> GetAllStocks()
+        public List<Stock> GetAllStocks(int userId)
         {
             using (var ctx = new IntelStockExchange())
             {
