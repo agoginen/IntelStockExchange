@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using StockExchangePresentation.StockExchangeServices;
 using System;
+using System.Windows;
 using System.Windows.Input;
 
 namespace StockExchangePresentation.ViewModel
@@ -64,6 +65,9 @@ namespace StockExchangePresentation.ViewModel
             LoginLabel = "Login";
         }
 
+        /// <summary>
+        /// Calls Register Service and registers users
+        /// </summary>
         private async void RegisterUser()
         {
             StockExchangeOrderClient client = new StockExchangeOrderClient();
@@ -77,6 +81,10 @@ namespace StockExchangePresentation.ViewModel
                     Message = ViewModelMessage.Message_OpenDialog,
                     Dialog = ViewModelMessage.Dialog_RegistrationSuccess
                 });
+
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                Application.Current.Windows[0].Close();
             }
             else
             {
@@ -85,9 +93,14 @@ namespace StockExchangePresentation.ViewModel
                     Message = ViewModelMessage.Message_OpenDialog,
                     Dialog = ViewModelMessage.Dialog_RegistrationFailed
                 });
+
+                MessageBox.Show("Registering the " + UserName + " has failed. Please contact administrator if problem persists.","Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
+        /// <summary>
+        /// Calls Login Service and logins the user
+        /// </summary>
         private async void LoginUser()
         {
 			LoginLabel = "Logging in...";
@@ -122,7 +135,9 @@ namespace StockExchangePresentation.ViewModel
 					Message = ViewModelMessage.Message_OpenDialog,
 					Dialog = ViewModelMessage.Dialog_LoginFailed
 				});
-			}
-		}
+
+                MessageBox.Show("Logging in the " + UserName + " has failed. Please Register the user first.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

@@ -35,6 +35,7 @@ namespace StockExchangePresentation
         {
             RegistrationWindow registrationWindow = new RegistrationWindow();
             registrationWindow.Show();
+            this.Close();
         }
     }
 }

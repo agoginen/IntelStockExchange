@@ -8,13 +8,21 @@ namespace SE_Services
 {
 	public class StockExchange : IStockExchangeOrder
     {
-
+        /// <summary>
+        /// This Method Registers users into our application. It only creates regular user., doesnt create Administor users
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <param name="emailAddress"></param>
+        /// <returns></returns>
         public bool Register(string userName, string password, string emailAddress)
         {
             bool registerSucceeded = false;
             using (var ctx = new IntelStockExchange())
             {
-                var q = ctx.Users.Where(x => x.UserName == userName && x.Password == password);
+                var q = ctx.Users
+                           .Where(x => x.UserName == userName
+                                    && x.Password == password);
 
                 if (q.ToList().Count == 0)
                 {
@@ -26,26 +34,40 @@ namespace SE_Services
                         UserType = 1,
                         DateTimeAdded = DateTime.Now
                     });
-                    ctx.SaveChanges();
-                    registerSucceeded = true;
+
+					try
+					{
+                        ctx.SaveChanges();
+                        registerSucceeded = true;
+                    }
+					catch (Exception ex)
+					{
+                        registerSucceeded = false;
+                    }
+
                 }
             }
             return registerSucceeded;
         }
 
+        /// <summary>
+        /// Logs Registered users into the system
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public int Login(User user)
         {
             using (var ctx = new IntelStockExchange())
             {
-                var q = ctx.Users.Where(x => x.UserName == user.UserName && x.Password == user.Password);
+                var q = ctx.Users
+                           .Where(x => x.UserName == user.UserName
+                                    && x.Password == user.Password);
 
-                // the database contains the user-pass pair
                 if (q.ToList().Count == 1)
                 {
                     SessionManager.Instance.AddUser(user.UserName);
                     return q.First().Id;
                 }
-                // the database does not contain the user-pass pair
                 else
                 {
                     return 0;
@@ -98,6 +120,7 @@ namespace SE_Services
                 return -1;
             }
         }
+
         public bool ProceedOrder(int userId, List<UserStock> userStock)
         {
             if (SessionManager.Instance.ValidateUser(userId))
@@ -121,6 +144,12 @@ namespace SE_Services
                 return false;
             }
         }
+
+        /// <summary>
+        /// Removes User Credentials from the Session Manager
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public bool Logout(int userId)
         {
             bool success = false;
