@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StockExchangePresentation.View
+namespace StockExchangePresentation
 {
 	/// <summary>
 	/// Interaction logic for MarketTransaction.xaml
@@ -23,6 +23,15 @@ namespace StockExchangePresentation.View
 		public MarketTransaction()
 		{
 			InitializeComponent();
+		}
+
+		private void ExpanderHeaderGrid_OnLoaded(object sender, RoutedEventArgs e)
+		{
+			Grid rootElem = sender as Grid;
+
+			ContentPresenter contentPres = rootElem.TemplatedParent as ContentPresenter;
+
+			contentPres.HorizontalAlignment = HorizontalAlignment.Stretch;
 		}
 	}
 }

@@ -128,7 +128,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="View\MarketTransaction.xaml.cs">
+    <Compile Include="MarketTransaction.xaml.cs">
       <DependentUpon>MarketTransaction.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Test.cs" />
@@ -148,7 +148,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MarketTransaction.xaml">
+    <Page Include="MarketTransaction.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

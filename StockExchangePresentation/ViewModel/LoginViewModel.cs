@@ -125,9 +125,11 @@ namespace StockExchangePresentation.ViewModel
 					Message = ViewModelMessage.Message_Navigate,
 					NavigateTo = ViewModelMessage.Navigation_ProceedOrder
 				});
-				UserName = "";
-				Password = "";
-			}
+
+                UserHomeWindow userWindow = new UserHomeWindow();
+                userWindow.Show();
+                Application.Current.Windows[0].Close();
+            }
 			else
 			{
 				Messenger.Default.Send(new ViewModelMessage
