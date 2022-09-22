@@ -56,7 +56,7 @@ namespace SE_Services
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public int Login(User user)
+        public User Login(User user)
         {
             using (var ctx = new IntelStockExchange())
             {
@@ -67,11 +67,11 @@ namespace SE_Services
                 if (q.ToList().Count == 1)
                 {
                     SessionManager.Instance.AddUser(user.UserName);
-                    return q.First().Id;
+                    return q.First();
                 }
                 else
                 {
-                    return 0;
+                    return new User();
                 }
             }
         }

@@ -76,11 +76,6 @@ namespace StockExchangePresentation.ViewModel
 
             if (success)
             {
-                Messenger.Default.Send(new ViewModelMessage
-                {
-                    Message = ViewModelMessage.Message_OpenDialog,
-                    Dialog = ViewModelMessage.Dialog_RegistrationSuccess
-                });
 
                 MainWindow mainWindow = new MainWindow();
                 mainWindow.Show();
@@ -88,12 +83,6 @@ namespace StockExchangePresentation.ViewModel
             }
             else
             {
-                Messenger.Default.Send(new ViewModelMessage
-                {
-                    Message = ViewModelMessage.Message_OpenDialog,
-                    Dialog = ViewModelMessage.Dialog_RegistrationFailed
-                });
-
                 MessageBox.Show("Registering the " + UserName + " has failed. Please contact administrator if problem persists.","Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -108,38 +97,32 @@ namespace StockExchangePresentation.ViewModel
 			((RelayCommand)LoginCommand).RaiseCanExecuteChanged();
 
             StockExchangeOrderClient client = new StockExchangeOrderClient();
-			var loginId = await client.LoginAsync(user);
-			userId = loginId;
+			var loggedInUser = await client.LoginAsync(user);
 			client.Close();
 
-			LoginLabel = "Login";
-			RaisePropertyChanged("LoginLabel");
-			((RelayCommand)LoginCommand).RaiseCanExecuteChanged();
-
 			// if login succeeded and we got a valid Id
-			if (userId > 0)
+			if (loggedInUser.Id > 0)
 			{
-				Messenger.Default.Send(new ViewModelMessage
+                if(loggedInUser.UserType == 1)
 				{
-					Id = userId,
-					Message = ViewModelMessage.Message_Navigate,
-					NavigateTo = ViewModelMessage.Navigation_ProceedOrder
-				});
+                    //Open UserHomeWindow
+                    UserHomeWindow userWindow = new UserHomeWindow(userId);
+                    userWindow.Show();
+                    //Close MainWindow
+                    Application.Current.Windows[0].Close();
+                }
+                else if(loggedInUser.UserType == 2)
+				{
 
-                //Open UserHomeWindow
-                UserHomeWindow userWindow = new UserHomeWindow(userId);
-                userWindow.Show();
-                //Close MainWindow
-                Application.Current.Windows[0].Close();
+				}
+				else
+				{
+                    MessageBox.Show(UserName + "login was  . Please Register the user first.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
             }
 			else
 			{
-				Messenger.Default.Send(new ViewModelMessage
-				{
-					Message = ViewModelMessage.Message_OpenDialog,
-					Dialog = ViewModelMessage.Dialog_LoginFailed
-				});
-
                 MessageBox.Show("Logging in the " + UserName + " has failed. Please Register the user first.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

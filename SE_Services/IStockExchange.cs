@@ -11,7 +11,7 @@ namespace StockExchangeApp
         [OperationContract]
         bool Register(string userName, string password, string emailAddress);
         [OperationContract]
-        int Login(User user);
+        User Login(User user);
         [OperationContract]
         bool Logout(int userId);
         [OperationContract]
