@@ -113,7 +113,11 @@ namespace StockExchangePresentation.ViewModel
                 }
                 else if(loggedInUser.UserType == 2)
 				{
-
+                    //Open AdminWindow
+                    AdminWindow adminWindow = new AdminWindow();
+                    adminWindow.Show();
+                    //Close MainWindow
+                    Application.Current.Windows[0].Close();
 				}
 				else
 				{

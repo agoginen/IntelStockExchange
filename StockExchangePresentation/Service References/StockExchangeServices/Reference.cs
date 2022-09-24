@@ -700,10 +700,10 @@ namespace StockExchangePresentation.StockExchangeServices {
         System.Threading.Tasks.Task<bool> RegisterAsync(string userName, string password, string emailAddress);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/Login", ReplyAction="http://tempuri.org/IStockExchangeOrder/LoginResponse")]
-        StockExchangePresentation.StockExchangeServices.User Login(StockExchangePresentation.StockExchangeServices.User user);
+        SE_Services.ViewModels.UserViewModel Login(StockExchangePresentation.StockExchangeServices.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/Login", ReplyAction="http://tempuri.org/IStockExchangeOrder/LoginResponse")]
-        System.Threading.Tasks.Task<StockExchangePresentation.StockExchangeServices.User> LoginAsync(StockExchangePresentation.StockExchangeServices.User user);
+        System.Threading.Tasks.Task<SE_Services.ViewModels.UserViewModel> LoginAsync(StockExchangePresentation.StockExchangeServices.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/Logout", ReplyAction="http://tempuri.org/IStockExchangeOrder/LogoutResponse")]
         bool Logout(int userId);
@@ -771,11 +771,11 @@ namespace StockExchangePresentation.StockExchangeServices {
             return base.Channel.RegisterAsync(userName, password, emailAddress);
         }
         
-        public StockExchangePresentation.StockExchangeServices.User Login(StockExchangePresentation.StockExchangeServices.User user) {
+        public SE_Services.ViewModels.UserViewModel Login(StockExchangePresentation.StockExchangeServices.User user) {
             return base.Channel.Login(user);
         }
         
-        public System.Threading.Tasks.Task<StockExchangePresentation.StockExchangeServices.User> LoginAsync(StockExchangePresentation.StockExchangeServices.User user) {
+        public System.Threading.Tasks.Task<SE_Services.ViewModels.UserViewModel> LoginAsync(StockExchangePresentation.StockExchangeServices.User user) {
             return base.Channel.LoginAsync(user);
         }
         

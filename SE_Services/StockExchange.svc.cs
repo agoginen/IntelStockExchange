@@ -52,59 +52,79 @@ namespace SE_Services
         }
 
         /// <summary>
-        /// Logs Registered users into the system
+        /// Logs Registered users into the system in raw view
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public User Login(User user)
+        public UserViewModel Login(User user)
         {
             using (var ctx = new IntelStockExchange())
             {
-                var q = ctx.Users
+                var users = ctx.Users
                            .Where(x => x.UserName == user.UserName
-                                    && x.Password == user.Password);
+                                    && x.Password == user.Password)
+                           .Select(x => new UserViewModel {
+                               UserName = x.UserName,
+                               UserType = x.UserType,
+                               Id = x.Id
+                           })
+                           .ToList();
 
-                if (q.ToList().Count == 1)
+                if (users.Count == 1)
                 {
                     SessionManager.Instance.AddUser(user.UserName);
-                    return q.First();
+                    return users.First();
                 }
                 else
                 {
-                    return new User();
+                    return new UserViewModel();
                 }
             }
         }
 
-        public List<StockViewModel> GetAllStocks(int userId)
+        /// <summary>
+        /// Get All stocks with user information
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public List<StockViewModel> GetAllUserStocks(int userId)
         {
-            using (var ctx = new IntelStockExchange())
+            if (SessionManager.Instance.ValidateUser(userId)) 
             {
-                List<StockViewModel> stocks = ctx.Stocks.Select(x => new StockViewModel
-                                              {
-                                                StockCount = x.UserStocks.Count == 0 ? 0 : x.UserStocks.FirstOrDefault().StockCount,
-                                                StockName = x.StockName,
-                                                Price = x.Price
-                                              }).ToList();
-                return stocks;
+                using (var ctx = new IntelStockExchange())
+                {
+                    List<StockViewModel> stocks = ctx.Stocks.Select(x => new StockViewModel
+                    {
+                        StockCount = x.UserStocks.Count == 0 ? 0 : x.UserStocks.FirstOrDefault().StockCount,
+                        StockName = x.StockName,
+                        Price = x.Price
+                    }).ToList();
+                    return stocks;
+                }
             }
+			else
+			{
+                return new List<StockViewModel>();
+			}
         }
         
-        public List<UserStock> GetAllUserStocks(int userId)
+        public List<StockViewModel> GetAllStocks(int userId)
         {
             if (SessionManager.Instance.ValidateUser(userId))
             {
                 using (var ctx = new IntelStockExchange())
                 {
-                    List<UserStock> userStocks = ctx.UserStocks
-                                                    .Where(x => x.UserId == userId)
-                                                    .ToList();
-                    return userStocks;
+                    List<StockViewModel> stocks = ctx.Stocks.Select(x => new StockViewModel
+					                              {
+                                                    StockName = x.StockName,
+                                                    Price = x.Price
+					                              }).ToList();
+                    return stocks;
                 }
             }
             else
             {
-                return null;
+                return new List<StockViewModel>();
             }
         }
 
