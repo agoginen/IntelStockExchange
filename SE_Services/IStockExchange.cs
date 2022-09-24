@@ -17,7 +17,7 @@ namespace StockExchangeApp
         [OperationContract]
         List<StockViewModel> GetAllStocks(int userId);
         [OperationContract]
-        List<UserStock> GetAllUserStocks(int userId);
+        List<StockViewModel> GetAllUserStocks(int userId);
         [OperationContract]
         int GetStockPrice(int id);
         [OperationContract]

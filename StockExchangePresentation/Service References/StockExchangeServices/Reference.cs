@@ -718,10 +718,10 @@ namespace StockExchangePresentation.StockExchangeServices {
         System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel>> GetAllStocksAsync(int userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetAllUserStocks", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetAllUserStocksResponse")]
-        System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.UserStock> GetAllUserStocks(int userId);
+        System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel> GetAllUserStocks(int userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetAllUserStocks", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetAllUserStocksResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.UserStock>> GetAllUserStocksAsync(int userId);
+        System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel>> GetAllUserStocksAsync(int userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetStockPrice", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetStockPriceResponse")]
         int GetStockPrice(int id);
@@ -795,11 +795,11 @@ namespace StockExchangePresentation.StockExchangeServices {
             return base.Channel.GetAllStocksAsync(userId);
         }
         
-        public System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.UserStock> GetAllUserStocks(int userId) {
+        public System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel> GetAllUserStocks(int userId) {
             return base.Channel.GetAllUserStocks(userId);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.UserStock>> GetAllUserStocksAsync(int userId) {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel>> GetAllUserStocksAsync(int userId) {
             return base.Channel.GetAllUserStocksAsync(userId);
         }
         

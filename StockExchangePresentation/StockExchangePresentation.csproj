@@ -209,9 +209,6 @@
     <None Include="Service References\StockExchangeServices\StockExchange3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\StockExchangeServices\StockExchangePresentation.StockExchangeServices.UserStock.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

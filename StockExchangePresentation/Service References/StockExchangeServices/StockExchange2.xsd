@@ -70,7 +70,7 @@
   <xs:element name="GetAllUserStocksResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/SE_Entities" minOccurs="0" name="GetAllUserStocksResult" nillable="true" type="q4:ArrayOfUserStock" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/SE_Services.ViewModels" minOccurs="0" name="GetAllUserStocksResult" nillable="true" type="q4:ArrayOfStockViewModel" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

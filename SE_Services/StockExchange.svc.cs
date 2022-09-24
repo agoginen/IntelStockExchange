@@ -72,7 +72,7 @@ namespace SE_Services
 
                 if (users.Count == 1)
                 {
-                    SessionManager.Instance.AddUser(user.UserName);
+                    SessionManager.Instance.AddUser(users.FirstOrDefault());
                     return users.First();
                 }
                 else
@@ -83,7 +83,7 @@ namespace SE_Services
         }
 
         /// <summary>
-        /// Get All stocks with user information
+        /// Get all stocks with user information
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
@@ -108,6 +108,11 @@ namespace SE_Services
 			}
         }
         
+        /// <summary>
+        /// Gets all stocks from database
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public List<StockViewModel> GetAllStocks(int userId)
         {
             if (SessionManager.Instance.ValidateUser(userId))

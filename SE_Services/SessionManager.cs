@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SE_Services.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
@@ -54,21 +55,19 @@ namespace SE_Services
             }
         }
 
-        public int AddUser(string userName)
+        public void AddUser(UserViewModel user)
         {
             lock (syncRoot)
             {
-                if (ActiveUsers.Count(entry => entry.Value.Item1 == userName) == 0)
+                if (ActiveUsers.Count(entry => entry.Value.Item1 == user.UserName) == 0)
                 {
-                    int id = 0;
-                    ActiveUsers.Add(id, new Tuple<string, DateTime>(userName, DateTime.Now));
-                    return id;
+                    int id = user.Id;
+                    ActiveUsers.Add(id, new Tuple<string, DateTime>(user.UserName, DateTime.Now));
                 }
                 else
                 {
                     // if user is already logged in return guid
-                    ActiveUsers.RefreshUser(userName);
-                    return ActiveUsers.Where(entry => entry.Value.Item1 == userName).First().Key;
+                    ActiveUsers.RefreshUser(user.UserName);
                 }
             }
         }

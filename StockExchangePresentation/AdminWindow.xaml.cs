@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using StockExchangePresentation.StockExchangeServices;
+using System.Windows;
 using System.Windows.Input;
 
 namespace StockExchangePresentation
@@ -8,10 +9,12 @@ namespace StockExchangePresentation
 	/// </summary>
 	public partial class AdminWindow : Window
 	{
-		public AdminWindow()
+		public AdminWindow(int userId)
 		{
 			InitializeComponent();
-		}
+            StockExchangeOrderClient client = new StockExchangeOrderClient();
+            this.StockGrid.ItemsSource = client.GetAllStocks(userId);
+        }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
