@@ -552,6 +552,9 @@ namespace StockExchangePresentation.StockExchangeServices {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.UserStock> UserStocksField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int VolumeField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -679,6 +682,19 @@ namespace StockExchangePresentation.StockExchangeServices {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Volume {
+            get {
+                return this.VolumeField;
+            }
+            set {
+                if ((this.VolumeField.Equals(value) != true)) {
+                    this.VolumeField = value;
+                    this.RaisePropertyChanged("Volume");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -734,6 +750,12 @@ namespace StockExchangePresentation.StockExchangeServices {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/ProceedOrder", ReplyAction="http://tempuri.org/IStockExchangeOrder/ProceedOrderResponse")]
         System.Threading.Tasks.Task<bool> ProceedOrderAsync(int userId, System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.UserStock> userStocks);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/AddStock", ReplyAction="http://tempuri.org/IStockExchangeOrder/AddStockResponse")]
+        void AddStock(StockExchangePresentation.StockExchangeServices.Stock stock);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/AddStock", ReplyAction="http://tempuri.org/IStockExchangeOrder/AddStockResponse")]
+        System.Threading.Tasks.Task AddStockAsync(StockExchangePresentation.StockExchangeServices.Stock stock);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -817,6 +839,14 @@ namespace StockExchangePresentation.StockExchangeServices {
         
         public System.Threading.Tasks.Task<bool> ProceedOrderAsync(int userId, System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.UserStock> userStocks) {
             return base.Channel.ProceedOrderAsync(userId, userStocks);
+        }
+        
+        public void AddStock(StockExchangePresentation.StockExchangeServices.Stock stock) {
+            base.Channel.AddStock(stock);
+        }
+        
+        public System.Threading.Tasks.Task AddStockAsync(StockExchangePresentation.StockExchangeServices.Stock stock) {
+            return base.Channel.AddStockAsync(stock);
         }
     }
 }

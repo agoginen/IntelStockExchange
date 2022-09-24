@@ -135,6 +135,20 @@ namespace SE_Services
             }
         }
 
+        /// <summary>
+        /// Adds stock to Database
+        /// </summary>
+        /// <param name="stock"></param>
+        public void AddStock(Stock stock)
+		{
+            using (var ctx = new IntelStockExchange())
+			{
+                stock.DateTimeAdded = DateTime.Now;
+                ctx.Stocks.Add(stock);
+                ctx.SaveChanges();
+			}
+		}
+
         public int GetStockPrice(int id)
         {
             if (SessionManager.Instance.ValidateUser(id))

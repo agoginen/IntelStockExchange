@@ -1,14 +1,12 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using GalaSoft.MvvmLight.Messaging;
 using StockExchangePresentation.StockExchangeServices;
-using System;
 using System.Windows;
 using System.Windows.Input;
 
 namespace StockExchangePresentation.ViewModel
 {
-    public class LoginViewModel : ViewModelBase
+	public class LoginViewModel : ViewModelBase
     {
         private User user;
         private int userId;
@@ -25,7 +23,6 @@ namespace StockExchangePresentation.ViewModel
             set
             {
                 user.UserName = value;
-                RaisePropertyChanged("UserName");
             }
         }
 
@@ -38,7 +35,6 @@ namespace StockExchangePresentation.ViewModel
             set
             {
                 user.Password = value;
-                RaisePropertyChanged("Password");
             }
         }
 
@@ -51,7 +47,6 @@ namespace StockExchangePresentation.ViewModel
             set
             {
                 user.EmailAddress = value;
-                RaisePropertyChanged("EmailAddress");
             }
         }
 
@@ -59,7 +54,7 @@ namespace StockExchangePresentation.ViewModel
         {
             this.user = new User();
 
-            LoginCommand = new RelayCommand(LoginUser, () => { return LoginLabel == "Login"; });
+            LoginCommand = new RelayCommand(LoginUser);
             RegisterCommand = new RelayCommand(RegisterUser);
 
             LoginLabel = "Login";
@@ -100,9 +95,10 @@ namespace StockExchangePresentation.ViewModel
 			var loggedInUser = await client.LoginAsync(user);
 			client.Close();
 
-			// if login succeeded and we got a valid Id
+			// If login succeeded and we got a valid Id
 			if (loggedInUser.Id > 0)
 			{
+                //If Regular User
                 if(loggedInUser.UserType == 1)
 				{
                     //Open UserHomeWindow
@@ -111,6 +107,7 @@ namespace StockExchangePresentation.ViewModel
                     //Close MainWindow
                     Application.Current.Windows[0].Close();
                 }
+                //If Admin User
                 else if(loggedInUser.UserType == 2)
 				{
                     //Open AdminWindow
@@ -123,7 +120,6 @@ namespace StockExchangePresentation.ViewModel
 				{
                     MessageBox.Show(UserName + "login was  . Please Register the user first.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-
             }
 			else
 			{

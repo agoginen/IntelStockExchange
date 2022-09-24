@@ -64,6 +64,7 @@
       <xs:element minOccurs="0" name="Price" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="StockName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UserStocks" nillable="true" type="tns:ArrayOfUserStock" />
+      <xs:element minOccurs="0" name="Volume" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Stock" nillable="true" type="tns:Stock" />

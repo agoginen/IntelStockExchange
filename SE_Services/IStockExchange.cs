@@ -22,5 +22,7 @@ namespace StockExchangeApp
         int GetStockPrice(int id);
         [OperationContract]
         bool ProceedOrder(int userId, List<UserStock> userStocks);
+        [OperationContract]
+        void AddStock(Stock stock);
     }
 }

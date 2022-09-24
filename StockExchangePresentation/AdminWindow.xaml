@@ -4,12 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StockExchangePresentation"
+        xmlns:views="clr-namespace:StockExchangePresentation.View"
+        xmlns:viewmodel="clr-namespace:StockExchangePresentation.ViewModel"
         Title="Admin Tab" Height="550" Width="800"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
+
+    <Window.DataContext>
+        <viewmodel:AdminViewModel />
+    </Window.DataContext>
+    
     <Border CornerRadius="12">
         <Border CornerRadius="10"                    
             BorderThickness="2"
@@ -45,7 +52,7 @@
                         <ColumnDefinition Width="5"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="LOG IN"
+                    <TextBlock Text="Admin Page"
                                Foreground="DarkGray"
                                FontSize="10"
                                FontFamily="Montserrat"
@@ -145,10 +152,10 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="AddStock" 
+                        <Button x:Name="btnAddStock" 
                             Command="{Binding AddStock}"
                             BorderThickness="0"
-                            Content="Add Stock"
+                            Content="Stock View"
                             Foreground="White"
                             FontSize="12"
                             FontFamily="Montserrat"
@@ -181,7 +188,7 @@
                         <Button x:Name="EditMarketTiming" 
                             Command="{Binding EditMarketTiming}"
                             BorderThickness="0"
-                            Content="Change Market Timing"
+                            Content="Market Timing View"
                             Foreground="White"
                             FontSize="12"
                             FontFamily="Montserrat"
@@ -211,6 +218,8 @@
                             </Button.Template>
                         </Button>
                     </Grid>
+
+                    <views:AddStockView Grid.Row="2" DataContext="{Binding AdminViewModel}"/>
                 </Grid>
 
             </Grid>

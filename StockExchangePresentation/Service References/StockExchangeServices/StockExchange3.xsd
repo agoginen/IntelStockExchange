@@ -22,9 +22,11 @@
       <xs:element minOccurs="0" name="HighPrice" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="LowPrice" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MarketCapitalization" type="xs:decimal" />
       <xs:element minOccurs="0" name="Price" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="StockCount" type="xs:int" />
       <xs:element minOccurs="0" name="StockName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Volume" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="StockViewModel" nillable="true" type="tns:StockViewModel" />
