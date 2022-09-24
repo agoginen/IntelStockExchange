@@ -122,7 +122,9 @@ namespace SE_Services
                     List<StockViewModel> stocks = ctx.Stocks.Select(x => new StockViewModel
 					                              {
                                                     StockName = x.StockName,
-                                                    Price = x.Price
+                                                    Price = x.Price,
+                                                    Volume = x.Volume,
+                                                    MarketCapitalization = (decimal)(x.Price.HasValue ? x.Volume * x.Price : 0)
 					                              }).ToList();
                     return stocks;
                 }
