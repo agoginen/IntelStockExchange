@@ -246,7 +246,18 @@ namespace SE_Services
 				};
 
 				ctx.Balances.Add(balanceEntity);
-                ctx.StockOrders.Add(stockOrderEntity);
+                var result = ctx.StockOrders.Add(stockOrderEntity);
+
+                var userStock = new UserStock
+                {
+                    UserId = stockOrder.UserId,
+                    StockId = stockOrder.StockId,
+                    StockCount = stockOrder.StockCount,
+                    StockOrderId = result.Id,
+                    DateTimeAdded = DateTime.Now
+                };
+
+                ctx.UserStocks.Add(userStock);
                 ctx.SaveChanges();
             }
         }

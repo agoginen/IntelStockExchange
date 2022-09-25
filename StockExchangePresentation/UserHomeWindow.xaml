@@ -170,8 +170,8 @@
                       CanUserAddRows="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Stock" Binding="{Binding StockName}" Width="*" />
-                            <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat=\{0:C2\}}" Width="*"/>
-                            <DataGridTextColumn Header="Shares" Binding="{Binding StockCount}" Width="*"/>
+                            <DataGridTextColumn Header="Current Price" Binding="{Binding Price, StringFormat=\{0:C2\}}" Width="*"/>
+                            <DataGridTextColumn Header="Your Shares" Binding="{Binding StockCount}" Width="*"/>
 
                             <DataGridTemplateColumn Header="Actions" Width="*">
                                 <DataGridTemplateColumn.CellTemplate>

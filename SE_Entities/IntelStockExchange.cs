@@ -13,16 +13,25 @@ namespace SE_Entities
 		}
 
 		public virtual DbSet<Balance> Balances { get; set; }
+		public virtual DbSet<StockOrder> StockOrders { get; set; }
 		public virtual DbSet<Stock> Stocks { get; set; }
 		public virtual DbSet<User> Users { get; set; }
 		public virtual DbSet<UserStock> UserStocks { get; set; }
-		public virtual DbSet<StockOrder> StockOrders { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<Balance>()
 				.Property(e => e.Balance1)
 				.HasPrecision(19, 4);
+
+			modelBuilder.Entity<StockOrder>()
+				.Property(e => e.OrderStockPrice)
+				.HasPrecision(19, 4);
+
+			modelBuilder.Entity<StockOrder>()
+				.HasMany(e => e.UserStocks)
+				.WithRequired(e => e.StockOrder)
+				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Stock>()
 				.Property(e => e.StockName)
@@ -80,10 +89,6 @@ namespace SE_Entities
 				.HasMany(e => e.UserStocks)
 				.WithRequired(e => e.User)
 				.WillCascadeOnDelete(false);
-
-			modelBuilder.Entity<StockOrder>()
-				.Property(e => e.OrderStockPrice)
-				.HasPrecision(19, 4);
 		}
 	}
 }

@@ -22,6 +22,10 @@ namespace SE_Entities
 
         public DateTime? DateTimeDeleted { get; set; }
 
+        public int StockOrderId { get; set; }
+
+        public virtual StockOrder StockOrder { get; set; }
+
         public virtual Stock Stock { get; set; }
 
         public virtual User User { get; set; }

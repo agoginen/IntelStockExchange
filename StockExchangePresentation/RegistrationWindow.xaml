@@ -12,9 +12,9 @@
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
     
-    <!--<Window.DataContext>
+    <Window.DataContext>
         <VM:LoginViewModel />
-    </Window.DataContext>-->
+    </Window.DataContext>
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>

@@ -1,4 +1,5 @@
-﻿using StockExchangePresentation.StockExchangeServices;
+﻿using SE_Services.ViewModels;
+using StockExchangePresentation.StockExchangeServices;
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -116,11 +117,36 @@ namespace StockExchangePresentation
 
         private void Transaction_Click(object sender, RoutedEventArgs e)
 		{
-            StockExchangeOrderClient client = new StockExchangeOrderClient();
-            var balanceAmount = client.GetBalance(client.GetCurrentUserId());
-            client.Close();
-            //var balanceAmount = client.Buy(client.GetCurrentUserId());
-            client.Close();
+			if (_stockCount > 0)
+			{
+                StockExchangeOrderClient client = new StockExchangeOrderClient();
+                var balanceAmount = client.GetBalance(client.GetCurrentUserId());
+
+                if (balanceAmount > _stockPrice * _stockCount)
+                {
+                    var stockOrderViewModel = new StockOrderViewModel
+                    {
+                        StockId = _stockId,
+                        UserId = client.GetCurrentUserId(),
+                        OrderStockPrice = _stockPrice,
+                        IsLimitOrder = false,
+                        StockCount = _stockCount
+                    };
+
+                    client.MarketOrder(stockOrderViewModel);
+                }
+                else
+                    MessageBox.Show("Your Balance is low to place order. Please deposit Money and try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                client.Close();
+                //Open Mainwindow
+                UserHomeWindow userWindow = new UserHomeWindow();
+                userWindow.Show();
+                //Close Current window
+                Application.Current.Windows[0].Close();
+            }
+            else
+                MessageBox.Show("You have selected 0 stocks to place order.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)

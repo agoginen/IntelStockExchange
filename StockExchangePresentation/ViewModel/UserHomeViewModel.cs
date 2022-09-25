@@ -165,8 +165,8 @@ namespace StockExchangePresentation.ViewModel
 			client.LogoutAsync(client.GetCurrentUserId());
 			client.Close();
 			//Open Mainwindow
-			MainWindow userWindow = new MainWindow();
-			userWindow.Show();
+			MainWindow mainWindow = new MainWindow();
+			mainWindow.Show();
 			//Close Current window
 			Application.Current.Windows[0].Close();
 		}
