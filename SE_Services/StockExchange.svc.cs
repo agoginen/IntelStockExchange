@@ -217,9 +217,38 @@ namespace SE_Services
             }
         }
 
-        public void MarketOrder()
+        /// <summary>
+        /// Places Market Order For stock
+        /// </summary>
+        /// <param name="stockOrder"></param>
+        public void MarketOrder(StockOrderViewModel stockOrder)
 		{
+            using (var ctx = new IntelStockExchange())
+            {
+                //The reason why we are adding Balance transaction is, When purchasing stock we consider it as withdrawal
+                var balanceEntity = new Balance
+                {
+                    Balance1 = stockOrder.StockCount * stockOrder.OrderStockPrice,
+                    IsWithdraw = true,
+                    DateTimeAdded = DateTime.Now,
+                    UserId = stockOrder.UserId
+                };
 
-		}
+				var stockOrderEntity = new StockOrder
+				{
+					StockId = stockOrder.StockId,
+                    StockCount = stockOrder.StockCount,
+                    OrderStockPrice = stockOrder.OrderStockPrice,
+                    UserId = stockOrder.UserId,
+                    IsLimitOrder = stockOrder.IsLimitOrder,
+                    IsOrderExecuted = true,
+					DateTimeAdded = DateTime.Now
+				};
+
+				ctx.Balances.Add(balanceEntity);
+                ctx.StockOrders.Add(stockOrderEntity);
+                ctx.SaveChanges();
+            }
+        }
     }
 }

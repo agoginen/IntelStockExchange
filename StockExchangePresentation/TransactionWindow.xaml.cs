@@ -117,7 +117,9 @@ namespace StockExchangePresentation
         private void Transaction_Click(object sender, RoutedEventArgs e)
 		{
             StockExchangeOrderClient client = new StockExchangeOrderClient();
-            var balanceAmount = client.Buy(client.GetCurrentUserId());
+            var balanceAmount = client.GetBalance(client.GetCurrentUserId());
+            client.Close();
+            //var balanceAmount = client.Buy(client.GetCurrentUserId());
             client.Close();
         }
 
