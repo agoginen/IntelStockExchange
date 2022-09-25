@@ -34,6 +34,10 @@ namespace SE_Entities
 
         public DateTime? DateTimeDeleted { get; set; }
 
+        public bool IsBuyOrder { get; set; }
+
+        public bool IsActive { get; set; }
+
         public virtual Stock Stock { get; set; }
 
         public virtual User User { get; set; }

@@ -72,20 +72,6 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetStockPrice">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="id" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetStockPriceResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="GetStockPriceResult" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="AddStock">
     <xs:complexType>
       <xs:sequence>
@@ -136,14 +122,40 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="MarketOrder">
+  <xs:element name="MarketOrderBuy">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/SE_Services.ViewModels" minOccurs="0" name="stockOrder" nillable="true" type="q7:StockOrderViewModel" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="MarketOrderResponse">
+  <xs:element name="MarketOrderBuyResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="MarketOrderBuyResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MarketOrderSell">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/SE_Services.ViewModels" minOccurs="0" name="stockOrder" nillable="true" type="q8:StockOrderViewModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MarketOrderSellResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="MarketOrderSellResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StockPriceTicker">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StockPriceTickerResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>

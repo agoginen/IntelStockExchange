@@ -5,6 +5,7 @@ using StockExchangePresentation.Commands;
 using StockExchangePresentation.StockExchangeServices;
 using System;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 
@@ -12,6 +13,7 @@ namespace StockExchangePresentation.ViewModel
 {
 	public class UserHomeViewModel : ViewModelBase
 	{
+		private readonly Timer _refreshTicker;
 		private string _balance { get; set; }
 		public string Balance
 		{
@@ -50,8 +52,9 @@ namespace StockExchangePresentation.ViewModel
 
 		public UserHomeViewModel()
 		{
+			StartStockTicker();
 			this._userStocks = new ObservableCollection<StockViewModel>();
-			LoadStocks();
+			_refreshTicker = new Timer(RefreshStocks, null, 0, 1000);
 			this._balance = "$ " + GetBalance().ToString();
 			Buy = new DelegateCommand(BuyCommand);
 			Sell = new DelegateCommand(SellCommand);
@@ -62,6 +65,17 @@ namespace StockExchangePresentation.ViewModel
 			Withdraw = new RelayCommand(WithdrawCommand);
 		}
 
+		private void StartStockTicker()
+		{
+			StockExchangeOrderClient client = new StockExchangeOrderClient();
+			client.StockPriceTicker();
+			client.Close();
+		}
+
+		/// <summary>
+		/// Gets Balance for current User
+		/// </summary>
+		/// <returns></returns>
 		private decimal GetBalance()
 		{
 			StockExchangeOrderClient client = new StockExchangeOrderClient();
@@ -171,7 +185,22 @@ namespace StockExchangePresentation.ViewModel
 			Application.Current.Windows[0].Close();
 		}
 
+		/// <summary>
+		/// Loads stocks from database
+		/// </summary>
 		public void LoadStocks()
+		{
+			_userStocks.Clear();
+			StockExchangeOrderClient client = new StockExchangeOrderClient();
+			var allStocks = client.GetAllUserStocks(client.GetCurrentUserId());
+			client.Close();
+			foreach (var s in allStocks)
+			{
+				_userStocks.Add(s);
+			}
+		}
+
+		private void RefreshStocks(object state)
 		{
 			_userStocks.Clear();
 			StockExchangeOrderClient client = new StockExchangeOrderClient();

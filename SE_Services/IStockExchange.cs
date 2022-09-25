@@ -19,8 +19,6 @@ namespace StockExchangeApp
         [OperationContract]
         List<StockViewModel> GetAllUserStocks(int userId);
         [OperationContract]
-        int GetStockPrice(int id);
-        [OperationContract]
         void AddStock(Stock stock);
         [OperationContract]
         int GetCurrentUserId();
@@ -29,6 +27,10 @@ namespace StockExchangeApp
         [OperationContract]
         decimal GetBalance(int userId);
         [OperationContract]
-        void MarketOrder(StockOrderViewModel stockOrder);
+        bool MarketOrderBuy(StockOrderViewModel stockOrder);
+        [OperationContract]
+        bool MarketOrderSell(StockOrderViewModel stockOrder);
+        [OperationContract]
+        void StockPriceTicker();
     }
 }

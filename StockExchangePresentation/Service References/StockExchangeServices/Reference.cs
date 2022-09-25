@@ -420,6 +420,9 @@ namespace StockExchangePresentation.StockExchangeServices {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int UserIdField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.UserStock> UserStocksField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -586,6 +589,19 @@ namespace StockExchangePresentation.StockExchangeServices {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.UserStock> UserStocks {
+            get {
+                return this.UserStocksField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UserStocksField, value) != true)) {
+                    this.UserStocksField = value;
+                    this.RaisePropertyChanged("UserStocks");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -625,6 +641,12 @@ namespace StockExchangePresentation.StockExchangeServices {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int StockIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private StockExchangePresentation.StockExchangeServices.StockOrder StockOrderField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int StockOrderIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private StockExchangePresentation.StockExchangeServices.User UserField;
@@ -729,6 +751,32 @@ namespace StockExchangePresentation.StockExchangeServices {
                 if ((this.StockIdField.Equals(value) != true)) {
                     this.StockIdField = value;
                     this.RaisePropertyChanged("StockId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public StockExchangePresentation.StockExchangeServices.StockOrder StockOrder {
+            get {
+                return this.StockOrderField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StockOrderField, value) != true)) {
+                    this.StockOrderField = value;
+                    this.RaisePropertyChanged("StockOrder");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StockOrderId {
+            get {
+                return this.StockOrderIdField;
+            }
+            set {
+                if ((this.StockOrderIdField.Equals(value) != true)) {
+                    this.StockOrderIdField = value;
+                    this.RaisePropertyChanged("StockOrderId");
                 }
             }
         }
@@ -1024,12 +1072,6 @@ namespace StockExchangePresentation.StockExchangeServices {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetAllUserStocks", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetAllUserStocksResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel>> GetAllUserStocksAsync(int userId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetStockPrice", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetStockPriceResponse")]
-        int GetStockPrice(int id);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetStockPrice", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetStockPriceResponse")]
-        System.Threading.Tasks.Task<int> GetStockPriceAsync(int id);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/AddStock", ReplyAction="http://tempuri.org/IStockExchangeOrder/AddStockResponse")]
         void AddStock(StockExchangePresentation.StockExchangeServices.Stock stock);
         
@@ -1054,11 +1096,23 @@ namespace StockExchangePresentation.StockExchangeServices {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetBalance", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetBalanceResponse")]
         System.Threading.Tasks.Task<decimal> GetBalanceAsync(int userId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/MarketOrder", ReplyAction="http://tempuri.org/IStockExchangeOrder/MarketOrderResponse")]
-        void MarketOrder(SE_Services.ViewModels.StockOrderViewModel stockOrder);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/MarketOrderBuy", ReplyAction="http://tempuri.org/IStockExchangeOrder/MarketOrderBuyResponse")]
+        bool MarketOrderBuy(SE_Services.ViewModels.StockOrderViewModel stockOrder);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/MarketOrder", ReplyAction="http://tempuri.org/IStockExchangeOrder/MarketOrderResponse")]
-        System.Threading.Tasks.Task MarketOrderAsync(SE_Services.ViewModels.StockOrderViewModel stockOrder);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/MarketOrderBuy", ReplyAction="http://tempuri.org/IStockExchangeOrder/MarketOrderBuyResponse")]
+        System.Threading.Tasks.Task<bool> MarketOrderBuyAsync(SE_Services.ViewModels.StockOrderViewModel stockOrder);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/MarketOrderSell", ReplyAction="http://tempuri.org/IStockExchangeOrder/MarketOrderSellResponse")]
+        bool MarketOrderSell(SE_Services.ViewModels.StockOrderViewModel stockOrder);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/MarketOrderSell", ReplyAction="http://tempuri.org/IStockExchangeOrder/MarketOrderSellResponse")]
+        System.Threading.Tasks.Task<bool> MarketOrderSellAsync(SE_Services.ViewModels.StockOrderViewModel stockOrder);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/StockPriceTicker", ReplyAction="http://tempuri.org/IStockExchangeOrder/StockPriceTickerResponse")]
+        void StockPriceTicker();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/StockPriceTicker", ReplyAction="http://tempuri.org/IStockExchangeOrder/StockPriceTickerResponse")]
+        System.Threading.Tasks.Task StockPriceTickerAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1128,14 +1182,6 @@ namespace StockExchangePresentation.StockExchangeServices {
             return base.Channel.GetAllUserStocksAsync(userId);
         }
         
-        public int GetStockPrice(int id) {
-            return base.Channel.GetStockPrice(id);
-        }
-        
-        public System.Threading.Tasks.Task<int> GetStockPriceAsync(int id) {
-            return base.Channel.GetStockPriceAsync(id);
-        }
-        
         public void AddStock(StockExchangePresentation.StockExchangeServices.Stock stock) {
             base.Channel.AddStock(stock);
         }
@@ -1168,12 +1214,28 @@ namespace StockExchangePresentation.StockExchangeServices {
             return base.Channel.GetBalanceAsync(userId);
         }
         
-        public void MarketOrder(SE_Services.ViewModels.StockOrderViewModel stockOrder) {
-            base.Channel.MarketOrder(stockOrder);
+        public bool MarketOrderBuy(SE_Services.ViewModels.StockOrderViewModel stockOrder) {
+            return base.Channel.MarketOrderBuy(stockOrder);
         }
         
-        public System.Threading.Tasks.Task MarketOrderAsync(SE_Services.ViewModels.StockOrderViewModel stockOrder) {
-            return base.Channel.MarketOrderAsync(stockOrder);
+        public System.Threading.Tasks.Task<bool> MarketOrderBuyAsync(SE_Services.ViewModels.StockOrderViewModel stockOrder) {
+            return base.Channel.MarketOrderBuyAsync(stockOrder);
+        }
+        
+        public bool MarketOrderSell(SE_Services.ViewModels.StockOrderViewModel stockOrder) {
+            return base.Channel.MarketOrderSell(stockOrder);
+        }
+        
+        public System.Threading.Tasks.Task<bool> MarketOrderSellAsync(SE_Services.ViewModels.StockOrderViewModel stockOrder) {
+            return base.Channel.MarketOrderSellAsync(stockOrder);
+        }
+        
+        public void StockPriceTicker() {
+            base.Channel.StockPriceTicker();
+        }
+        
+        public System.Threading.Tasks.Task StockPriceTickerAsync() {
+            return base.Channel.StockPriceTickerAsync();
         }
     }
 }

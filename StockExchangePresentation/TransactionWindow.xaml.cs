@@ -119,31 +119,75 @@ namespace StockExchangePresentation
 		{
 			if (_stockCount > 0)
 			{
-                StockExchangeOrderClient client = new StockExchangeOrderClient();
-                var balanceAmount = client.GetBalance(client.GetCurrentUserId());
+				if (_transaction == "Buy")
+				{
+                    StockExchangeOrderClient client = new StockExchangeOrderClient();
+                    var balanceAmount = client.GetBalance(client.GetCurrentUserId());
 
-                if (balanceAmount > _stockPrice * _stockCount)
-                {
-                    var stockOrderViewModel = new StockOrderViewModel
+                    if (balanceAmount > _stockPrice * _stockCount)
                     {
-                        StockId = _stockId,
-                        UserId = client.GetCurrentUserId(),
-                        OrderStockPrice = _stockPrice,
-                        IsLimitOrder = false,
-                        StockCount = _stockCount
-                    };
+                        var stockOrderViewModel = new StockOrderViewModel
+                        {
+                            StockId = _stockId,
+                            UserId = client.GetCurrentUserId(),
+                            OrderStockPrice = _stockPrice,
+                            IsLimitOrder = false,
+                            StockCount = _stockCount
+                        };
 
-                    client.MarketOrder(stockOrderViewModel);
+                        var isOrderPlaced = client.MarketOrderBuy(stockOrderViewModel);
+                        client.Close();
+
+                        if (isOrderPlaced)
+                        {
+                            //Open Mainwindow
+                            UserHomeWindow userWindow = new UserHomeWindow();
+                            userWindow.Show();
+                            //Close Current window
+                            Application.Current.Windows[0].Close();
+                        }
+						else
+						{
+                            MessageBox.Show("There is no Stock Volume to support your Stock Count", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                    else
+                        MessageBox.Show("Your Balance is low to place order. Please deposit Money and try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
                 }
-                else
-                    MessageBox.Show("Your Balance is low to place order. Please deposit Money and try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                else if(_transaction == "Sell")
+				{
+                    StockExchangeOrderClient client = new StockExchangeOrderClient();
+                    var balanceAmount = client.GetBalance(client.GetCurrentUserId());
 
-                client.Close();
-                //Open Mainwindow
-                UserHomeWindow userWindow = new UserHomeWindow();
-                userWindow.Show();
-                //Close Current window
-                Application.Current.Windows[0].Close();
+                    if (balanceAmount > _stockPrice * _stockCount)
+                    {
+                        var stockOrderViewModel = new StockOrderViewModel
+                        {
+                            StockId = _stockId,
+                            UserId = client.GetCurrentUserId(),
+                            OrderStockPrice = _stockPrice,
+                            IsLimitOrder = false,
+                            StockCount = _stockCount
+                        };
+
+                        var isOrderPlaced = client.MarketOrderSell(stockOrderViewModel);
+                        client.Close();
+
+                        if (isOrderPlaced)
+                        {
+                            //Open Mainwindow
+                            UserHomeWindow userWindow = new UserHomeWindow();
+                            userWindow.Show();
+                            //Close Current window
+                            Application.Current.Windows[0].Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("There is no Stock Volume to support your Stock Count", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                
             }
             else
                 MessageBox.Show("You have selected 0 stocks to place order.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
