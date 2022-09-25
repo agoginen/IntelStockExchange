@@ -1,4 +1,7 @@
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Linq;
 
 namespace SE_Entities
 {
@@ -13,6 +16,7 @@ namespace SE_Entities
 		public virtual DbSet<Stock> Stocks { get; set; }
 		public virtual DbSet<User> Users { get; set; }
 		public virtual DbSet<UserStock> UserStocks { get; set; }
+		public virtual DbSet<StockOrder> StockOrders { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
@@ -41,6 +45,11 @@ namespace SE_Entities
 				.HasPrecision(19, 4);
 
 			modelBuilder.Entity<Stock>()
+				.HasMany(e => e.StockOrders)
+				.WithRequired(e => e.Stock)
+				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<Stock>()
 				.HasMany(e => e.UserStocks)
 				.WithRequired(e => e.Stock)
 				.WillCascadeOnDelete(false);
@@ -63,9 +72,18 @@ namespace SE_Entities
 				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<User>()
+				.HasMany(e => e.StockOrders)
+				.WithRequired(e => e.User)
+				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<User>()
 				.HasMany(e => e.UserStocks)
 				.WithRequired(e => e.User)
 				.WillCascadeOnDelete(false);
+
+			modelBuilder.Entity<StockOrder>()
+				.Property(e => e.OrderStockPrice)
+				.HasPrecision(19, 4);
 		}
 	}
 }

@@ -11,6 +11,7 @@ namespace SE_Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Stock()
         {
+            StockOrders = new HashSet<StockOrder>();
             UserStocks = new HashSet<UserStock>();
         }
 
@@ -35,6 +36,9 @@ namespace SE_Entities
         public int Volume { get; set; }
 
         public decimal? StartPrice { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StockOrder> StockOrders { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserStock> UserStocks { get; set; }

@@ -216,5 +216,10 @@ namespace SE_Services
                 ctx.SaveChanges();
             }
         }
+
+        public void MarketOrder()
+		{
+
+		}
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StockExchangePresentation.StockExchangeServices;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
@@ -115,8 +116,10 @@ namespace StockExchangePresentation
 
         private void Transaction_Click(object sender, RoutedEventArgs e)
 		{
-
-		}
+            StockExchangeOrderClient client = new StockExchangeOrderClient();
+            var balanceAmount = client.Buy(client.GetCurrentUserId());
+            client.Close();
+        }
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
 		{

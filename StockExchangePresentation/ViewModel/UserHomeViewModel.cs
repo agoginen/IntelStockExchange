@@ -70,6 +70,9 @@ namespace StockExchangePresentation.ViewModel
 			return balanceAmount;
 		}
 
+		/// <summary>
+		/// User will be able to withdraw money
+		/// </summary>
 		private void DepositCommand()
 		{
 			StockExchangeOrderClient client = new StockExchangeOrderClient();
@@ -84,6 +87,9 @@ namespace StockExchangePresentation.ViewModel
 			AccountingCommand();
 		}
 
+		/// <summary>
+		/// User will be able to withdraw money
+		/// </summary>
 		private void WithdrawCommand()
 		{
 			StockExchangeOrderClient client = new StockExchangeOrderClient();
@@ -98,6 +104,9 @@ namespace StockExchangePresentation.ViewModel
 			AccountingCommand();
 		}
 
+		/// <summary>
+		/// Opens Accounting Page
+		/// </summary>
 		private void AccountingCommand()
 		{
 			//Open Accouinting Window
@@ -107,6 +116,9 @@ namespace StockExchangePresentation.ViewModel
 			Application.Current.Windows[0].Close();
 		}
 
+		/// <summary>
+		/// Opens Home Page
+		/// </summary>
 		private void HomeCommand()
 		{
 			//Open User Home Window
@@ -116,6 +128,10 @@ namespace StockExchangePresentation.ViewModel
 			Application.Current.Windows[0].Close();
 		}
 
+		/// <summary>
+		/// Triggers Buy Action
+		/// </summary>
+		/// <param name="param"></param>
 		private void BuyCommand(object param)
 		{
 			StockViewModel stock = param as StockViewModel;
@@ -126,6 +142,10 @@ namespace StockExchangePresentation.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Triggers Sell Action
+		/// </summary>
+		/// <param name="param"></param>
 		private void SellCommand(object param)
 		{
 			StockViewModel stock = param as StockViewModel;
@@ -136,6 +156,9 @@ namespace StockExchangePresentation.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Logs Out User
+		/// </summary>
 		private void LogoutCommand()
 		{
 			StockExchangeOrderClient client = new StockExchangeOrderClient();
