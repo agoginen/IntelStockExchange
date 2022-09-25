@@ -296,7 +296,12 @@ namespace SE_Services
 
                     var recentOrder = ctx.StockOrders.Add(stockOrderEntity);
 
-                    if (recentOrder.UserStocks == null || recentOrder.UserStocks.Count == 0)
+
+                    var userStocks = ctx.UserStocks
+                                        .Where(x => x.StockId == recentOrder.StockId)
+                                        .FirstOrDefault(); ;
+
+                    if (userStocks == null || userStocks.Id == 0)
                     {
                         var userStock = new UserStock
                         {
@@ -311,7 +316,7 @@ namespace SE_Services
                     }
                     else
                     {
-                        recentOrder.UserStocks.First().StockCount += recentOrder.StockCount;
+                        userStocks.StockCount += recentOrder.StockCount;
                     }
 
                     ctx.SaveChanges();
@@ -421,8 +426,8 @@ namespace SE_Services
                 if (stock.Id != 0)
                     userStockCount = GetTotalStockCount(stock);
 
-                //Checking if stocks are available or not
-                if (stock.Id != 0 && stockOrder.StockCount >= userStockCount)
+                //Checking if USerstocks are available or not
+                if (stock.Id != 0 && stockOrder.StockCount <= userStockCount)
                 {
                     //The reason why we are adding Balance transaction is, When purchasing stock we consider it as Deposit
                     var balanceEntity = new Balance
@@ -447,9 +452,15 @@ namespace SE_Services
                     };
 
                     ctx.Balances.Add(balanceEntity);
-                    var recentOrder = ctx.StockOrders.Add(stockOrderEntity);
 
-					if (recentOrder.UserStocks == null || recentOrder.UserStocks.Count == 0)
+                    var recentOrder = ctx.StockOrders
+                                         .Add(stockOrderEntity);
+
+                    var userStocks = ctx.UserStocks
+                                        .Where(x => x.StockId == recentOrder.StockId)
+                                        .FirstOrDefault(); ;
+
+					if (userStocks == null || userStocks.Id == 0)
 					{
                         var userStock = new UserStock
                         {
@@ -464,7 +475,7 @@ namespace SE_Services
                     }
                     else
 					{
-                        recentOrder.UserStocks.First().StockCount -= recentOrder.StockCount; 
+                        userStocks.StockCount -= recentOrder.StockCount; 
                     }
 
                     ctx.SaveChanges();

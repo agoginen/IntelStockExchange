@@ -114,7 +114,11 @@ namespace StockExchangePresentation
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-
+        /// <summary>
+        /// This is triggered when user clicks on Buy or Sell Stock
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Transaction_Click(object sender, RoutedEventArgs e)
         {
             if (_stockCount > 0)
@@ -158,38 +162,36 @@ namespace StockExchangePresentation
                 else if (_transaction == "Sell")
                 {
                     StockExchangeOrderClient client = new StockExchangeOrderClient();
-                    var balanceAmount = client.GetBalance(client.GetCurrentUserId());
 
-                    if (balanceAmount > _stockPrice * _stockCount)
+                    var stockOrderViewModel = new StockOrderViewModel
                     {
-                        var stockOrderViewModel = new StockOrderViewModel
-                        {
-                            StockId = _stockId,
-                            UserId = client.GetCurrentUserId(),
-                            OrderStockPrice = _stockPrice,
-                            IsLimitOrder = false,
-                            StockCount = _stockCount
-                        };
+                        StockId = _stockId,
+                        UserId = client.GetCurrentUserId(),
+                        OrderStockPrice = _stockPrice,
+                        IsLimitOrder = false,
+                        StockCount = _stockCount
+                    };
 
-                        var isOrderPlaced = client.MarketOrderSell(stockOrderViewModel);
-                        client.Close();
+                    var isOrderPlaced = client.MarketOrderSell(stockOrderViewModel);
+                    client.Close();
 
-                        if (isOrderPlaced)
-                        {
-                            //Open Mainwindow
-                            UserHomeWindow userWindow = new UserHomeWindow();
-                            userWindow.Show();
-                            //Close Current window
-                            Application.Current.Windows[0].Close();
-                        }
-                        else
-                        {
-                            MessageBox.Show("You dont own enough stocks to support the sell", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
+                    if (isOrderPlaced)
+                    {
+                        //Open Mainwindow
+                        UserHomeWindow userWindow = new UserHomeWindow();
+                        userWindow.Show();
+                        //Close Current window
+                        Application.Current.Windows[0].Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("You dont own enough stocks to support the sell", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
-                else
+				else
+				{
                     MessageBox.Show("You have selected 0 stocks to place order.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
