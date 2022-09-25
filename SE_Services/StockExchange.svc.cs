@@ -113,25 +113,18 @@ namespace SE_Services
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public List<StockViewModel> GetAllStocks(int userId)
+        public List<StockViewModel> GetAllStocks()
         {
-            if (SessionManager.Instance.ValidateUser(userId))
+            using (var ctx = new IntelStockExchange())
             {
-                using (var ctx = new IntelStockExchange())
-                {
-                    List<StockViewModel> stocks = ctx.Stocks.Select(x => new StockViewModel
-					                              {
-                                                    StockName = x.StockName,
-                                                    Price = x.Price,
-                                                    Volume = x.Volume,
-                                                    MarketCapitalization = (decimal)(x.Price.HasValue ? x.Volume * x.Price : 0)
-					                              }).ToList();
-                    return stocks;
-                }
-            }
-            else
-            {
-                return new List<StockViewModel>();
+                List<StockViewModel> stocks = ctx.Stocks.Select(x => new StockViewModel
+					                            {
+                                                StockName = x.StockName,
+                                                Price = x.Price,
+                                                Volume = x.Volume,
+                                                MarketCapitalization = (decimal)(x.Price.HasValue ? x.Volume * x.Price : 0)
+					                            }).ToList();
+                return stocks;
             }
         }
 

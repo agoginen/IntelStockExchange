@@ -11,15 +11,6 @@ namespace StockExchangePresentation.ViewModel
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            if (ViewModelBase.IsInDesignModeStatic)
-            {
-                // design time viewmodels
-            }
-            else
-            {
-                
-            }
-
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<LoginViewModel>();
         }

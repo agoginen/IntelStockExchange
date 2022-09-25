@@ -141,9 +141,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="View\AddStockView.xaml.cs">
-      <DependentUpon>AddStockView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\MarketTransaction.xaml.cs">
       <DependentUpon>MarketTransaction.xaml</DependentUpon>
     </Compile>
@@ -165,10 +162,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserHomeWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\AddStockView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

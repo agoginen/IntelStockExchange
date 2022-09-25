@@ -135,10 +135,10 @@
                         <RowDefinition Height="4*"/>
                     </Grid.RowDefinitions>
                     <DataGrid Grid.Row="0" Name="StockGrid" ItemsSource="{Binding Stocks}"  Margin="5"
-                      AutoGenerateColumns="False"
-                      AlternationCount="2" 
-                      AlternatingRowBackground="WhiteSmoke"
-                      CanUserAddRows="False">
+                              AutoGenerateColumns="False"
+                              AlternationCount="2" 
+                              AlternatingRowBackground="WhiteSmoke"
+                              CanUserAddRows="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Stock" Binding="{Binding StockName}" Width="*" />
                             <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat=\{0:C2\}}" Width="*"/>
@@ -219,7 +219,111 @@
                         </Button>
                     </Grid>
 
-                    <views:AddStockView Grid.Row="2" DataContext="{Binding AdminViewModel}"/>
+                    <Grid Grid.Row="2">
+                        <StackPanel Width="220" Orientation="Vertical">
+
+                            <TextBlock Text="Stock Name"
+                               Foreground="DarkGray"
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"                             
+                               Margin="0,5,0,0"/>
+
+                            <TextBox x:Name="txtStockName"
+                             Text="{Binding StockName}"
+                             FontSize="13"
+                             FontWeight="Medium"
+                             FontFamily="Montserrat"                            
+                             Foreground="Black"
+                             CaretBrush="LightGray"
+                             BorderBrush="DarkGray"
+                             BorderThickness="0,0,0,2"
+                             Height="28"
+                             VerticalContentAlignment="Center"
+                             Margin="0,5,0,0"
+                             Padding="20,0,0,0">
+                            </TextBox>
+
+                            <TextBlock Text="Stock Price"
+                               Foreground="DarkGray"
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"                             
+                               Margin="0,5,0,0"/>
+
+                            <TextBox x:Name="txtStockPrice"
+                             PreviewTextInput="DecimalValidationTextBox"
+                             FontSize="13"
+                             FontWeight="Medium"
+                             Foreground="Black"
+                             CaretBrush="LightGray"
+                             BorderBrush="DarkGray"
+                             BorderThickness="0,0,0,2"
+                             Height="28"
+                             VerticalContentAlignment="Center"
+                             Margin="0,5,0,0"
+                             Padding="20,0,0,0"
+                             Text="{Binding StockPrice}">
+                            </TextBox>
+
+                            <TextBlock Text="Stock Volume"
+                               Foreground="DarkGray"
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"                             
+                               Margin="0,5,0,0"/>
+
+                            <TextBox x:Name="txtStockVolume"
+                             FontSize="13"
+                             PreviewTextInput="NumberValidationTextBox"
+                             FontWeight="Medium"
+                             Foreground="Black"
+                             CaretBrush="LightGray"
+                             BorderBrush="DarkGray"
+                             BorderThickness="0,0,0,2"
+                             Height="28"
+                             VerticalContentAlignment="Center"
+                             Margin="0,5,0,0"
+                             Padding="20,0,0,0"
+                             Text="{Binding StockVolume}">
+                            </TextBox>
+
+                            <Button x:Name="btnAddStockToDataBase" 
+                            Command="{Binding AddStockCommand}"
+                            BorderThickness="0"
+                            Content="Add Stock"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"                           
+                            Margin="0,15,0,0">
+
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#462AD8"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#28AEED"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="150" Height="40"
+                                        CornerRadius="20"
+                                        Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+
+                        </StackPanel>
+
+                    </Grid>
                 </Grid>
 
             </Grid>

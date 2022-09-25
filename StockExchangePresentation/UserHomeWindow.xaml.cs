@@ -15,7 +15,7 @@ namespace StockExchangePresentation
 		{
 			InitializeComponent();
             StockExchangeOrderClient client = new StockExchangeOrderClient();
-            this.StockGrid.ItemsSource = client.GetAllStocks(userId);
+            this.StockGrid.ItemsSource = client.GetAllUserStocks(userId);
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

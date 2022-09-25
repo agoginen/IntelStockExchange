@@ -1,5 +1,7 @@
 ﻿using StockExchangePresentation.StockExchangeServices;
+using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace StockExchangePresentation
@@ -9,11 +11,23 @@ namespace StockExchangePresentation
 	/// </summary>
 	public partial class AdminWindow : Window
 	{
-		public AdminWindow(int userId)
+		//Event Handler To allow only integers
+		private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+		{
+			Regex regex = new Regex("[^0-9]+");
+			e.Handled = regex.IsMatch(e.Text);
+		}
+
+		//Event Handler to allow only decimals
+		private void DecimalValidationTextBox(object sender, TextCompositionEventArgs e)
+		{
+			Regex regex = new Regex("^[.][0-9]+$|^[0-9]*[.]{0,1}[0-9]*$");
+			e.Handled = !regex.IsMatch((sender as TextBox).Text.Insert((sender as TextBox).SelectionStart, e.Text));
+		}
+
+		public AdminWindow()
 		{
 			InitializeComponent();
-            StockExchangeOrderClient client = new StockExchangeOrderClient();
-            this.StockGrid.ItemsSource = client.GetAllStocks(userId);
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

@@ -15,7 +15,7 @@ namespace StockExchangeApp
         [OperationContract]
         bool Logout(int userId);
         [OperationContract]
-        List<StockViewModel> GetAllStocks(int userId);
+        List<StockViewModel> GetAllStocks();
         [OperationContract]
         List<StockViewModel> GetAllUserStocks(int userId);
         [OperationContract]

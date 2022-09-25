@@ -728,10 +728,10 @@ namespace StockExchangePresentation.StockExchangeServices {
         System.Threading.Tasks.Task<bool> LogoutAsync(int userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetAllStocks", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetAllStocksResponse")]
-        System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel> GetAllStocks(int userId);
+        System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel> GetAllStocks();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetAllStocks", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetAllStocksResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel>> GetAllStocksAsync(int userId);
+        System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel>> GetAllStocksAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetAllUserStocks", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetAllUserStocksResponse")]
         System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel> GetAllUserStocks(int userId);
@@ -809,12 +809,12 @@ namespace StockExchangePresentation.StockExchangeServices {
             return base.Channel.LogoutAsync(userId);
         }
         
-        public System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel> GetAllStocks(int userId) {
-            return base.Channel.GetAllStocks(userId);
+        public System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel> GetAllStocks() {
+            return base.Channel.GetAllStocks();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel>> GetAllStocksAsync(int userId) {
-            return base.Channel.GetAllStocksAsync(userId);
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel>> GetAllStocksAsync() {
+            return base.Channel.GetAllStocksAsync();
         }
         
         public System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel> GetAllUserStocks(int userId) {

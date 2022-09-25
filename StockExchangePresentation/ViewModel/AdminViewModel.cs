@@ -1,7 +1,10 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using SE_Services.ViewModels;
 using StockExchangePresentation.StockExchangeServices;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 
@@ -9,65 +12,93 @@ namespace StockExchangePresentation.ViewModel
 {
 	public class AdminViewModel : ViewModelBase
     {
-        private Stock stock;
-        public ICommand AddStockCommand { get; set; }
-
-        public AdminViewModel()
+        private Stock Stock;
+        private ObservableCollection<StockViewModel> _stocks;
+        public ObservableCollection<StockViewModel> Stocks
         {
-            this.stock = new Stock();
-            AddStockCommand = new RelayCommand(AddStock);
+            get
+            {
+                return _stocks;
+            }
+			set
+			{
+                _stocks = value;
+			}
         }
+        public ICommand AddStockCommand { get; set; }
+        public Window AdminWindow { get; set; }
 
         public string StockName
         {
             get
             {
-                return stock.StockName;
+                return Stock.StockName;
             }
             set
             {
-                stock.StockName = value;
+                Stock.StockName = value;
             }
         }
 
-        public decimal Password
+        public decimal StockPrice
         {
             get
             {
-                return stock.Price.Value;
+                return Stock.Price ?? 0;
             }
             set
             {
-                stock.Price = value;
+                Stock.Price = value;
             }
         }
 
-        public int Volume
+        public int StockVolume
         {
             get
             {
-                return stock.Volume;
+                return Stock.Volume;
             }
             set
             {
-                stock.Volume = value;
+                Stock.Volume = value;
             }
+        }
+
+        public AdminViewModel()
+        {
+            Stock = new Stock();
+            this._stocks = new ObservableCollection<StockViewModel>();
+            AddStockCommand = new RelayCommand(AddStock);
+            LoadStocks();
         }
 
         /// <summary>
         /// Adds stock to Database
         /// </summary>
-        private async void AddStock()
+        public async void AddStock()
 		{
-            StockExchangeOrderClient client = new StockExchangeOrderClient();
 			try
 			{
-                await client.AddStockAsync(stock);
+                StockExchangeOrderClient client = new StockExchangeOrderClient();
+                await client.AddStockAsync(Stock);
                 client.Close();
+                LoadStocks();
             }
             catch (Exception ex)
 			{
-                MessageBox.Show("Adding stock " + stock.StockName + " to database has failed. Please contact administrator if problem persists.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Adding stock " + Stock.StockName + " to database has failed. Please contact administrator if problem persists.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public void LoadStocks()
+		{
+            _stocks.Clear();
+            StockExchangeOrderClient client = new StockExchangeOrderClient();
+            var allStocks = client.GetAllStocks();
+            client.Close();
+            foreach (var s in allStocks)
+            {
+                _stocks.Add(s);
             }
         }
     }
