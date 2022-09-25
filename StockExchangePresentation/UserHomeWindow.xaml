@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:StockExchangePresentation"
         xmlns:vm="clr-namespace:StockExchangePresentation.ViewModel"
-        Title="Intel Stock Exchange" Height="550" Width="800"
+        Title="Home Window" Height="550" Width="800"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -127,11 +127,7 @@
                 </Grid>
 
                 <Grid Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <DataGrid Grid.Row="0" Name="StockGrid" ItemsSource="{Binding UserStocks}"  Margin="5"
+                    <DataGrid Name="StockGrid" ItemsSource="{Binding UserStocks}"  Margin="5"
                       AutoGenerateColumns="False"
                       AlternationCount="2" 
                       AlternatingRowBackground="WhiteSmoke"
@@ -210,7 +206,6 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <views:MarketTransaction Grid.Row="1" DataContext="{Binding MarketTransactionViewModel}" Margin="5"/>
                 </Grid>
 
             </Grid>

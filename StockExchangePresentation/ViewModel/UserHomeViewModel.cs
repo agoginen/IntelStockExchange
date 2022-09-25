@@ -1,14 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
 using SE_Services.ViewModels;
 using StockExchangePresentation.Commands;
 using StockExchangePresentation.StockExchangeServices;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Input;
-using Unity;
 
 namespace StockExchangePresentation.ViewModel
 {
@@ -27,25 +22,9 @@ namespace StockExchangePresentation.ViewModel
 		public ICommand Buy { get; set; }
 		public ICommand Sell { get; set; }
 
-		private MarketTransactionViewModel _marketViewModel;
-
-		[Dependency]
-		public MarketTransactionViewModel MarketViewModel
-		{
-			get { return _marketViewModel; }
-			set
-			{
-				if (value != _marketViewModel)
-				{
-					_marketViewModel = value;
-				}
-			}
-		}
-
 		public UserHomeViewModel()
 		{
 			this._userStocks = new ObservableCollection<StockViewModel>();
-			this._marketViewModel = new MarketTransactionViewModel();
 			LoadStocks();
 			Buy = new DelegateCommand(BuyCommand);
 			Sell = new DelegateCommand(SellCommand);
@@ -56,7 +35,8 @@ namespace StockExchangePresentation.ViewModel
 			StockViewModel stock = param as StockViewModel;
 			if (stock != null)
 			{
-				MarketViewModel.AddBuyTransaction(stock);
+				TransactionWindow transaction = new TransactionWindow(stock.Id,stock.StockName, stock.Price.Value,"Buy");
+				transaction.Show();
 			}
 		}
 
@@ -65,7 +45,8 @@ namespace StockExchangePresentation.ViewModel
 			StockViewModel stock = param as StockViewModel;
 			if (stock != null)
 			{
-				MarketViewModel.AddSellTransaction(stock);
+				TransactionWindow transaction = new TransactionWindow(stock.Id, stock.StockName, stock.Price.Value, "Sell");
+				transaction.Show();
 			}
 		}
 

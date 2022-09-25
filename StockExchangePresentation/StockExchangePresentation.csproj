@@ -129,24 +129,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="TransactionWindow.xaml.cs">
+      <DependentUpon>TransactionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserHomeWindow.xaml.cs">
       <DependentUpon>UserHomeWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModelMessage.cs" />
     <Compile Include="ViewModel\AdminViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\MarketTransactionViewModel.cs" />
     <Compile Include="ViewModel\UserHomeViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="View\MarketTransaction.xaml.cs">
-      <DependentUpon>MarketTransaction.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Test.cs" />
     <Page Include="AdminWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -159,11 +154,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserHomeWindow.xaml">
+    <Page Include="TransactionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\MarketTransaction.xaml">
+    <Page Include="UserHomeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -255,6 +250,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\StockExchangeServices\StockExchange.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\investment.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.1.1\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.1.1\build\MaterialDesignThemes.targets')" />

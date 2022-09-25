@@ -9,7 +9,6 @@ namespace StockExchangePresentation.ViewModel
 	public class LoginViewModel : ViewModelBase
     {
         private User user;
-        private int userId;
 
         public ICommand LoginCommand { get; set; }
         public ICommand RegisterCommand { get; set; }
@@ -99,7 +98,7 @@ namespace StockExchangePresentation.ViewModel
 			if (loggedInUser.Id > 0)
 			{
                 //If Regular User
-                if(loggedInUser.UserType == 1)
+                if (loggedInUser.UserType == 1)
 				{
                     //Open UserHomeWindow
                     UserHomeWindow userWindow = new UserHomeWindow();
