@@ -11,6 +11,15 @@ namespace StockExchangePresentation.ViewModel
 {
 	public class UserHomeViewModel : ViewModelBase
 	{
+		private string _balance { get; set; }
+		public string Balance
+		{
+			get { return _balance; }
+			set
+			{
+				_balance = value;
+			}
+		}
 		private ObservableCollection<StockViewModel> _userStocks;
 		public ObservableCollection<StockViewModel> UserStocks
 		{

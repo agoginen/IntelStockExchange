@@ -127,7 +127,7 @@ namespace SE_Services
                         StockName = x.StockName,
                         Price = x.Price,
                         Volume = x.Volume,
-                        MarketCapitalization = (decimal)(x.Price.HasValue ? x.Volume * x.Price : 0)
+                        MarketCapitalization = (decimal)(x.Volume * x.Price)
                     }).ToList();
                     return stocks;
                 }
@@ -164,30 +164,6 @@ namespace SE_Services
             }
         }
 
-        public bool ProceedOrder(int userId, List<UserStock> userStock)
-        {
-            if (SessionManager.Instance.ValidateUser(userId))
-            {
-                bool orderProceedSucceeded = false;
-                using (var ctx = new IntelStockExchange())
-                {
-                    string userName = SessionManager.Instance.GetUserNameByGuid(userId);
-
-                    User user = (from u in ctx.Users
-                                 where u.UserName == userName
-                                 select u).FirstOrDefault();
-
-                    orderProceedSucceeded = true;
-                    ctx.SaveChanges();
-                }
-                return orderProceedSucceeded;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         public int GetCurrentUserId()
 		{
             return SessionManager.Instance.ActiveUsers.FirstOrDefault().Key;
@@ -201,6 +177,34 @@ namespace SE_Services
         public void Logout(int userId)
         {
             SessionManager.Instance.ActiveUsers.Remove(userId);
+        }
+
+        public decimal GetBalance(int userId)
+		{
+            decimal totalBalance = 0;
+            using (var ctx = new IntelStockExchange())
+            {
+                var balances = ctx.Balances
+                                  .Where(x => x.UserId == userId)
+                                  .ToList();
+
+                foreach(var balance in balances)
+				{
+                    if (balance.IsWithdraw)
+                        totalBalance -= balance.Balance1;
+                    else
+                        totalBalance += balance.Balance1;
+                }
+
+                return totalBalance;
+            }
+        }
+
+        public void BalanceTransaction(BalanceViewModel balance)
+        {
+            using (var ctx = new IntelStockExchange())
+            {
+            }
         }
     }
 }

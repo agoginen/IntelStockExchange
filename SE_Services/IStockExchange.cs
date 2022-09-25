@@ -21,10 +21,12 @@ namespace StockExchangeApp
         [OperationContract]
         int GetStockPrice(int id);
         [OperationContract]
-        bool ProceedOrder(int userId, List<UserStock> userStocks);
-        [OperationContract]
         void AddStock(Stock stock);
         [OperationContract]
         int GetCurrentUserId();
+        [OperationContract]
+        void BalanceTransaction(BalanceViewModel balance);
+        [OperationContract]
+        decimal GetBalance(int userId);
     }
 }

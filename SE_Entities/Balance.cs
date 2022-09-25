@@ -11,15 +11,17 @@ namespace SE_Entities
         public int Id { get; set; }
 
         [Column("Balance")]
-        public int Balance1 { get; set; }
+        public decimal Balance1 { get; set; }
 
-        public int? UserId { get; set; }
+        public int UserId { get; set; }
 
         public DateTime DateTimeAdded { get; set; }
 
         public DateTime? DateTimeUpdated { get; set; }
 
         public DateTime? DateTimeDeleted { get; set; }
+
+        public bool IsWithdraw { get; set; }
 
         public virtual User User { get; set; }
     }

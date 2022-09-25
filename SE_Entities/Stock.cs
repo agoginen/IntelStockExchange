@@ -30,9 +30,11 @@ namespace SE_Entities
 
         public DateTime? DateTimeDeleted { get; set; }
 
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
 
         public int Volume { get; set; }
+
+        public decimal? StartPrice { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserStock> UserStocks { get; set; }

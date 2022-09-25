@@ -1,7 +1,4 @@
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using System.Linq;
 
 namespace SE_Entities
 {
@@ -19,6 +16,10 @@ namespace SE_Entities
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
+			modelBuilder.Entity<Balance>()
+				.Property(e => e.Balance1)
+				.HasPrecision(19, 4);
+
 			modelBuilder.Entity<Stock>()
 				.Property(e => e.StockName)
 				.IsUnicode(false);
@@ -33,6 +34,10 @@ namespace SE_Entities
 
 			modelBuilder.Entity<Stock>()
 				.Property(e => e.Price)
+				.HasPrecision(19, 4);
+
+			modelBuilder.Entity<Stock>()
+				.Property(e => e.StartPrice)
 				.HasPrecision(19, 4);
 
 			modelBuilder.Entity<Stock>()
@@ -51,6 +56,11 @@ namespace SE_Entities
 			modelBuilder.Entity<User>()
 				.Property(e => e.Password)
 				.IsFixedLength();
+
+			modelBuilder.Entity<User>()
+				.HasMany(e => e.Balances)
+				.WithRequired(e => e.User)
+				.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<User>()
 				.HasMany(e => e.UserStocks)
