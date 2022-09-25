@@ -204,6 +204,16 @@ namespace SE_Services
         {
             using (var ctx = new IntelStockExchange())
             {
+				var balanceEntity = new Balance
+				{
+					Balance1 = balance.Balance,
+					IsWithdraw = balance.IsWithdraw,
+					DateTimeAdded = balance.DateTimeAdded,
+					UserId = balance.UserId
+				};
+
+				ctx.Balances.Add(balanceEntity);
+                ctx.SaveChanges();
             }
         }
     }

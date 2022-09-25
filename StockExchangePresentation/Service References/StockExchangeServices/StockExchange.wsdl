@@ -44,12 +44,6 @@
   <wsdl:message name="IStockExchangeOrder_GetStockPrice_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetStockPriceResponse" />
   </wsdl:message>
-  <wsdl:message name="IStockExchangeOrder_ProceedOrder_InputMessage">
-    <wsdl:part name="parameters" element="tns:ProceedOrder" />
-  </wsdl:message>
-  <wsdl:message name="IStockExchangeOrder_ProceedOrder_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ProceedOrderResponse" />
-  </wsdl:message>
   <wsdl:message name="IStockExchangeOrder_AddStock_InputMessage">
     <wsdl:part name="parameters" element="tns:AddStock" />
   </wsdl:message>
@@ -61,6 +55,18 @@
   </wsdl:message>
   <wsdl:message name="IStockExchangeOrder_GetCurrentUserId_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCurrentUserIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_BalanceTransaction_InputMessage">
+    <wsdl:part name="parameters" element="tns:BalanceTransaction" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_BalanceTransaction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BalanceTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_GetBalance_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBalance" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_GetBalance_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBalanceResponse" />
   </wsdl:message>
   <wsdl:portType name="IStockExchangeOrder">
     <wsdl:operation name="Register">
@@ -87,10 +93,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/GetStockPrice" message="tns:IStockExchangeOrder_GetStockPrice_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/GetStockPriceResponse" message="tns:IStockExchangeOrder_GetStockPrice_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ProceedOrder">
-      <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/ProceedOrder" message="tns:IStockExchangeOrder_ProceedOrder_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/ProceedOrderResponse" message="tns:IStockExchangeOrder_ProceedOrder_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="AddStock">
       <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/AddStock" message="tns:IStockExchangeOrder_AddStock_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/AddStockResponse" message="tns:IStockExchangeOrder_AddStock_OutputMessage" />
@@ -98,6 +100,14 @@
     <wsdl:operation name="GetCurrentUserId">
       <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/GetCurrentUserId" message="tns:IStockExchangeOrder_GetCurrentUserId_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/GetCurrentUserIdResponse" message="tns:IStockExchangeOrder_GetCurrentUserId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BalanceTransaction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/BalanceTransaction" message="tns:IStockExchangeOrder_BalanceTransaction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/BalanceTransactionResponse" message="tns:IStockExchangeOrder_BalanceTransaction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBalance">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/GetBalance" message="tns:IStockExchangeOrder_GetBalance_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/GetBalanceResponse" message="tns:IStockExchangeOrder_GetBalance_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IStockExchangeOrder" type="tns:IStockExchangeOrder">
@@ -156,15 +166,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ProceedOrder">
-      <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/ProceedOrder" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="AddStock">
       <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/AddStock" style="document" />
       <wsdl:input>
@@ -176,6 +177,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetCurrentUserId">
       <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/GetCurrentUserId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BalanceTransaction">
+      <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/BalanceTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBalance">
+      <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/GetBalance" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

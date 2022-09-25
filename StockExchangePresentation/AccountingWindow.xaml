@@ -11,9 +11,9 @@
         WindowStartupLocation="CenterScreen"
         MouseDown="Window_MouseDown">
 
-    <!--<Window.DataContext>
+    <Window.DataContext>
         <vm:UserHomeViewModel />
-    </Window.DataContext>-->
+    </Window.DataContext>
     
     <Border CornerRadius="12">
         <Border.Background>
@@ -62,7 +62,11 @@
                                FontFamily="Montserrat"
                                Grid.Column="0"
                                VerticalAlignment="Center"
-                               Margin="10,0,0,0"/>
+                               Margin="10,0,0,0">
+                        <TextBlock.InputBindings>
+                            <MouseBinding Command="{Binding Home}" MouseAction="LeftClick" />
+                        </TextBlock.InputBindings>
+                    </TextBlock>
 
                     <TextBlock Text="Accouting"
                                FontWeight="Bold"
@@ -195,8 +199,8 @@
                                Margin="0,35,0,0"/>
 
                     <TextBox x:Name="txtAmount"
-                             Text="{Binding Balance}"
-                             PreviewTextInput="NumberValidationTextBox"
+                             Text="{Binding NewBalance}"
+                             PreviewTextInput="DecimalValidationTextBox"
                              FontSize="13"
                              FontWeight="Medium"
                              FontFamily="Montserrat"                            
@@ -218,7 +222,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Button Grid.Column="0" x:Name="btnDeposit" 
-                            Command="{Binding RegisterCommand}"
+                            Command="{Binding Deposit}"
                             BorderThickness="0"
                             Content="Deposit"
                             Foreground="White"
@@ -250,7 +254,7 @@
                             </Button.Template>
                         </Button>
                         <Button Grid.Column="1" x:Name="btnWithdraw" 
-                            Command="{Binding RegisterCommand}"
+                            Command="{Binding Withdraw}"
                             BorderThickness="0"
                             Content="Withdraw"
                             Foreground="White"

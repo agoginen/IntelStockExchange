@@ -46,7 +46,7 @@ namespace StockExchangePresentation.ViewModel
         {
             get
             {
-                return Stock.Price ?? 0;
+                return Stock.Price;
             }
             set
             {

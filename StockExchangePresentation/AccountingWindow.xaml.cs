@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace StockExchangePresentation
@@ -14,11 +15,11 @@ namespace StockExchangePresentation
 			InitializeComponent();
 		}
 
-        //Event Handler To allow only integers
-        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        //Event Handler to allow only decimals
+        private void DecimalValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
+            Regex regex = new Regex("^[.][0-9]+$|^[0-9]*[.]{0,1}[0-9]*$");
+            e.Handled = !regex.IsMatch((sender as TextBox).Text.Insert((sender as TextBox).SelectionStart, e.Text));
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

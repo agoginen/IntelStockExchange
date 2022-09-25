@@ -23,13 +23,14 @@
   <xs:element name="ArrayOfBalance" nillable="true" type="tns:ArrayOfBalance" />
   <xs:complexType name="Balance">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Balance1" type="xs:int" />
+      <xs:element minOccurs="0" name="Balance1" type="xs:decimal" />
       <xs:element minOccurs="0" name="DateTimeAdded" type="xs:dateTime" />
       <xs:element minOccurs="0" name="DateTimeDeleted" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="DateTimeUpdated" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IsWithdraw" type="xs:boolean" />
       <xs:element minOccurs="0" name="User" nillable="true" type="tns:User" />
-      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="UserId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Balance" nillable="true" type="tns:Balance" />
@@ -61,7 +62,8 @@
       <xs:element minOccurs="0" name="HighPrice" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="LowPrice" nillable="true" type="xs:decimal" />
-      <xs:element minOccurs="0" name="Price" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Price" type="xs:decimal" />
+      <xs:element minOccurs="0" name="StartPrice" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="StockName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UserStocks" nillable="true" type="tns:ArrayOfUserStock" />
       <xs:element minOccurs="0" name="Volume" type="xs:int" />

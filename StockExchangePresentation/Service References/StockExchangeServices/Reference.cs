@@ -212,7 +212,7 @@ namespace StockExchangePresentation.StockExchangeServices {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int Balance1Field;
+        private decimal Balance1Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime DateTimeAddedField;
@@ -227,10 +227,13 @@ namespace StockExchangePresentation.StockExchangeServices {
         private int IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsWithdrawField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private StockExchangePresentation.StockExchangeServices.User UserField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<int> UserIdField;
+        private int UserIdField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -243,7 +246,7 @@ namespace StockExchangePresentation.StockExchangeServices {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Balance1 {
+        public decimal Balance1 {
             get {
                 return this.Balance1Field;
             }
@@ -308,6 +311,19 @@ namespace StockExchangePresentation.StockExchangeServices {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsWithdraw {
+            get {
+                return this.IsWithdrawField;
+            }
+            set {
+                if ((this.IsWithdrawField.Equals(value) != true)) {
+                    this.IsWithdrawField = value;
+                    this.RaisePropertyChanged("IsWithdraw");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public StockExchangePresentation.StockExchangeServices.User User {
             get {
                 return this.UserField;
@@ -321,7 +337,7 @@ namespace StockExchangePresentation.StockExchangeServices {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> UserId {
+        public int UserId {
             get {
                 return this.UserIdField;
             }
@@ -544,7 +560,10 @@ namespace StockExchangePresentation.StockExchangeServices {
         private System.Nullable<decimal> LowPriceField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<decimal> PriceField;
+        private decimal PriceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> StartPriceField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string StockNameField;
@@ -644,7 +663,7 @@ namespace StockExchangePresentation.StockExchangeServices {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<decimal> Price {
+        public decimal Price {
             get {
                 return this.PriceField;
             }
@@ -652,6 +671,19 @@ namespace StockExchangePresentation.StockExchangeServices {
                 if ((this.PriceField.Equals(value) != true)) {
                     this.PriceField = value;
                     this.RaisePropertyChanged("Price");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> StartPrice {
+            get {
+                return this.StartPriceField;
+            }
+            set {
+                if ((this.StartPriceField.Equals(value) != true)) {
+                    this.StartPriceField = value;
+                    this.RaisePropertyChanged("StartPrice");
                 }
             }
         }
@@ -745,12 +777,6 @@ namespace StockExchangePresentation.StockExchangeServices {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetStockPrice", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetStockPriceResponse")]
         System.Threading.Tasks.Task<int> GetStockPriceAsync(int id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/ProceedOrder", ReplyAction="http://tempuri.org/IStockExchangeOrder/ProceedOrderResponse")]
-        bool ProceedOrder(int userId, System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.UserStock> userStocks);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/ProceedOrder", ReplyAction="http://tempuri.org/IStockExchangeOrder/ProceedOrderResponse")]
-        System.Threading.Tasks.Task<bool> ProceedOrderAsync(int userId, System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.UserStock> userStocks);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/AddStock", ReplyAction="http://tempuri.org/IStockExchangeOrder/AddStockResponse")]
         void AddStock(StockExchangePresentation.StockExchangeServices.Stock stock);
         
@@ -762,6 +788,18 @@ namespace StockExchangePresentation.StockExchangeServices {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetCurrentUserId", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetCurrentUserIdResponse")]
         System.Threading.Tasks.Task<int> GetCurrentUserIdAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/BalanceTransaction", ReplyAction="http://tempuri.org/IStockExchangeOrder/BalanceTransactionResponse")]
+        void BalanceTransaction(SE_Services.ViewModels.BalanceViewModel balance);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/BalanceTransaction", ReplyAction="http://tempuri.org/IStockExchangeOrder/BalanceTransactionResponse")]
+        System.Threading.Tasks.Task BalanceTransactionAsync(SE_Services.ViewModels.BalanceViewModel balance);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetBalance", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetBalanceResponse")]
+        decimal GetBalance(int userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetBalance", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetBalanceResponse")]
+        System.Threading.Tasks.Task<decimal> GetBalanceAsync(int userId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -839,14 +877,6 @@ namespace StockExchangePresentation.StockExchangeServices {
             return base.Channel.GetStockPriceAsync(id);
         }
         
-        public bool ProceedOrder(int userId, System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.UserStock> userStocks) {
-            return base.Channel.ProceedOrder(userId, userStocks);
-        }
-        
-        public System.Threading.Tasks.Task<bool> ProceedOrderAsync(int userId, System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.UserStock> userStocks) {
-            return base.Channel.ProceedOrderAsync(userId, userStocks);
-        }
-        
         public void AddStock(StockExchangePresentation.StockExchangeServices.Stock stock) {
             base.Channel.AddStock(stock);
         }
@@ -861,6 +891,22 @@ namespace StockExchangePresentation.StockExchangeServices {
         
         public System.Threading.Tasks.Task<int> GetCurrentUserIdAsync() {
             return base.Channel.GetCurrentUserIdAsync();
+        }
+        
+        public void BalanceTransaction(SE_Services.ViewModels.BalanceViewModel balance) {
+            base.Channel.BalanceTransaction(balance);
+        }
+        
+        public System.Threading.Tasks.Task BalanceTransactionAsync(SE_Services.ViewModels.BalanceViewModel balance) {
+            return base.Channel.BalanceTransactionAsync(balance);
+        }
+        
+        public decimal GetBalance(int userId) {
+            return base.Channel.GetBalance(userId);
+        }
+        
+        public System.Threading.Tasks.Task<decimal> GetBalanceAsync(int userId) {
+            return base.Channel.GetBalanceAsync(userId);
         }
     }
 }

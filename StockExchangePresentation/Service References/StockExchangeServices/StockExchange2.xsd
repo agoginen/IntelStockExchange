@@ -86,25 +86,10 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ProceedOrder">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="userId" type="xs:int" />
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/SE_Entities" minOccurs="0" name="userStocks" nillable="true" type="q5:ArrayOfUserStock" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ProceedOrderResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="ProceedOrderResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="AddStock">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/SE_Entities" minOccurs="0" name="stock" nillable="true" type="q6:Stock" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/SE_Entities" minOccurs="0" name="stock" nillable="true" type="q5:Stock" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -122,6 +107,32 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="GetCurrentUserIdResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BalanceTransaction">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/SE_Services.ViewModels" minOccurs="0" name="balance" nillable="true" type="q6:BalanceViewModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BalanceTransactionResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBalance">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBalanceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetBalanceResult" type="xs:decimal" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

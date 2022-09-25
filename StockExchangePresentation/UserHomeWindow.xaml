@@ -66,7 +66,11 @@
                                FontFamily="Montserrat"
                                Grid.Column="0"
                                VerticalAlignment="Center"
-                               Margin="50,0,0,0"/>
+                               Margin="50,0,0,0">
+                        <TextBlock.InputBindings>
+                            <MouseBinding Command="{Binding Accounting}" MouseAction="LeftClick" />
+                        </TextBlock.InputBindings>
+                    </TextBlock>
 
                     <TextBlock Text="Portfolio"
                                FontWeight="Bold"

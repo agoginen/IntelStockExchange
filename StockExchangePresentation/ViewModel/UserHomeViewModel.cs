@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Command;
 using SE_Services.ViewModels;
 using StockExchangePresentation.Commands;
 using StockExchangePresentation.StockExchangeServices;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -20,6 +21,15 @@ namespace StockExchangePresentation.ViewModel
 				_balance = value;
 			}
 		}
+		private decimal _newBalance { get; set; }
+		public decimal NewBalance
+		{
+			get { return _newBalance; }
+			set
+			{
+				_newBalance = value;
+			}
+		}
 		private ObservableCollection<StockViewModel> _userStocks;
 		public ObservableCollection<StockViewModel> UserStocks
 		{
@@ -33,14 +43,77 @@ namespace StockExchangePresentation.ViewModel
 		public ICommand Buy { get; set; }
 		public ICommand Sell { get; set; }
 		public ICommand Logout { get; set; }
+		public ICommand Accounting { get; set; }
+		public ICommand Home { get; set; }
+		public ICommand Deposit { get; set; }
+		public ICommand Withdraw { get; set; }
 
 		public UserHomeViewModel()
 		{
 			this._userStocks = new ObservableCollection<StockViewModel>();
 			LoadStocks();
+			this._balance = "$ " + GetBalance().ToString();
 			Buy = new DelegateCommand(BuyCommand);
 			Sell = new DelegateCommand(SellCommand);
 			Logout = new RelayCommand(LogoutCommand);
+			Accounting = new RelayCommand(AccountingCommand);
+			Home = new RelayCommand(HomeCommand);
+			Deposit = new RelayCommand(DepositCommand);
+			Withdraw = new RelayCommand(WithdrawCommand);
+		}
+
+		private decimal GetBalance()
+		{
+			StockExchangeOrderClient client = new StockExchangeOrderClient();
+			var balanceAmount = client.GetBalance(client.GetCurrentUserId());
+			client.Close();
+			return balanceAmount;
+		}
+
+		private void DepositCommand()
+		{
+			StockExchangeOrderClient client = new StockExchangeOrderClient();
+			var balanceViewModel = new BalanceViewModel
+			{
+				Balance = _newBalance,
+				IsWithdraw = false,
+				DateTimeAdded = DateTime.Now,
+				UserId = client.GetCurrentUserId()
+			};
+			client.BalanceTransaction(balanceViewModel);
+			AccountingCommand();
+		}
+
+		private void WithdrawCommand()
+		{
+			StockExchangeOrderClient client = new StockExchangeOrderClient();
+			var balanceViewModel = new BalanceViewModel
+			{
+				Balance = _newBalance,
+				IsWithdraw = true,
+				DateTimeAdded = DateTime.Now,
+				UserId = client.GetCurrentUserId()
+			};
+			client.BalanceTransaction(balanceViewModel);
+			AccountingCommand();
+		}
+
+		private void AccountingCommand()
+		{
+			//Open Accouinting Window
+			AccountingWindow accountingWindow = new AccountingWindow();
+			accountingWindow.Show();
+			//Close Current window
+			Application.Current.Windows[0].Close();
+		}
+
+		private void HomeCommand()
+		{
+			//Open User Home Window
+			UserHomeWindow homewindow = new UserHomeWindow();
+			homewindow.Show();
+			//Close Current window
+			Application.Current.Windows[0].Close();
 		}
 
 		private void BuyCommand(object param)
