@@ -47,6 +47,8 @@
       <xs:element minOccurs="0" name="DateTimeDeleted" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="DateTimeUpdated" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IsActive" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsBuyOrder" type="xs:boolean" />
       <xs:element minOccurs="0" name="IsLimitOrder" type="xs:boolean" />
       <xs:element minOccurs="0" name="IsOrderExecuted" type="xs:boolean" />
       <xs:element minOccurs="0" name="OrderStockPrice" type="xs:decimal" />

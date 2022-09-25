@@ -67,7 +67,6 @@ namespace StockExchangePresentation.ViewModel
 			Withdraw = new RelayCommand(WithdrawCommand);
 		}
 
-
 		/// <summary>
 		/// Gets Balance for current User
 		/// </summary>
@@ -196,6 +195,10 @@ namespace StockExchangePresentation.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// Refreshes DataSource Regularly
+		/// </summary>
+		/// <param name="state"></param>
 		private void RefreshStocks(object state)
 		{
 			_userStocks.Clear();

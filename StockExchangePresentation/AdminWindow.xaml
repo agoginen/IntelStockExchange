@@ -156,7 +156,7 @@
                             <DataGridTextColumn Header="Stock" Binding="{Binding StockName}" Width="*" />
                             <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat=\{0:C2\}}" Width="*"/>
                             <DataGridTextColumn Header="Volume" Binding="{Binding Volume}" Width="*"/>
-                            <DataGridTextColumn Header="MarketCapitalization" Binding="{Binding MarketCapitalization}" Width="*"/>
+                            <DataGridTextColumn Header="MarketCapitalization" Binding="{Binding MarketCapitalization, StringFormat=\{0:C2\}}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
 

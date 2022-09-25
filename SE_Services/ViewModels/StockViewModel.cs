@@ -22,6 +22,8 @@ namespace SE_Services.ViewModels
 
         public decimal? LowPrice { get; set; }
 
+        public decimal? StartPrice { get; set; }
+
         public int Volume { get; set; }
 
         public decimal MarketCapitalization { get; set; }

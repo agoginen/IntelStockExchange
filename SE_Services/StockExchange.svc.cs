@@ -111,6 +111,9 @@ namespace SE_Services
                         StockCount = x.UserStocks.Count == 0 ? 0 : x.UserStocks.FirstOrDefault().StockCount,
                         StockName = x.StockName,
                         Price = x.Price,
+                        HighPrice = x.HighPrice,
+                        LowPrice = x.LowPrice,
+                        StartPrice = x.StartPrice,
                         Id = x.Id
                     }).ToList();
                     return stocks;
@@ -139,6 +142,9 @@ namespace SE_Services
                         StockName = x.StockName,
                         Price = x.Price,
                         Volume = x.Volume,
+                        HighPrice = x.HighPrice,
+                        LowPrice = x.LowPrice,
+                        StartPrice = x.StartPrice,
                         MarketCapitalization = (decimal)(x.Volume * x.Price)
                     }).ToList();
                     return stocks;
@@ -226,6 +232,11 @@ namespace SE_Services
             }
         }
 
+        /// <summary>
+        /// Get Total Count of Stock for One User
+        /// </summary>
+        /// <param name="stock"></param>
+        /// <returns></returns>
         private int GetTotalStockCount(Stock stock)
 		{
             int count = 0;

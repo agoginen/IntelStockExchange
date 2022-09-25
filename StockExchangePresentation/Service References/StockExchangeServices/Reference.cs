@@ -397,6 +397,12 @@ namespace StockExchangePresentation.StockExchangeServices {
         private int IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsActiveField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsBuyOrderField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool IsLimitOrderField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -481,6 +487,32 @@ namespace StockExchangePresentation.StockExchangeServices {
                 if ((this.IdField.Equals(value) != true)) {
                     this.IdField = value;
                     this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsActive {
+            get {
+                return this.IsActiveField;
+            }
+            set {
+                if ((this.IsActiveField.Equals(value) != true)) {
+                    this.IsActiveField = value;
+                    this.RaisePropertyChanged("IsActive");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsBuyOrder {
+            get {
+                return this.IsBuyOrderField;
+            }
+            set {
+                if ((this.IsBuyOrderField.Equals(value) != true)) {
+                    this.IsBuyOrderField = value;
+                    this.RaisePropertyChanged("IsBuyOrder");
                 }
             }
         }

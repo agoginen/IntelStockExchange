@@ -5,13 +5,18 @@ using StockExchangePresentation.StockExchangeServices;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace StockExchangePresentation.ViewModel
 {
 	public class AdminViewModel : ViewModelBase
     {
+        private readonly Timer _refreshTicker;
+        private static object _lock = new object();
+
         private Stock Stock;
         private ObservableCollection<StockViewModel> _stocks;
         public ObservableCollection<StockViewModel> Stocks
@@ -70,6 +75,8 @@ namespace StockExchangePresentation.ViewModel
         {
             Stock = new Stock();
             this._stocks = new ObservableCollection<StockViewModel>();
+            BindingOperations.EnableCollectionSynchronization(_stocks, _lock);
+            _refreshTicker = new Timer(RefreshStocks, null, 0, 1000);
             AddStockCommand = new RelayCommand(AddStock);
             LogoutCommand = new RelayCommand(Logout);
             LoadStocks();
@@ -93,6 +100,9 @@ namespace StockExchangePresentation.ViewModel
             }
         }
 
+        /// <summary>
+        /// Loads Stock Data Grid - one time action
+        /// </summary>
         public void LoadStocks()
 		{
             _stocks.Clear();
@@ -105,6 +115,9 @@ namespace StockExchangePresentation.ViewModel
             }
         }
 
+        /// <summary>
+        /// Logs Out Users
+        /// </summary>
         private void Logout()
         {
             StockExchangeOrderClient client = new StockExchangeOrderClient();
@@ -115,6 +128,23 @@ namespace StockExchangePresentation.ViewModel
             userWindow.Show();
             //Close Current window
             Application.Current.Windows[0].Close();
+        }
+
+
+        /// <summary>
+        /// Refreshes DataGrid Countiously
+        /// </summary>
+        /// <param name="state"></param>
+        private void RefreshStocks(object state)
+        {
+            _stocks.Clear();
+            StockExchangeOrderClient client = new StockExchangeOrderClient();
+            var allStocks = client.GetAllStocks(client.GetCurrentUserId());
+            client.Close();
+            foreach (var s in allStocks)
+            {
+                _stocks.Add(s);
+            }
         }
     }
 }
