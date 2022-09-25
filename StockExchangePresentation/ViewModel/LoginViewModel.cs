@@ -50,9 +50,18 @@ namespace StockExchangePresentation.ViewModel
 
         public LoginViewModel()
         {
+            StartStockTicker();
             this.user = new User();
             LoginCommand = new RelayCommand(LoginUser);
             RegisterCommand = new RelayCommand(RegisterUser);
+        }
+
+        //Initiate Stock ticking Process
+        private void StartStockTicker()
+        {
+            StockExchangeOrderClient client = new StockExchangeOrderClient();
+            client.StockPriceTicker();
+            client.Close();
         }
 
         /// <summary>

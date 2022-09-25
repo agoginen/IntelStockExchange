@@ -7,6 +7,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace StockExchangePresentation.ViewModel
@@ -41,6 +42,7 @@ namespace StockExchangePresentation.ViewModel
 				_userStocks = value;
 			}
 		}
+		private static object _lock = new object();
 
 		public ICommand Buy { get; set; }
 		public ICommand Sell { get; set; }
@@ -52,8 +54,8 @@ namespace StockExchangePresentation.ViewModel
 
 		public UserHomeViewModel()
 		{
-			StartStockTicker();
 			this._userStocks = new ObservableCollection<StockViewModel>();
+			BindingOperations.EnableCollectionSynchronization(_userStocks, _lock);
 			_refreshTicker = new Timer(RefreshStocks, null, 0, 1000);
 			this._balance = "$ " + GetBalance().ToString();
 			Buy = new DelegateCommand(BuyCommand);
@@ -65,12 +67,6 @@ namespace StockExchangePresentation.ViewModel
 			Withdraw = new RelayCommand(WithdrawCommand);
 		}
 
-		private void StartStockTicker()
-		{
-			StockExchangeOrderClient client = new StockExchangeOrderClient();
-			client.StockPriceTicker();
-			client.Close();
-		}
 
 		/// <summary>
 		/// Gets Balance for current User
