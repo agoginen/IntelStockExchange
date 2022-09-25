@@ -116,11 +116,11 @@ namespace StockExchangePresentation
 
 
         private void Transaction_Click(object sender, RoutedEventArgs e)
-		{
-			if (_stockCount > 0)
-			{
-				if (_transaction == "Buy")
-				{
+        {
+            if (_stockCount > 0)
+            {
+                if (_transaction == "Buy")
+                {
                     StockExchangeOrderClient client = new StockExchangeOrderClient();
                     var balanceAmount = client.GetBalance(client.GetCurrentUserId());
 
@@ -146,8 +146,8 @@ namespace StockExchangePresentation
                             //Close Current window
                             Application.Current.Windows[0].Close();
                         }
-						else
-						{
+                        else
+                        {
                             MessageBox.Show("There is no Stock Volume to support your Stock Count", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     }
@@ -155,8 +155,8 @@ namespace StockExchangePresentation
                         MessageBox.Show("Your Balance is low to place order. Please deposit Money and try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 }
-                else if(_transaction == "Sell")
-				{
+                else if (_transaction == "Sell")
+                {
                     StockExchangeOrderClient client = new StockExchangeOrderClient();
                     var balanceAmount = client.GetBalance(client.GetCurrentUserId());
 
@@ -184,13 +184,13 @@ namespace StockExchangePresentation
                         }
                         else
                         {
-                            MessageBox.Show("There is no Stock Volume to support your Stock Count", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show("You dont own enough stocks to support the sell", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     }
-                
+                }
+                else
+                    MessageBox.Show("You have selected 0 stocks to place order.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else
-                MessageBox.Show("You have selected 0 stocks to place order.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
