@@ -15,7 +15,7 @@ namespace StockExchangeApp
         [OperationContract]
         bool Logout(int userId);
         [OperationContract]
-        List<StockViewModel> GetAllStocks();
+        List<StockViewModel> GetAllStocks(int userId);
         [OperationContract]
         List<StockViewModel> GetAllUserStocks(int userId);
         [OperationContract]
@@ -24,5 +24,7 @@ namespace StockExchangeApp
         bool ProceedOrder(int userId, List<UserStock> userStocks);
         [OperationContract]
         void AddStock(Stock stock);
+        [OperationContract]
+        int GetCurrentUserId();
     }
 }

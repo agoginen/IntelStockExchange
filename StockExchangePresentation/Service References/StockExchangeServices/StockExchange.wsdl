@@ -56,6 +56,12 @@
   <wsdl:message name="IStockExchangeOrder_AddStock_OutputMessage">
     <wsdl:part name="parameters" element="tns:AddStockResponse" />
   </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_GetCurrentUserId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCurrentUserId" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_GetCurrentUserId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCurrentUserIdResponse" />
+  </wsdl:message>
   <wsdl:portType name="IStockExchangeOrder">
     <wsdl:operation name="Register">
       <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/Register" message="tns:IStockExchangeOrder_Register_InputMessage" />
@@ -88,6 +94,10 @@
     <wsdl:operation name="AddStock">
       <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/AddStock" message="tns:IStockExchangeOrder_AddStock_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/AddStockResponse" message="tns:IStockExchangeOrder_AddStock_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCurrentUserId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/GetCurrentUserId" message="tns:IStockExchangeOrder_GetCurrentUserId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/GetCurrentUserIdResponse" message="tns:IStockExchangeOrder_GetCurrentUserId_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IStockExchangeOrder" type="tns:IStockExchangeOrder">
@@ -157,6 +167,15 @@
     </wsdl:operation>
     <wsdl:operation name="AddStock">
       <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/AddStock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCurrentUserId">
+      <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/GetCurrentUserId" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

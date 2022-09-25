@@ -1,6 +1,12 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
 using SE_Services.ViewModels;
+using StockExchangePresentation.Commands;
+using StockExchangePresentation.StockExchangeServices;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using Unity;
 
@@ -8,13 +14,13 @@ namespace StockExchangePresentation.ViewModel
 {
 	public class UserHomeViewModel : ViewModelBase
 	{
-		private List<StockViewModel> _transactions;
-		public List<StockViewModel> Transactions
+		private ObservableCollection<StockViewModel> _userStocks;
+		public ObservableCollection<StockViewModel> UserStocks
 		{
-			get { return _transactions; }
+			get { return _userStocks; }
 			set
 			{
-				_transactions = value;
+				_userStocks = value;
 			}
 		}
 
@@ -38,11 +44,16 @@ namespace StockExchangePresentation.ViewModel
 
 		public UserHomeViewModel()
 		{
+			this._userStocks = new ObservableCollection<StockViewModel>();
+			this._marketViewModel = new MarketTransactionViewModel();
+			LoadStocks();
+			Buy = new DelegateCommand(BuyCommand);
+			Sell = new DelegateCommand(SellCommand);
 		}
 
 		private void BuyCommand(object param)
 		{
-			var stock = param as StockViewModel;
+			StockViewModel stock = param as StockViewModel;
 			if (stock != null)
 			{
 				MarketViewModel.AddBuyTransaction(stock);
@@ -51,10 +62,22 @@ namespace StockExchangePresentation.ViewModel
 
 		private void SellCommand(object param)
 		{
-			var stock = param as StockViewModel;
+			StockViewModel stock = param as StockViewModel;
 			if (stock != null)
 			{
 				MarketViewModel.AddSellTransaction(stock);
+			}
+		}
+
+		public void LoadStocks()
+		{
+			_userStocks.Clear();
+			StockExchangeOrderClient client = new StockExchangeOrderClient();
+			var allStocks = client.GetAllUserStocks(client.GetCurrentUserId());
+			client.Close();
+			foreach (var s in allStocks)
+			{
+				_userStocks.Add(s);
 			}
 		}
 	}

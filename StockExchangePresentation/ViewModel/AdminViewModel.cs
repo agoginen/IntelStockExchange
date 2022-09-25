@@ -94,7 +94,7 @@ namespace StockExchangePresentation.ViewModel
 		{
             _stocks.Clear();
             StockExchangeOrderClient client = new StockExchangeOrderClient();
-            var allStocks = client.GetAllStocks();
+            var allStocks = client.GetAllStocks(client.GetCurrentUserId());
             client.Close();
             foreach (var s in allStocks)
             {

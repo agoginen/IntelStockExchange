@@ -4,12 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:StockExchangePresentation"
+        xmlns:vm="clr-namespace:StockExchangePresentation.ViewModel"
         Title="Intel Stock Exchange" Height="550" Width="800"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         MouseDown="Window_MouseDown">
 
+    <Window.DataContext>
+        <vm:UserHomeViewModel />
+    </Window.DataContext>
+    
     <Border CornerRadius="12">
         <Border CornerRadius="10"                    
             BorderThickness="2"
@@ -126,7 +131,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <DataGrid Grid.Row="0" Name="StockGrid" ItemsSource="{Binding Stocks}"  Margin="5"
+                    <DataGrid Grid.Row="0" Name="StockGrid" ItemsSource="{Binding UserStocks}"  Margin="5"
                       AutoGenerateColumns="False"
                       AlternationCount="2" 
                       AlternatingRowBackground="WhiteSmoke"

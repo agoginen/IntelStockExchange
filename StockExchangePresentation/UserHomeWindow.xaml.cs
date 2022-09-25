@@ -11,11 +11,9 @@ namespace StockExchangePresentation
 	public partial class UserHomeWindow : Window
 	{
 
-        public UserHomeWindow(int userId)
+        public UserHomeWindow()
 		{
 			InitializeComponent();
-            StockExchangeOrderClient client = new StockExchangeOrderClient();
-            this.StockGrid.ItemsSource = client.GetAllUserStocks(userId);
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

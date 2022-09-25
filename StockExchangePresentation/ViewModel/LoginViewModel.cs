@@ -102,7 +102,7 @@ namespace StockExchangePresentation.ViewModel
                 if(loggedInUser.UserType == 1)
 				{
                     //Open UserHomeWindow
-                    UserHomeWindow userWindow = new UserHomeWindow(userId);
+                    UserHomeWindow userWindow = new UserHomeWindow();
                     userWindow.Show();
                     //Close MainWindow
                     Application.Current.Windows[0].Close();

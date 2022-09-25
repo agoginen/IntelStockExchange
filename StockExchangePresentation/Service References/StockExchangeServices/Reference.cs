@@ -728,10 +728,10 @@ namespace StockExchangePresentation.StockExchangeServices {
         System.Threading.Tasks.Task<bool> LogoutAsync(int userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetAllStocks", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetAllStocksResponse")]
-        System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel> GetAllStocks();
+        System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel> GetAllStocks(int userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetAllStocks", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetAllStocksResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel>> GetAllStocksAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel>> GetAllStocksAsync(int userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetAllUserStocks", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetAllUserStocksResponse")]
         System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel> GetAllUserStocks(int userId);
@@ -756,6 +756,12 @@ namespace StockExchangePresentation.StockExchangeServices {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/AddStock", ReplyAction="http://tempuri.org/IStockExchangeOrder/AddStockResponse")]
         System.Threading.Tasks.Task AddStockAsync(StockExchangePresentation.StockExchangeServices.Stock stock);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetCurrentUserId", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetCurrentUserIdResponse")]
+        int GetCurrentUserId();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetCurrentUserId", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetCurrentUserIdResponse")]
+        System.Threading.Tasks.Task<int> GetCurrentUserIdAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -809,12 +815,12 @@ namespace StockExchangePresentation.StockExchangeServices {
             return base.Channel.LogoutAsync(userId);
         }
         
-        public System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel> GetAllStocks() {
-            return base.Channel.GetAllStocks();
+        public System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel> GetAllStocks(int userId) {
+            return base.Channel.GetAllStocks(userId);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel>> GetAllStocksAsync() {
-            return base.Channel.GetAllStocksAsync();
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel>> GetAllStocksAsync(int userId) {
+            return base.Channel.GetAllStocksAsync(userId);
         }
         
         public System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel> GetAllUserStocks(int userId) {
@@ -847,6 +853,14 @@ namespace StockExchangePresentation.StockExchangeServices {
         
         public System.Threading.Tasks.Task AddStockAsync(StockExchangePresentation.StockExchangeServices.Stock stock) {
             return base.Channel.AddStockAsync(stock);
+        }
+        
+        public int GetCurrentUserId() {
+            return base.Channel.GetCurrentUserId();
+        }
+        
+        public System.Threading.Tasks.Task<int> GetCurrentUserIdAsync() {
+            return base.Channel.GetCurrentUserIdAsync();
         }
     }
 }

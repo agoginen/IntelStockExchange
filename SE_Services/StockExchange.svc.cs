@@ -89,6 +89,7 @@ namespace SE_Services
         /// <returns></returns>
         public List<StockViewModel> GetAllUserStocks(int userId)
         {
+            //validating if request from valid userId
             if (SessionManager.Instance.ValidateUser(userId)) 
             {
                 using (var ctx = new IntelStockExchange())
@@ -97,7 +98,8 @@ namespace SE_Services
                     {
                         StockCount = x.UserStocks.Count == 0 ? 0 : x.UserStocks.FirstOrDefault().StockCount,
                         StockName = x.StockName,
-                        Price = x.Price
+                        Price = x.Price,
+                        Id = x.Id
                     }).ToList();
                     return stocks;
                 }
@@ -113,19 +115,27 @@ namespace SE_Services
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public List<StockViewModel> GetAllStocks()
+        public List<StockViewModel> GetAllStocks(int userId)
         {
-            using (var ctx = new IntelStockExchange())
-            {
-                List<StockViewModel> stocks = ctx.Stocks.Select(x => new StockViewModel
-					                            {
-                                                StockName = x.StockName,
-                                                Price = x.Price,
-                                                Volume = x.Volume,
-                                                MarketCapitalization = (decimal)(x.Price.HasValue ? x.Volume * x.Price : 0)
-					                            }).ToList();
-                return stocks;
+            //validating if request from valid userId
+            if (SessionManager.Instance.ValidateUser(userId))
+			{
+                using (var ctx = new IntelStockExchange())
+                {
+                    List<StockViewModel> stocks = ctx.Stocks.Select(x => new StockViewModel
+                    {
+                        StockName = x.StockName,
+                        Price = x.Price,
+                        Volume = x.Volume,
+                        MarketCapitalization = (decimal)(x.Price.HasValue ? x.Volume * x.Price : 0)
+                    }).ToList();
+                    return stocks;
+                }
             }
+			else
+			{
+                return new List<StockViewModel>();
+			}
         }
 
         /// <summary>
@@ -177,6 +187,11 @@ namespace SE_Services
                 return false;
             }
         }
+
+        public int GetCurrentUserId()
+		{
+            return SessionManager.Instance.ActiveUsers.FirstOrDefault().Key;
+		}
 
         /// <summary>
         /// Removes User Credentials from the Session Manager
