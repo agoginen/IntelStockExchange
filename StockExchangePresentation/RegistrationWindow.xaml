@@ -61,6 +61,7 @@
                     </Grid.ColumnDefinitions>
                     
                     <TextBlock Text="Register"
+                               FontWeight="Bold"
                                Foreground="DarkGray"
                                FontSize="10"
                                FontFamily="Montserrat"

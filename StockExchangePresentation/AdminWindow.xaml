@@ -52,12 +52,26 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Text="Admin Page"
+                               FontWeight="Bold"
                                Foreground="DarkGray"
                                FontSize="10"
                                FontFamily="Montserrat"
                                Grid.Column="0"
                                VerticalAlignment="Center"
                                Margin="10,0,0,0"/>
+
+                    <TextBlock Text="Logout"
+                               FontWeight="Bold"
+                               Foreground="DarkGray"
+                               FontSize="10"
+                               FontFamily="Montserrat"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="690,0,0,0">
+                        <TextBlock.InputBindings>
+                            <MouseBinding Command="{Binding LogoutCommand}" MouseAction="LeftClick" />
+                        </TextBlock.InputBindings>
+                    </TextBlock>
 
                     <Button x:Name="btnMinimize"                           
                             BorderThickness="0"

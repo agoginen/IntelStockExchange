@@ -26,6 +26,8 @@ namespace StockExchangePresentation.ViewModel
 			}
         }
         public ICommand AddStockCommand { get; set; }
+        public ICommand LogoutCommand { get; set; }
+
         public Window AdminWindow { get; set; }
 
         public string StockName
@@ -69,6 +71,7 @@ namespace StockExchangePresentation.ViewModel
             Stock = new Stock();
             this._stocks = new ObservableCollection<StockViewModel>();
             AddStockCommand = new RelayCommand(AddStock);
+            LogoutCommand = new RelayCommand(Logout);
             LoadStocks();
         }
 
@@ -100,6 +103,18 @@ namespace StockExchangePresentation.ViewModel
             {
                 _stocks.Add(s);
             }
+        }
+
+        private void Logout()
+        {
+            StockExchangeOrderClient client = new StockExchangeOrderClient();
+            client.LogoutAsync(client.GetCurrentUserId());
+            client.Close();
+            //Open Mainwindow
+            MainWindow userWindow = new MainWindow();
+            userWindow.Show();
+            //Close Current window
+            Application.Current.Windows[0].Close();
         }
     }
 }
