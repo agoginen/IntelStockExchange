@@ -28,7 +28,7 @@ namespace StockExchangeApp
         void BalanceTransaction(BalanceViewModel balance);
         [OperationContract]
         decimal GetBalance(int userId);
-        [OperationBehavior]
-        void MarketOrder(StockOrder stockOrder);
+        [OperationContract]
+        void MarketOrder(StockOrderViewModel stockOrder);
     }
 }

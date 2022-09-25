@@ -136,4 +136,16 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="MarketOrder">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/SE_Services.ViewModels" minOccurs="0" name="stockOrder" nillable="true" type="q7:StockOrderViewModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MarketOrderResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

@@ -9,6 +9,7 @@
       <xs:element minOccurs="0" name="EmailAddress" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StockOrders" nillable="true" type="tns:ArrayOfStockOrder" />
       <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UserStocks" nillable="true" type="tns:ArrayOfUserStock" />
       <xs:element minOccurs="0" name="UserType" type="xs:int" />
@@ -34,6 +35,46 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Balance" nillable="true" type="tns:Balance" />
+  <xs:complexType name="ArrayOfStockOrder">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StockOrder" nillable="true" type="tns:StockOrder" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStockOrder" nillable="true" type="tns:ArrayOfStockOrder" />
+  <xs:complexType name="StockOrder">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateTimeAdded" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateTimeDeleted" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateTimeUpdated" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IsLimitOrder" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsOrderExecuted" type="xs:boolean" />
+      <xs:element minOccurs="0" name="OrderStockPrice" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Stock" nillable="true" type="tns:Stock" />
+      <xs:element minOccurs="0" name="StockCount" type="xs:int" />
+      <xs:element minOccurs="0" name="StockId" type="xs:int" />
+      <xs:element minOccurs="0" name="User" nillable="true" type="tns:User" />
+      <xs:element minOccurs="0" name="UserId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StockOrder" nillable="true" type="tns:StockOrder" />
+  <xs:complexType name="Stock">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateTimeAdded" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateTimeDeleted" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateTimeUpdated" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="HighPrice" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LowPrice" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Price" type="xs:decimal" />
+      <xs:element minOccurs="0" name="StartPrice" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="StockName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StockOrders" nillable="true" type="tns:ArrayOfStockOrder" />
+      <xs:element minOccurs="0" name="UserStocks" nillable="true" type="tns:ArrayOfUserStock" />
+      <xs:element minOccurs="0" name="Volume" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Stock" nillable="true" type="tns:Stock" />
   <xs:complexType name="ArrayOfUserStock">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="UserStock" nillable="true" type="tns:UserStock" />
@@ -54,20 +95,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UserStock" nillable="true" type="tns:UserStock" />
-  <xs:complexType name="Stock">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="DateTimeAdded" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="DateTimeDeleted" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="DateTimeUpdated" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="HighPrice" nillable="true" type="xs:decimal" />
-      <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element minOccurs="0" name="LowPrice" nillable="true" type="xs:decimal" />
-      <xs:element minOccurs="0" name="Price" type="xs:decimal" />
-      <xs:element minOccurs="0" name="StartPrice" nillable="true" type="xs:decimal" />
-      <xs:element minOccurs="0" name="StockName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="UserStocks" nillable="true" type="tns:ArrayOfUserStock" />
-      <xs:element minOccurs="0" name="Volume" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Stock" nillable="true" type="tns:Stock" />
 </xs:schema>

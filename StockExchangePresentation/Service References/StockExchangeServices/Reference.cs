@@ -44,6 +44,9 @@ namespace StockExchangePresentation.StockExchangeServices {
         private string PasswordField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.StockOrder> StockOrdersField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UserNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -149,6 +152,19 @@ namespace StockExchangePresentation.StockExchangeServices {
                 if ((object.ReferenceEquals(this.PasswordField, value) != true)) {
                     this.PasswordField = value;
                     this.RaisePropertyChanged("Password");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.StockOrder> StockOrders {
+            get {
+                return this.StockOrdersField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StockOrdersField, value) != true)) {
+                    this.StockOrdersField = value;
+                    this.RaisePropertyChanged("StockOrders");
                 }
             }
         }
@@ -319,6 +335,227 @@ namespace StockExchangePresentation.StockExchangeServices {
                 if ((this.IsWithdrawField.Equals(value) != true)) {
                     this.IsWithdrawField = value;
                     this.RaisePropertyChanged("IsWithdraw");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public StockExchangePresentation.StockExchangeServices.User User {
+            get {
+                return this.UserField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UserField, value) != true)) {
+                    this.UserField = value;
+                    this.RaisePropertyChanged("User");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int UserId {
+            get {
+                return this.UserIdField;
+            }
+            set {
+                if ((this.UserIdField.Equals(value) != true)) {
+                    this.UserIdField = value;
+                    this.RaisePropertyChanged("UserId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="StockOrder", Namespace="http://schemas.datacontract.org/2004/07/SE_Entities")]
+    [System.SerializableAttribute()]
+    public partial class StockOrder : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime DateTimeAddedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> DateTimeDeletedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> DateTimeUpdatedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsLimitOrderField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsOrderExecutedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal OrderStockPriceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private StockExchangePresentation.StockExchangeServices.Stock StockField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int StockCountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int StockIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private StockExchangePresentation.StockExchangeServices.User UserField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int UserIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime DateTimeAdded {
+            get {
+                return this.DateTimeAddedField;
+            }
+            set {
+                if ((this.DateTimeAddedField.Equals(value) != true)) {
+                    this.DateTimeAddedField = value;
+                    this.RaisePropertyChanged("DateTimeAdded");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> DateTimeDeleted {
+            get {
+                return this.DateTimeDeletedField;
+            }
+            set {
+                if ((this.DateTimeDeletedField.Equals(value) != true)) {
+                    this.DateTimeDeletedField = value;
+                    this.RaisePropertyChanged("DateTimeDeleted");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> DateTimeUpdated {
+            get {
+                return this.DateTimeUpdatedField;
+            }
+            set {
+                if ((this.DateTimeUpdatedField.Equals(value) != true)) {
+                    this.DateTimeUpdatedField = value;
+                    this.RaisePropertyChanged("DateTimeUpdated");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsLimitOrder {
+            get {
+                return this.IsLimitOrderField;
+            }
+            set {
+                if ((this.IsLimitOrderField.Equals(value) != true)) {
+                    this.IsLimitOrderField = value;
+                    this.RaisePropertyChanged("IsLimitOrder");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsOrderExecuted {
+            get {
+                return this.IsOrderExecutedField;
+            }
+            set {
+                if ((this.IsOrderExecutedField.Equals(value) != true)) {
+                    this.IsOrderExecutedField = value;
+                    this.RaisePropertyChanged("IsOrderExecuted");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal OrderStockPrice {
+            get {
+                return this.OrderStockPriceField;
+            }
+            set {
+                if ((this.OrderStockPriceField.Equals(value) != true)) {
+                    this.OrderStockPriceField = value;
+                    this.RaisePropertyChanged("OrderStockPrice");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public StockExchangePresentation.StockExchangeServices.Stock Stock {
+            get {
+                return this.StockField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StockField, value) != true)) {
+                    this.StockField = value;
+                    this.RaisePropertyChanged("Stock");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StockCount {
+            get {
+                return this.StockCountField;
+            }
+            set {
+                if ((this.StockCountField.Equals(value) != true)) {
+                    this.StockCountField = value;
+                    this.RaisePropertyChanged("StockCount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StockId {
+            get {
+                return this.StockIdField;
+            }
+            set {
+                if ((this.StockIdField.Equals(value) != true)) {
+                    this.StockIdField = value;
+                    this.RaisePropertyChanged("StockId");
                 }
             }
         }
@@ -569,6 +806,9 @@ namespace StockExchangePresentation.StockExchangeServices {
         private string StockNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.StockOrder> StockOrdersField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.UserStock> UserStocksField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -702,6 +942,19 @@ namespace StockExchangePresentation.StockExchangeServices {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.StockOrder> StockOrders {
+            get {
+                return this.StockOrdersField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StockOrdersField, value) != true)) {
+                    this.StockOrdersField = value;
+                    this.RaisePropertyChanged("StockOrders");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Collections.Generic.List<StockExchangePresentation.StockExchangeServices.UserStock> UserStocks {
             get {
                 return this.UserStocksField;
@@ -800,6 +1053,12 @@ namespace StockExchangePresentation.StockExchangeServices {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetBalance", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetBalanceResponse")]
         System.Threading.Tasks.Task<decimal> GetBalanceAsync(int userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/MarketOrder", ReplyAction="http://tempuri.org/IStockExchangeOrder/MarketOrderResponse")]
+        void MarketOrder(SE_Services.ViewModels.StockOrderViewModel stockOrder);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/MarketOrder", ReplyAction="http://tempuri.org/IStockExchangeOrder/MarketOrderResponse")]
+        System.Threading.Tasks.Task MarketOrderAsync(SE_Services.ViewModels.StockOrderViewModel stockOrder);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -907,6 +1166,14 @@ namespace StockExchangePresentation.StockExchangeServices {
         
         public System.Threading.Tasks.Task<decimal> GetBalanceAsync(int userId) {
             return base.Channel.GetBalanceAsync(userId);
+        }
+        
+        public void MarketOrder(SE_Services.ViewModels.StockOrderViewModel stockOrder) {
+            base.Channel.MarketOrder(stockOrder);
+        }
+        
+        public System.Threading.Tasks.Task MarketOrderAsync(SE_Services.ViewModels.StockOrderViewModel stockOrder) {
+            return base.Channel.MarketOrderAsync(stockOrder);
         }
     }
 }

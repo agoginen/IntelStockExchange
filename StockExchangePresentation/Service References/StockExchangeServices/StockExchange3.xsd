@@ -42,4 +42,19 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BalanceViewModel" nillable="true" type="tns:BalanceViewModel" />
+  <xs:complexType name="StockOrderViewModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateTimeAdded" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateTimeDeleted" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateTimeUpdated" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IsLimitOrder" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsOrderExecuted" type="xs:boolean" />
+      <xs:element minOccurs="0" name="OrderStockPrice" type="xs:decimal" />
+      <xs:element minOccurs="0" name="StockCount" type="xs:int" />
+      <xs:element minOccurs="0" name="StockId" type="xs:int" />
+      <xs:element minOccurs="0" name="UserId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StockOrderViewModel" nillable="true" type="tns:StockOrderViewModel" />
 </xs:schema>
