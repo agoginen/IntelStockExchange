@@ -722,10 +722,10 @@ namespace StockExchangePresentation.StockExchangeServices {
         System.Threading.Tasks.Task<SE_Services.ViewModels.UserViewModel> LoginAsync(StockExchangePresentation.StockExchangeServices.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/Logout", ReplyAction="http://tempuri.org/IStockExchangeOrder/LogoutResponse")]
-        bool Logout(int userId);
+        void Logout(int userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/Logout", ReplyAction="http://tempuri.org/IStockExchangeOrder/LogoutResponse")]
-        System.Threading.Tasks.Task<bool> LogoutAsync(int userId);
+        System.Threading.Tasks.Task LogoutAsync(int userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetAllStocks", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetAllStocksResponse")]
         System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel> GetAllStocks(int userId);
@@ -807,11 +807,11 @@ namespace StockExchangePresentation.StockExchangeServices {
             return base.Channel.LoginAsync(user);
         }
         
-        public bool Logout(int userId) {
-            return base.Channel.Logout(userId);
+        public void Logout(int userId) {
+            base.Channel.Logout(userId);
         }
         
-        public System.Threading.Tasks.Task<bool> LogoutAsync(int userId) {
+        public System.Threading.Tasks.Task LogoutAsync(int userId) {
             return base.Channel.LogoutAsync(userId);
         }
         

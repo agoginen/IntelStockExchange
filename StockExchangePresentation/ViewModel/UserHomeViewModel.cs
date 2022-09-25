@@ -1,8 +1,10 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using SE_Services.ViewModels;
 using StockExchangePresentation.Commands;
 using StockExchangePresentation.StockExchangeServices;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace StockExchangePresentation.ViewModel
@@ -21,6 +23,7 @@ namespace StockExchangePresentation.ViewModel
 
 		public ICommand Buy { get; set; }
 		public ICommand Sell { get; set; }
+		public ICommand Logout { get; set; }
 
 		public UserHomeViewModel()
 		{
@@ -28,6 +31,7 @@ namespace StockExchangePresentation.ViewModel
 			LoadStocks();
 			Buy = new DelegateCommand(BuyCommand);
 			Sell = new DelegateCommand(SellCommand);
+			Logout = new RelayCommand(LogoutCommand);
 		}
 
 		private void BuyCommand(object param)
@@ -48,6 +52,18 @@ namespace StockExchangePresentation.ViewModel
 				TransactionWindow transaction = new TransactionWindow(stock.Id, stock.StockName, stock.Price.Value, "Sell");
 				transaction.Show();
 			}
+		}
+
+		private void LogoutCommand()
+		{
+			StockExchangeOrderClient client = new StockExchangeOrderClient();
+			client.LogoutAsync(client.GetCurrentUserId());
+			client.Close();
+			//Open Mainwindow
+			MainWindow userWindow = new MainWindow();
+			userWindow.Show();
+			//Close Current window
+			Application.Current.Windows[0].Close();
 		}
 
 		public void LoadStocks()

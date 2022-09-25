@@ -58,6 +58,34 @@
                                VerticalAlignment="Center"
                                Margin="10,0,0,0"/>
 
+                    <TextBlock Text="Accouting"
+                               Foreground="DarkGray"
+                               FontSize="10"
+                               FontFamily="Montserrat"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="50,0,0,0"/>
+
+                    <TextBlock Text="Portfolio"
+                               Foreground="DarkGray"
+                               FontSize="10"
+                               FontFamily="Montserrat"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="105,0,0,0"/>
+
+                    <TextBlock Text="Logout"
+                               Foreground="DarkGray"
+                               FontSize="10"
+                               FontFamily="Montserrat"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="690,0,0,0">
+                        <TextBlock.InputBindings>
+                            <MouseBinding Command="{Binding Logout}" MouseAction="LeftClick" />
+                        </TextBlock.InputBindings>
+                    </TextBlock>
+
                     <Button x:Name="btnMinimize"                           
                             BorderThickness="0"
                             Content="-"

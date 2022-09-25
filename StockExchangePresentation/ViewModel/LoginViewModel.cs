@@ -9,10 +9,9 @@ namespace StockExchangePresentation.ViewModel
 	public class LoginViewModel : ViewModelBase
     {
         private User user;
-
         public ICommand LoginCommand { get; set; }
         public ICommand RegisterCommand { get; set; }
-        public string LoginLabel { get; set; }
+
         public string UserName
         {
             get
@@ -52,11 +51,8 @@ namespace StockExchangePresentation.ViewModel
         public LoginViewModel()
         {
             this.user = new User();
-
             LoginCommand = new RelayCommand(LoginUser);
             RegisterCommand = new RelayCommand(RegisterUser);
-
-            LoginLabel = "Login";
         }
 
         /// <summary>
@@ -86,10 +82,6 @@ namespace StockExchangePresentation.ViewModel
         /// </summary>
         private async void LoginUser()
         {
-			LoginLabel = "Logging in...";
-			RaisePropertyChanged("LoginLabel");
-			((RelayCommand)LoginCommand).RaiseCanExecuteChanged();
-
             StockExchangeOrderClient client = new StockExchangeOrderClient();
 			var loggedInUser = await client.LoginAsync(user);
 			client.Close();

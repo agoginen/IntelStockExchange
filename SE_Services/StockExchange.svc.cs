@@ -198,12 +198,9 @@ namespace SE_Services
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public bool Logout(int userId)
+        public void Logout(int userId)
         {
-            bool success = false;
             SessionManager.Instance.ActiveUsers.Remove(userId);
-            success = true;
-            return success;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace StockExchangeApp
         [OperationContract]
         UserViewModel Login(User user);
         [OperationContract]
-        bool Logout(int userId);
+        void Logout(int userId);
         [OperationContract]
         List<StockViewModel> GetAllStocks(int userId);
         [OperationContract]
