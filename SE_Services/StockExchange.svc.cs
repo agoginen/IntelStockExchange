@@ -299,11 +299,11 @@ namespace SE_Services
 
                     var recentOrder = ctx.StockOrders.Add(stockOrderEntity);
 
-                    var userStocks = ctx.UserStocks
+                    var oldUserStock = ctx.UserStocks
                                         .Where(x => x.StockId == recentOrder.StockId)
                                         .FirstOrDefault(); ;
-
-                    if (userStocks == null || userStocks.Id == 0)
+                    //First Purchase
+                    if (oldUserStock == null || oldUserStock.Id == 0)
                     {
                         var userStock = new UserStock
                         {
@@ -315,11 +315,14 @@ namespace SE_Services
                         };
 
                         ctx.UserStocks.Add(userStock);
+                        //Since no old stocks
+                        recentOrder.NewAverageStockPrice = recentOrder.OrderStockPrice;
                     }
                     else
                     {
-                        //recentOrder.OrderStockPrice =
-                        userStocks.StockCount += recentOrder.StockCount;
+                        //Calculating New cost of each stock
+                        recentOrder.NewAverageStockPrice = ((oldUserStock.StockCount * oldUserStock.Stock.Price) + (recentOrder.StockCount * recentOrder.OrderStockPrice))/(oldUserStock.StockCount + recentOrder.StockCount);
+                        oldUserStock.StockCount += recentOrder.StockCount;
                     }
 
                     ctx.SaveChanges();
@@ -406,7 +409,7 @@ namespace SE_Services
         private bool GetRandom(bool[] arr)
         {
             Random rand = new Random();
-            int n = rand.Next(arr.Length - 1);
+            int n = rand.Next(arr.Length);
             return arr[n];
         }
 
@@ -459,11 +462,11 @@ namespace SE_Services
                     var recentOrder = ctx.StockOrders
                                          .Add(stockOrderEntity);
 
-                    var userStocks = ctx.UserStocks
+                    var oldUserStock = ctx.UserStocks
                                         .Where(x => x.StockId == recentOrder.StockId)
                                         .FirstOrDefault(); ;
 
-					if (userStocks == null || userStocks.Id == 0)
+					if (oldUserStock == null || oldUserStock.Id == 0)
 					{
                         var userStock = new UserStock
                         {
@@ -478,8 +481,11 @@ namespace SE_Services
                     }
                     else
 					{
-                        userStocks.StockCount -= recentOrder.StockCount; 
+                        oldUserStock.StockCount -= recentOrder.StockCount; 
                     }
+
+                    //No Need To calculate Average
+                    recentOrder.NewAverageStockPrice = recentOrder.OrderStockPrice;
 
                     ctx.SaveChanges();
                 }
@@ -515,8 +521,8 @@ namespace SE_Services
                         Id = x.Id,
                         ExecutedPrice = x.StockOrder.OrderStockPrice,
                         CurrentValue = x.Stock.Price * x.StockCount,
-                        Gain = x.StockCount == 0 ? 0 : (x.Stock.Price * x.StockCount) - (x.StockOrder.OrderStockPrice * x.StockCount),
-                        GainPercetage= x.StockCount == 0 ? 0 : (((x.Stock.Price * x.StockCount) - (x.StockOrder.OrderStockPrice * x.StockCount))/(x.StockCount * x.StockOrder.OrderStockPrice))
+                        Gain = x.StockCount == 0 ? 0 : (x.Stock.Price * x.StockCount) - (x.StockOrder.NewAverageStockPrice * x.StockCount),
+                        GainPercetage= x.StockCount == 0 ? 0 : (((x.Stock.Price * x.StockCount) - (x.StockOrder.NewAverageStockPrice * x.StockCount))/(x.StockCount * x.StockOrder.NewAverageStockPrice))
                     }).ToList();
 
                     return stocks;
