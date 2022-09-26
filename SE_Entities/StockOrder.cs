@@ -38,6 +38,8 @@ namespace SE_Entities
 
         public bool IsActive { get; set; }
 
+        public decimal? NewAverageStockPrice { get; set; }
+
         public virtual Stock Stock { get; set; }
 
         public virtual User User { get; set; }

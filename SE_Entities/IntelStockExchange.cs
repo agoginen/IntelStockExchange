@@ -29,6 +29,10 @@ namespace SE_Entities
 				.HasPrecision(19, 4);
 
 			modelBuilder.Entity<StockOrder>()
+				.Property(e => e.NewAverageStockPrice)
+				.HasPrecision(19, 4);
+
+			modelBuilder.Entity<StockOrder>()
 				.HasMany(e => e.UserStocks)
 				.WithRequired(e => e.StockOrder)
 				.WillCascadeOnDelete(false);
