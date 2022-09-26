@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:StockExchangePresentation"
         xmlns:vm="clr-namespace:StockExchangePresentation.ViewModel"
-        Title="Home Window" Height="550" Width="500"
+        Title="Accounting Window" Height="550" Width="500"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
