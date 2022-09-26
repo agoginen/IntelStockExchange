@@ -108,7 +108,7 @@ namespace SE_Services
                 {
                     List<StockViewModel> stocks = ctx.Stocks.Select(x => new StockViewModel
                     {
-                        StockCount = x.UserStocks.Count == 0 ? 0 : x.UserStocks.FirstOrDefault().StockCount,
+                        StockCount = x.UserStocks.FirstOrDefault(y => y.UserId == userId) == null ? 0 : x.UserStocks.FirstOrDefault(y => y.UserId == userId).StockCount,
                         StockName = x.StockName,
                         Price = x.Price,
                         HighPrice = x.HighPrice,
