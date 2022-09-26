@@ -512,20 +512,22 @@ namespace SE_Services
             {
                 using (var ctx = new IntelStockExchange())
                 {
-                    List<StockViewModel> stocks = ctx.UserStocks.Select(x => new StockViewModel
-                    {
-                        StockCount = x.StockCount,
-                        StockName = x.Stock.StockName,
-                        Price = x.Stock.Price,
-                        HighPrice = x.Stock.HighPrice,
-                        LowPrice = x.Stock.LowPrice,
-                        StartPrice = x.Stock.StartPrice,
-                        Id = x.Id,
-                        ExecutedPrice = x.StockOrder.OrderStockPrice,
-                        CurrentValue = x.Stock.Price * x.StockCount,
-                        Gain = x.StockCount == 0 ? 0 : (x.Stock.Price * x.StockCount) - (x.StockOrder.NewAverageStockPrice * x.StockCount),
-                        GainPercetage= x.StockCount == 0 ? 0 : (((x.Stock.Price * x.StockCount) - (x.StockOrder.NewAverageStockPrice * x.StockCount))/(x.StockCount * x.StockOrder.NewAverageStockPrice))
-                    }).ToList();
+                    List<StockViewModel> stocks = ctx.UserStocks
+                                                     .Where(x => x.UserId == userId)
+                                                     .Select(x => new StockViewModel
+                                                     {
+                                                        StockCount = x.StockCount,
+                                                        StockName = x.Stock.StockName,
+                                                        Price = x.Stock.Price,
+                                                        HighPrice = x.Stock.HighPrice,
+                                                        LowPrice = x.Stock.LowPrice,
+                                                        StartPrice = x.Stock.StartPrice,
+                                                        Id = x.Id,
+                                                        ExecutedPrice = x.StockOrder.OrderStockPrice,
+                                                        CurrentValue = x.Stock.Price * x.StockCount,
+                                                        Gain = x.StockCount == 0 ? 0 : (x.Stock.Price * x.StockCount) - (x.StockOrder.NewAverageStockPrice * x.StockCount),
+                                                        GainPercetage= x.StockCount == 0 ? 0 : (((x.Stock.Price * x.StockCount) - (x.StockOrder.NewAverageStockPrice * x.StockCount))/(x.StockCount * x.StockOrder.NewAverageStockPrice))
+                                                     }).ToList();
 
                     return stocks;
                 }
