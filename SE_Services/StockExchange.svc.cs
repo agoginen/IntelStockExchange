@@ -243,9 +243,10 @@ namespace SE_Services
         private int GetTotalStockCount(Stock stock)
 		{
             int count = 0;
-            if(stock.UserStocks.Count > 0)
+            var userStocks = stock.UserStocks.Where(x => x.UserId == GetCurrentUserId()).ToList();
+            if(userStocks.Count > 0)
 			{
-				foreach (var userStock in stock.UserStocks)
+				foreach (var userStock in userStocks)
 				{
                     count = +userStock.StockCount;
 				}
@@ -300,7 +301,7 @@ namespace SE_Services
                     var recentOrder = ctx.StockOrders.Add(stockOrderEntity);
 
                     var oldUserStock = ctx.UserStocks
-                                        .Where(x => x.StockId == recentOrder.StockId)
+                                        .Where(x => x.StockId == recentOrder.StockId && x.UserId == recentOrder.UserId)
                                         .FirstOrDefault(); ;
                     //First Purchase
                     if (oldUserStock == null || oldUserStock.Id == 0)
@@ -464,7 +465,7 @@ namespace SE_Services
                                          .Add(stockOrderEntity);
 
                     var oldUserStock = ctx.UserStocks
-                                        .Where(x => x.StockId == recentOrder.StockId)
+                                        .Where(x => x.StockId == recentOrder.StockId && x.UserId == recentOrder.UserId)
                                         .FirstOrDefault(); ;
 
 					if (oldUserStock == null || oldUserStock.Id == 0)
