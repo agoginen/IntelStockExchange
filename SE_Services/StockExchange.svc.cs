@@ -114,8 +114,11 @@ namespace SE_Services
                         HighPrice = x.HighPrice,
                         LowPrice = x.LowPrice,
                         StartPrice = x.StartPrice,
-                        Id = x.Id
+                        Id = x.Id,
+                        ExecutedPrice = x.UserStocks.Count == 0 ? 0 : x.UserStocks.FirstOrDefault().StockOrder.OrderStockPrice,
+                        CurrentValue = x.Price * (x.UserStocks.Count == 0 ? 0 : x.UserStocks.FirstOrDefault().StockCount),
                     }).ToList();
+
                     return stocks;
                 }
             }
@@ -296,7 +299,6 @@ namespace SE_Services
 
                     var recentOrder = ctx.StockOrders.Add(stockOrderEntity);
 
-
                     var userStocks = ctx.UserStocks
                                         .Where(x => x.StockId == recentOrder.StockId)
                                         .FirstOrDefault(); ;
@@ -316,6 +318,7 @@ namespace SE_Services
                     }
                     else
                     {
+                        //recentOrder.OrderStockPrice =
                         userStocks.StockCount += recentOrder.StockCount;
                     }
 
@@ -488,5 +491,41 @@ namespace SE_Services
 
             return result;
         }
-	}
+
+        /// <summary>
+        /// Gets Portfolio Stock Information
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public List<StockViewModel> GetPortfolioStocks(int userId)
+		{
+            //validating if request from valid userId
+            if (SessionManager.Instance.ValidateUser(userId))
+            {
+                using (var ctx = new IntelStockExchange())
+                {
+                    List<StockViewModel> stocks = ctx.UserStocks.Select(x => new StockViewModel
+                    {
+                        StockCount = x.StockCount,
+                        StockName = x.Stock.StockName,
+                        Price = x.Stock.Price,
+                        HighPrice = x.Stock.HighPrice,
+                        LowPrice = x.Stock.LowPrice,
+                        StartPrice = x.Stock.StartPrice,
+                        Id = x.Id,
+                        ExecutedPrice = x.StockOrder.OrderStockPrice,
+                        CurrentValue = x.Stock.Price * x.StockCount,
+                        Gain = x.StockCount == 0 ? 0 : (x.Stock.Price * x.StockCount) - (x.StockOrder.OrderStockPrice * x.StockCount),
+                        GainPercetage= x.StockCount == 0 ? 0 : (((x.Stock.Price * x.StockCount) - (x.StockOrder.OrderStockPrice * x.StockCount))/(x.StockCount * x.StockOrder.OrderStockPrice))
+                    }).ToList();
+
+                    return stocks;
+                }
+            }
+            else
+            {
+                return new List<StockViewModel>();
+            }
+        }
+    }
 }

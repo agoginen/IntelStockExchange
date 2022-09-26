@@ -24,9 +24,17 @@ namespace SE_Services.ViewModels
 
         public decimal? StartPrice { get; set; }
 
+        public decimal? ExecutedPrice { get; set; }
+
         public int Volume { get; set; }
 
         public decimal MarketCapitalization { get; set; }
+
+        public decimal? Gain { get; set; }
+        
+        public decimal? GainPercetage { get; set; }
+
+        public decimal CurrentValue { get; set; }
 
         public DateTime DateTimeAdded { get; set; }
 

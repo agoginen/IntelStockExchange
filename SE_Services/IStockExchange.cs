@@ -32,5 +32,7 @@ namespace StockExchangeApp
         bool MarketOrderSell(StockOrderViewModel stockOrder);
         [OperationContract]
         void StockPriceTicker();
+        [OperationContract]
+        List<StockViewModel> GetPortfolioStocks(int userId);
     }
 }

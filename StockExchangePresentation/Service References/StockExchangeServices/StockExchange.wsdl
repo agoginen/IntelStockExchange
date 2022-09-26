@@ -80,6 +80,12 @@
   <wsdl:message name="IStockExchangeOrder_StockPriceTicker_OutputMessage">
     <wsdl:part name="parameters" element="tns:StockPriceTickerResponse" />
   </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_GetPortfolioStocks_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPortfolioStocks" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_GetPortfolioStocks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPortfolioStocksResponse" />
+  </wsdl:message>
   <wsdl:portType name="IStockExchangeOrder">
     <wsdl:operation name="Register">
       <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/Register" message="tns:IStockExchangeOrder_Register_InputMessage" />
@@ -128,6 +134,10 @@
     <wsdl:operation name="StockPriceTicker">
       <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/StockPriceTicker" message="tns:IStockExchangeOrder_StockPriceTicker_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/StockPriceTickerResponse" message="tns:IStockExchangeOrder_StockPriceTicker_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPortfolioStocks">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/GetPortfolioStocks" message="tns:IStockExchangeOrder_GetPortfolioStocks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/GetPortfolioStocksResponse" message="tns:IStockExchangeOrder_GetPortfolioStocks_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IStockExchangeOrder" type="tns:IStockExchangeOrder">
@@ -233,6 +243,15 @@
     </wsdl:operation>
     <wsdl:operation name="StockPriceTicker">
       <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/StockPriceTicker" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPortfolioStocks">
+      <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/GetPortfolioStocks" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

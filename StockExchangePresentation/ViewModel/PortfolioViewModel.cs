@@ -4,15 +4,19 @@ using SE_Services.ViewModels;
 using StockExchangePresentation.Commands;
 using StockExchangePresentation.StockExchangeServices;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
 namespace StockExchangePresentation.ViewModel
 {
-	public class UserHomeViewModel : ViewModelBase
+	public class PortfolioViewModel : ViewModelBase
 	{
 		private readonly Timer _refreshTicker;
 		private string _balance { get; set; }
@@ -49,70 +53,19 @@ namespace StockExchangePresentation.ViewModel
 		public ICommand Logout { get; set; }
 		public ICommand Accounting { get; set; }
 		public ICommand Home { get; set; }
-		public ICommand Deposit { get; set; }
-		public ICommand Withdraw { get; set; }
 		public ICommand Portfolio { get; set; }
 
-		public UserHomeViewModel()
+		public PortfolioViewModel()
 		{
 			this._userStocks = new ObservableCollection<StockViewModel>();
 			BindingOperations.EnableCollectionSynchronization(_userStocks, _lock);
 			_refreshTicker = new Timer(RefreshStocks, null, 0, 1000);
-			this._balance = "$ " + GetBalance().ToString();
 			Buy = new DelegateCommand(BuyCommand);
 			Sell = new DelegateCommand(SellCommand);
 			Logout = new RelayCommand(LogoutCommand);
 			Accounting = new RelayCommand(AccountingCommand);
 			Home = new RelayCommand(HomeCommand);
-			Deposit = new RelayCommand(DepositCommand);
-			Withdraw = new RelayCommand(WithdrawCommand);
 			Portfolio = new RelayCommand(PortfolioCommand);
-		}
-
-		/// <summary>
-		/// Gets Balance for current User
-		/// </summary>
-		/// <returns></returns>
-		private decimal GetBalance()
-		{
-			StockExchangeOrderClient client = new StockExchangeOrderClient();
-			var balanceAmount = client.GetBalance(client.GetCurrentUserId());
-			client.Close();
-			return balanceAmount;
-		}
-
-		/// <summary>
-		/// User will be able to withdraw money
-		/// </summary>
-		private void DepositCommand()
-		{
-			StockExchangeOrderClient client = new StockExchangeOrderClient();
-			var balanceViewModel = new BalanceViewModel
-			{
-				Balance = _newBalance,
-				IsWithdraw = false,
-				DateTimeAdded = DateTime.Now,
-				UserId = client.GetCurrentUserId()
-			};
-			client.BalanceTransaction(balanceViewModel);
-			AccountingCommand();
-		}
-
-		/// <summary>
-		/// User will be able to withdraw money
-		/// </summary>
-		private void WithdrawCommand()
-		{
-			StockExchangeOrderClient client = new StockExchangeOrderClient();
-			var balanceViewModel = new BalanceViewModel
-			{
-				Balance = _newBalance,
-				IsWithdraw = true,
-				DateTimeAdded = DateTime.Now,
-				UserId = client.GetCurrentUserId()
-			};
-			client.BalanceTransaction(balanceViewModel);
-			AccountingCommand();
 		}
 
 		/// <summary>
@@ -160,7 +113,7 @@ namespace StockExchangePresentation.ViewModel
 			StockViewModel stock = param as StockViewModel;
 			if (stock != null)
 			{
-				TransactionWindow transaction = new TransactionWindow(stock.Id,stock.StockName, stock.Price.Value,"Buy");
+				TransactionWindow transaction = new TransactionWindow(stock.Id, stock.StockName, stock.Price.Value, "Buy");
 				transaction.Show();
 			}
 		}
@@ -195,21 +148,6 @@ namespace StockExchangePresentation.ViewModel
 		}
 
 		/// <summary>
-		/// Loads stocks from database
-		/// </summary>
-		public void LoadStocks()
-		{
-			_userStocks.Clear();
-			StockExchangeOrderClient client = new StockExchangeOrderClient();
-			var allStocks = client.GetAllUserStocks(client.GetCurrentUserId());
-			client.Close();
-			foreach (var s in allStocks)
-			{
-				_userStocks.Add(s);
-			}
-		}
-
-		/// <summary>
 		/// Refreshes DataSource Regularly
 		/// </summary>
 		/// <param name="state"></param>
@@ -217,7 +155,7 @@ namespace StockExchangePresentation.ViewModel
 		{
 			_userStocks.Clear();
 			StockExchangeOrderClient client = new StockExchangeOrderClient();
-			var allStocks = client.GetAllUserStocks(client.GetCurrentUserId());
+			var allStocks = client.GetPortfolioStocks(client.GetCurrentUserId());
 			client.Close();
 			foreach (var s in allStocks)
 			{

@@ -124,6 +124,9 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PortfolioWindow.xaml.cs">
+      <DependentUpon>PortfolioWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RegistrationWindow.xaml.cs">
       <DependentUpon>RegistrationWindow.xaml</DependentUpon>
     </Compile>
@@ -140,6 +143,7 @@
     </Compile>
     <Compile Include="ViewModel\AdminViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\PortfolioViewModel.cs" />
     <Compile Include="ViewModel\UserHomeViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -156,6 +160,10 @@
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PortfolioWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RegistrationWindow.xaml">
       <SubType>Designer</SubType>

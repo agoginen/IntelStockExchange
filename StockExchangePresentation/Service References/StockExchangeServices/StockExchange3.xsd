@@ -16,9 +16,13 @@
   <xs:element name="ArrayOfStockViewModel" nillable="true" type="tns:ArrayOfStockViewModel" />
   <xs:complexType name="StockViewModel">
     <xs:sequence>
+      <xs:element minOccurs="0" name="CurrentValue" type="xs:decimal" />
       <xs:element minOccurs="0" name="DateTimeAdded" type="xs:dateTime" />
       <xs:element minOccurs="0" name="DateTimeDeleted" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="DateTimeUpdated" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ExecutedPrice" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Gain" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="GainPercetage" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="HighPrice" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="LowPrice" nillable="true" type="xs:decimal" />

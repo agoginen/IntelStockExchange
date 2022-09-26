@@ -1145,6 +1145,12 @@ namespace StockExchangePresentation.StockExchangeServices {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/StockPriceTicker", ReplyAction="http://tempuri.org/IStockExchangeOrder/StockPriceTickerResponse")]
         System.Threading.Tasks.Task StockPriceTickerAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetPortfolioStocks", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetPortfolioStocksResponse")]
+        System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel> GetPortfolioStocks(int userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetPortfolioStocks", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetPortfolioStocksResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel>> GetPortfolioStocksAsync(int userId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1268,6 +1274,14 @@ namespace StockExchangePresentation.StockExchangeServices {
         
         public System.Threading.Tasks.Task StockPriceTickerAsync() {
             return base.Channel.StockPriceTickerAsync();
+        }
+        
+        public System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel> GetPortfolioStocks(int userId) {
+            return base.Channel.GetPortfolioStocks(userId);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel>> GetPortfolioStocksAsync(int userId) {
+            return base.Channel.GetPortfolioStocksAsync(userId);
         }
     }
 }
