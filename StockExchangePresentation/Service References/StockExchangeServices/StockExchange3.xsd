@@ -62,4 +62,10 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="StockOrderViewModel" nillable="true" type="tns:StockOrderViewModel" />
+  <xs:complexType name="ArrayOfStockOrderViewModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StockOrderViewModel" nillable="true" type="tns:StockOrderViewModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStockOrderViewModel" nillable="true" type="tns:ArrayOfStockOrderViewModel" />
 </xs:schema>

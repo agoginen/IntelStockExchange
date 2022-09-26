@@ -453,6 +453,7 @@ namespace SE_Services
                         IsLimitOrder = stockOrder.IsLimitOrder,
                         IsOrderExecuted = true,
                         IsBuyOrder = false,
+                        //False Since Executed
                         IsActive = true,
                         DateTimeAdded = DateTime.Now
                     };
@@ -533,5 +534,38 @@ namespace SE_Services
                 return new List<StockViewModel>();
             }
         }
+
+        /// <summary>
+        /// Gets Stock Order History from Database
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public List<StockOrderViewModel> GetStockOrderHistory(int userId)
+		{
+            var result = new List<StockOrderViewModel>();
+
+            if (SessionManager.Instance.ValidateUser(userId))
+			{
+                using (var ctx = new IntelStockExchange())
+                {
+                    result = ctx.StockOrders
+                                .Where(x => x.UserId == userId)
+                                .Select(x => new StockOrderViewModel { 
+                                    Id = x.Id,
+                                    StockCount = x.StockCount,
+                                    OrderStockPrice = x.OrderStockPrice,
+                                    IsLimitOrder = x.IsLimitOrder,
+                                    IsOrderExecuted = x.IsOrderExecuted,
+                                    UserId = x.UserId,
+                                    OrderStatus = x.IsOrderExecuted ? "Completed Order" : "Pending Order",
+                                    OrderType = x.IsLimitOrder ? "Limit Order" : "Market Order",
+                                    BuySellType = x.IsBuyOrder ? "Buy" : "Sell"
+                                })
+                                .ToList();
+                }
+            }
+
+            return result;
+		}
     }
 }

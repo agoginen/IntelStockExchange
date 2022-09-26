@@ -17,9 +17,17 @@ namespace SE_Services.ViewModels
 
         public bool IsLimitOrder { get; set; }
 
+        public String OrderType { get; set; }
+
         public bool IsOrderExecuted { get; set; }
 
+        public string OrderStatus { get; set; }
+
         public int UserId { get; set; }
+
+        public bool IsBuyOrder { get; set; }
+
+        public string BuySellType { get; set; }
 
         public DateTime DateTimeAdded { get; set; }
 

@@ -34,5 +34,7 @@ namespace StockExchangeApp
         void StockPriceTicker();
         [OperationContract]
         List<StockViewModel> GetPortfolioStocks(int userId);
+        [OperationContract]
+        List<StockOrderViewModel> GetStockOrderHistory(int userId);
     }
 }

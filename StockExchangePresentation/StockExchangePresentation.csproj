@@ -138,12 +138,16 @@
     <Compile Include="TransactionWindow.xaml.cs">
       <DependentUpon>TransactionWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserHistoryWindow.xaml.cs">
+      <DependentUpon>UserHistoryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserHomeWindow.xaml.cs">
       <DependentUpon>UserHomeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AdminViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\PortfolioViewModel.cs" />
+    <Compile Include="ViewModel\UserHistoryViewModel.cs" />
     <Compile Include="ViewModel\UserHomeViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -173,6 +177,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserHomeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -198,6 +206,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\SE_Services.ViewModels.StockOrderViewModel.datasource" />
     <None Include="Properties\DataSources\SE_Services.ViewModels.StockViewModel.datasource" />
     <None Include="Properties\DataSources\SE_Services.ViewModels.UserViewModel.datasource" />
     <None Include="Properties\Settings.settings">

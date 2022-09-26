@@ -409,6 +409,9 @@ namespace StockExchangePresentation.StockExchangeServices {
         private bool IsOrderExecutedField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> NewAverageStockPriceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal OrderStockPriceField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -539,6 +542,19 @@ namespace StockExchangePresentation.StockExchangeServices {
                 if ((this.IsOrderExecutedField.Equals(value) != true)) {
                     this.IsOrderExecutedField = value;
                     this.RaisePropertyChanged("IsOrderExecuted");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> NewAverageStockPrice {
+            get {
+                return this.NewAverageStockPriceField;
+            }
+            set {
+                if ((this.NewAverageStockPriceField.Equals(value) != true)) {
+                    this.NewAverageStockPriceField = value;
+                    this.RaisePropertyChanged("NewAverageStockPrice");
                 }
             }
         }
@@ -1151,6 +1167,12 @@ namespace StockExchangePresentation.StockExchangeServices {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetPortfolioStocks", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetPortfolioStocksResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel>> GetPortfolioStocksAsync(int userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetStockOrderHistory", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetStockOrderHistoryResponse")]
+        System.Collections.Generic.List<SE_Services.ViewModels.StockOrderViewModel> GetStockOrderHistory(int userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetStockOrderHistory", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetStockOrderHistoryResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockOrderViewModel>> GetStockOrderHistoryAsync(int userId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1282,6 +1304,14 @@ namespace StockExchangePresentation.StockExchangeServices {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockViewModel>> GetPortfolioStocksAsync(int userId) {
             return base.Channel.GetPortfolioStocksAsync(userId);
+        }
+        
+        public System.Collections.Generic.List<SE_Services.ViewModels.StockOrderViewModel> GetStockOrderHistory(int userId) {
+            return base.Channel.GetStockOrderHistory(userId);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockOrderViewModel>> GetStockOrderHistoryAsync(int userId) {
+            return base.Channel.GetStockOrderHistoryAsync(userId);
         }
     }
 }
