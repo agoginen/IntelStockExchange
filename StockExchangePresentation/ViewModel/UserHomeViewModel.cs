@@ -52,6 +52,7 @@ namespace StockExchangePresentation.ViewModel
 		public ICommand Deposit { get; set; }
 		public ICommand Withdraw { get; set; }
 		public ICommand Portfolio { get; set; }
+		public ICommand TransactionHistory { get; set; }
 
 		public UserHomeViewModel()
 		{
@@ -67,6 +68,7 @@ namespace StockExchangePresentation.ViewModel
 			Deposit = new RelayCommand(DepositCommand);
 			Withdraw = new RelayCommand(WithdrawCommand);
 			Portfolio = new RelayCommand(PortfolioCommand);
+			TransactionHistory = new RelayCommand(TransactionHistoryCommand);
 		}
 
 		/// <summary>
@@ -133,8 +135,20 @@ namespace StockExchangePresentation.ViewModel
 		private void HomeCommand()
 		{
 			//Open User Home Window
-			UserHomeWindow homeWindow = new UserHomeWindow();
-			homeWindow.Show();
+			UserHomeWindow userHomeWindow = new UserHomeWindow();
+			userHomeWindow.Show();
+			//Close Current Window
+			Application.Current.Windows[0].Close();
+		}
+
+		/// <summary>
+		/// Opens Transaction History Page
+		/// </summary>
+		private void TransactionHistoryCommand()
+		{
+			//Open User Home Window
+			UserHistoryWindow userHistory = new UserHistoryWindow();
+			userHistory.Show();
 			//Close Current Window
 			Application.Current.Windows[0].Close();
 		}

@@ -8,6 +8,8 @@ namespace SE_Services.ViewModels
 
         public int StockId { get; set; }
 
+        public string StockName { get; set; }
+
         public int StockCount { get; set; }
 
         public decimal OrderStockPrice { get; set; }

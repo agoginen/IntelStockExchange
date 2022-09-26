@@ -553,6 +553,7 @@ namespace SE_Services
                                 .Select(x => new StockOrderViewModel { 
                                     Id = x.Id,
                                     StockCount = x.StockCount,
+                                    StockName = x.Stock.StockName,
                                     OrderStockPrice = x.OrderStockPrice,
                                     IsLimitOrder = x.IsLimitOrder,
                                     IsOrderExecuted = x.IsOrderExecuted,

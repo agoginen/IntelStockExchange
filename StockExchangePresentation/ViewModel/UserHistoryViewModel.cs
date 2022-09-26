@@ -26,6 +26,8 @@ namespace StockExchangePresentation.ViewModel
 
 		public UserHistoryViewModel()
 		{
+			this._stockOrders = new ObservableCollection<StockOrderViewModel>();
+			LoadStockOrders();
 			Logout = new RelayCommand(LogoutCommand);
 			Accounting = new RelayCommand(AccountingCommand);
 			Home = new RelayCommand(HomeCommand);
