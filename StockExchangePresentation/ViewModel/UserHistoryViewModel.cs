@@ -51,6 +51,7 @@ namespace StockExchangePresentation.ViewModel
 				client.CancelPendingOrder(stockOrder.Id);
 				client.Close();
 			}
+			LoadStockOrders();
 		}
 
 		/// <summary>
