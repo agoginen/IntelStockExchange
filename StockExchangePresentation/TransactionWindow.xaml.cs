@@ -136,7 +136,7 @@ namespace StockExchangePresentation
         {
             if (_stockCount > 0)
             {
-                if (_marketTimingViewModel.IsActive && (_marketTimingViewModel.StartTime > DateTime.Now.TimeOfDay && _marketTimingViewModel.CloseTime < DateTime.Now.TimeOfDay)) 
+                if (_marketTimingViewModel.IsActive && (DateTime.Now.TimeOfDay > _marketTimingViewModel.StartTime && DateTime.Now.TimeOfDay < _marketTimingViewModel.CloseTime)) 
                 {
                     if (_transaction == "Buy")
                     {
