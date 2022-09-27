@@ -62,6 +62,7 @@
       <xs:element minOccurs="0" name="OrderType" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="StockCount" type="xs:int" />
       <xs:element minOccurs="0" name="StockId" type="xs:int" />
+      <xs:element minOccurs="0" name="StockName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UserId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>

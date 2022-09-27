@@ -11,7 +11,7 @@ namespace SE_Services
 	public class StockExchange : IStockExchangeOrder
     {
         private Timer _stockTicker;
-        private readonly bool[] addSub = { true, false };
+        private readonly bool[] addSub = { true, false, true };
 
         /// <summary>
         /// Starts Ticker
@@ -338,6 +338,63 @@ namespace SE_Services
         }
 
         /// <summary>
+        /// Places Buy order for limit Order for given stock
+        /// </summary>
+        /// <param name="stockOrder"></param>
+        public bool LimitOrderBuy(StockOrderViewModel stockOrder)
+        {
+            var result = true;
+            var userStockCount = 0;
+            using (var ctx = new IntelStockExchange())
+            {
+                var stock = ctx.Stocks
+                               .Where(x => x.Id == stockOrder.StockId)
+                               .FirstOrDefault();
+
+                if (stock.Id != 0)
+                    userStockCount = GetTotalStockCount(stock);
+
+                //Checking if Volume is available or not
+                if (stock.Id != 0 && stock.Volume >= (stockOrder.StockCount + userStockCount))
+                {
+                    //The reason why we are adding Balance transaction is, When purchasing stock we consider it as withdrawal
+                    var balanceEntity = new Balance
+                    {
+                        Balance1 = stockOrder.StockCount * stockOrder.OrderStockPrice,
+                        IsWithdraw = true,
+                        DateTimeAdded = DateTime.Now,
+                        UserId = stockOrder.UserId
+                    };
+
+                    ctx.Balances.Add(balanceEntity);
+
+                    var stockOrderEntity = new StockOrder
+                    {
+                        StockId = stockOrder.StockId,
+                        StockCount = stockOrder.StockCount,
+                        OrderStockPrice = stockOrder.OrderStockPrice,
+                        UserId = stockOrder.UserId,
+                        IsLimitOrder = stockOrder.IsLimitOrder,
+                        IsOrderExecuted = false,
+                        IsBuyOrder = true,
+                        IsActive = true,
+                        DateTimeAdded = DateTime.Now
+                    };
+
+                    var recentOrder = ctx.StockOrders.Add(stockOrderEntity);
+
+                    ctx.SaveChanges();
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Simulates stock price like real time
         /// </summary>
         private void StockPriceSimulator(object state)
@@ -363,6 +420,9 @@ namespace SE_Services
                     ctx.SaveChanges();
                 }
             }
+
+            //After price change execute limit orders
+            ExecuteValidLimitOrders();
         }
 
         /// <summary>
@@ -436,7 +496,7 @@ namespace SE_Services
                 //Checking if USerstocks are available or not
                 if (stock.Id != 0 && stockOrder.StockCount <= userStockCount)
                 {
-                    //The reason why we are adding Balance transaction is, When purchasing stock we consider it as Deposit
+                    //The reason why we are adding Balance transaction is, When selling stock we consider it as Deposit
                     var balanceEntity = new Balance
                     {
                         Balance1 = stockOrder.StockCount * stockOrder.OrderStockPrice,
@@ -466,7 +526,7 @@ namespace SE_Services
 
                     var oldUserStock = ctx.UserStocks
                                         .Where(x => x.StockId == recentOrder.StockId && x.UserId == recentOrder.UserId)
-                                        .FirstOrDefault(); ;
+                                        .FirstOrDefault();
 
 					if (oldUserStock == null || oldUserStock.Id == 0)
 					{
@@ -487,7 +547,56 @@ namespace SE_Services
                     }
 
                     //No Need To calculate Average
-                    recentOrder.NewAverageStockPrice = recentOrder.OrderStockPrice;
+                    recentOrder.NewAverageStockPrice = oldUserStock.Stock.Price;
+
+                    ctx.SaveChanges();
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Places Sell Order for Limit Order for given stock
+        /// </summary>
+        /// <param name="stockOrder"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public bool LimitOrderSell(StockOrderViewModel stockOrder)
+        {
+            var result = true;
+            var userStockCount = 0;
+            using (var ctx = new IntelStockExchange())
+            {
+                var stock = ctx.Stocks
+                               .Where(x => x.Id == stockOrder.StockId)
+                               .FirstOrDefault();
+
+                if (stock.Id != 0)
+                    userStockCount = GetTotalStockCount(stock);
+
+                //Checking if USerstocks are available or not
+                if (stock.Id != 0 && stockOrder.StockCount <= userStockCount)
+                {
+                    var stockOrderEntity = new StockOrder
+                    {
+                        StockId = stockOrder.StockId,
+                        StockCount = stockOrder.StockCount,
+                        OrderStockPrice = stockOrder.OrderStockPrice,
+                        UserId = stockOrder.UserId,
+                        IsLimitOrder = stockOrder.IsLimitOrder,
+                        IsOrderExecuted = false,
+                        IsBuyOrder = false,
+                        IsActive = true,
+                        DateTimeAdded = DateTime.Now
+                    };
+
+                    var recentOrder = ctx.StockOrders
+                                         .Add(stockOrderEntity);
 
                     ctx.SaveChanges();
                 }
@@ -571,5 +680,170 @@ namespace SE_Services
 
             return result;
 		}
+
+        /// <summary>
+        /// Executes All Limit Orders
+        /// </summary>
+        private void ExecuteValidLimitOrders()
+		{
+            using (var ctx = new IntelStockExchange())
+			{
+                var pendingOrders = ctx.StockOrders
+                                       .Where(x => x.IsActive
+                                                   && x.IsLimitOrder
+                                                   && !x.IsOrderExecuted)
+                                       .ToList();
+				
+                foreach (var pendingOrder in pendingOrders)
+				{
+                    if(pendingOrder.DateTimeAdded.Day == DateTime.Now.Day)
+					{
+                        var currentStock = ctx.Stocks
+                                              .Where(x => x.Id == pendingOrder.StockId)
+                                              .FirstOrDefault();
+
+                        if (pendingOrder.IsBuyOrder)
+                        {
+                            if (currentStock.Price <= pendingOrder.OrderStockPrice  )
+                            {
+                                ExecuteLimitBuy(pendingOrder);
+                            }
+                        }
+                        else
+                        {
+                            if (currentStock.Price >= pendingOrder.OrderStockPrice)
+                            {
+                                ExecuteLimitSell(pendingOrder);
+                            }
+                        }
+                    }
+					else
+					{
+                        CancelPendingOrder(pendingOrder.Id);
+                    }
+				}
+			}
+        }
+
+        /// <summary>
+        /// Executes pending Limit Order Buy
+        /// </summary>
+        /// <param name="stockOrder"></param>
+        private void ExecuteLimitBuy(StockOrder pendingOrder)
+		{
+            using (var context = new IntelStockExchange())
+			{
+                var stockOrder = context.StockOrders
+                                    .First(x => x.Id == pendingOrder.Id);
+
+                var oldUserStock = context.UserStocks
+                                      .Where(x => x.StockId == pendingOrder.StockId && x.UserId == pendingOrder.UserId)
+                                      .FirstOrDefault(); ;
+                //First Purchase
+                if (oldUserStock == null || oldUserStock.Id == 0)
+                {
+                    var userStock = new UserStock
+                    {
+                        UserId = stockOrder.UserId,
+                        StockId = stockOrder.StockId,
+                        StockCount = stockOrder.StockCount,
+                        StockOrderId = stockOrder.Id,
+                        DateTimeAdded = DateTime.Now
+                    };
+
+                    context.UserStocks.Add(userStock);
+                    //Since no old stocks
+                    stockOrder.NewAverageStockPrice = pendingOrder.OrderStockPrice;
+                }
+                else
+                {
+                    //Calculating New cost of each stock
+                    stockOrder.NewAverageStockPrice = ((oldUserStock.StockCount * oldUserStock.Stock.Price) + (pendingOrder.StockCount * pendingOrder.OrderStockPrice)) / (oldUserStock.StockCount + pendingOrder.StockCount);
+                    oldUserStock.StockCount += pendingOrder.StockCount;
+                }
+                stockOrder.IsOrderExecuted = true;
+                context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Excutes Pending Limit Sell
+        /// </summary>
+        /// <param name="pendingOrder"></param>
+        private void ExecuteLimitSell(StockOrder pendingOrder)
+        {
+            using (var context = new IntelStockExchange())
+			{
+                var oldUserStock = context.UserStocks
+                                      .Where(x => x.StockId == pendingOrder.StockId
+                                               && x.UserId == pendingOrder.UserId)
+                                      .FirstOrDefault();
+
+                if (oldUserStock == null || oldUserStock.Id == 0)
+                {
+                    var userStock = new UserStock
+                    {
+                        UserId = pendingOrder.UserId,
+                        StockId = pendingOrder.StockId,
+                        StockCount = pendingOrder.StockCount,
+                        StockOrderId = pendingOrder.Id,
+                        DateTimeAdded = DateTime.Now
+                    };
+
+                    context.UserStocks.Add(userStock);
+                }
+                else
+                {
+                    oldUserStock.StockCount -= pendingOrder.StockCount;
+                }
+
+                var stockOrder = context.StockOrders.First(x => x.Id == pendingOrder.Id);
+                //No Need To calculate Average
+                stockOrder.NewAverageStockPrice = oldUserStock.Stock.Price;
+                stockOrder.IsOrderExecuted = true;
+
+                //The reason why we are adding Balance transaction is, When selling stock we consider it as Deposit
+                var balanceEntity = new Balance
+                {
+                    Balance1 = stockOrder.StockCount * stockOrder.OrderStockPrice,
+                    IsWithdraw = false,
+                    DateTimeAdded = DateTime.Now,
+                    UserId = stockOrder.UserId
+                };
+
+                context.Balances.Add(balanceEntity);
+                context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// CancelsPending Order
+        /// </summary>
+        /// <param name="pendingOrderId"></param>
+        public void CancelPendingOrder(int pendingOrderId)
+        {
+            using (var context = new IntelStockExchange())
+            {
+                var stockOrder = context.StockOrders
+                                        .First(x => x.Id == pendingOrderId);
+                stockOrder.IsActive = false;
+
+				if (stockOrder.IsBuyOrder)
+				{
+                    //The reason why we are adding Balance transaction is, When purchasing stock we consider it as withdrawal
+                    var balanceEntity = new Balance
+                    {
+                        Balance1 = stockOrder.StockCount * stockOrder.OrderStockPrice,
+                        IsWithdraw = true,
+                        DateTimeAdded = DateTime.Now,
+                        UserId = stockOrder.UserId
+                    };
+
+                    context.Balances.Add(balanceEntity);
+                }
+
+                context.SaveChanges();
+            }
+        }
     }
 }

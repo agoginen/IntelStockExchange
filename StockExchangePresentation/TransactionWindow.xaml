@@ -203,7 +203,7 @@
 
                     <ComboBox x:Name="cmbOrderType"
                               Text="{Binding Path=OrderType, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True}"
-                              IsEditable="True">
+                              IsEditable="True" SelectionChanged="cmbOrderType_SelectionChanged">
                         <ComboBoxItem IsSelected="True">Market Order</ComboBoxItem>
                         <ComboBoxItem>Limit Order</ComboBoxItem>
                     </ComboBox>

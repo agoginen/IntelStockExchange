@@ -1173,6 +1173,18 @@ namespace StockExchangePresentation.StockExchangeServices {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetStockOrderHistory", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetStockOrderHistoryResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockOrderViewModel>> GetStockOrderHistoryAsync(int userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/LimitOrderBuy", ReplyAction="http://tempuri.org/IStockExchangeOrder/LimitOrderBuyResponse")]
+        bool LimitOrderBuy(SE_Services.ViewModels.StockOrderViewModel stockOrder);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/LimitOrderBuy", ReplyAction="http://tempuri.org/IStockExchangeOrder/LimitOrderBuyResponse")]
+        System.Threading.Tasks.Task<bool> LimitOrderBuyAsync(SE_Services.ViewModels.StockOrderViewModel stockOrder);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/LimitOrderSell", ReplyAction="http://tempuri.org/IStockExchangeOrder/LimitOrderSellResponse")]
+        bool LimitOrderSell(SE_Services.ViewModels.StockOrderViewModel stockOrder);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/LimitOrderSell", ReplyAction="http://tempuri.org/IStockExchangeOrder/LimitOrderSellResponse")]
+        System.Threading.Tasks.Task<bool> LimitOrderSellAsync(SE_Services.ViewModels.StockOrderViewModel stockOrder);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1312,6 +1324,22 @@ namespace StockExchangePresentation.StockExchangeServices {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.StockOrderViewModel>> GetStockOrderHistoryAsync(int userId) {
             return base.Channel.GetStockOrderHistoryAsync(userId);
+        }
+        
+        public bool LimitOrderBuy(SE_Services.ViewModels.StockOrderViewModel stockOrder) {
+            return base.Channel.LimitOrderBuy(stockOrder);
+        }
+        
+        public System.Threading.Tasks.Task<bool> LimitOrderBuyAsync(SE_Services.ViewModels.StockOrderViewModel stockOrder) {
+            return base.Channel.LimitOrderBuyAsync(stockOrder);
+        }
+        
+        public bool LimitOrderSell(SE_Services.ViewModels.StockOrderViewModel stockOrder) {
+            return base.Channel.LimitOrderSell(stockOrder);
+        }
+        
+        public System.Threading.Tasks.Task<bool> LimitOrderSellAsync(SE_Services.ViewModels.StockOrderViewModel stockOrder) {
+            return base.Channel.LimitOrderSellAsync(stockOrder);
         }
     }
 }

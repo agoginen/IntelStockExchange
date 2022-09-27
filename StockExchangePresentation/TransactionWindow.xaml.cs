@@ -139,7 +139,17 @@ namespace StockExchangePresentation
                             StockCount = _stockCount
                         };
 
-                        var isOrderPlaced = client.MarketOrderBuy(stockOrderViewModel);
+                        var isOrderPlaced = false;
+
+                        if (this.cmbOrderType.Text == "Market Order")
+                        {
+                            isOrderPlaced = client.MarketOrderBuy(stockOrderViewModel);
+                        }
+                        else if(this.cmbOrderType.Text == "Limit Order") {
+                            stockOrderViewModel.IsLimitOrder = true;
+                            isOrderPlaced = client.LimitOrderBuy(stockOrderViewModel);
+                        }
+
                         client.Close();
 
                         if (isOrderPlaced)
@@ -148,7 +158,7 @@ namespace StockExchangePresentation
                             UserHomeWindow userWindow = new UserHomeWindow();
                             userWindow.Show();
                             //Close Current window
-                            Application.Current.Windows[0].Close();
+                            this.Close();
                         }
                         else
                         {
@@ -172,8 +182,17 @@ namespace StockExchangePresentation
                         StockCount = _stockCount
                     };
 
-                    var isOrderPlaced = client.MarketOrderSell(stockOrderViewModel);
-                    client.Close();
+                    var isOrderPlaced = false;
+
+                    if (this.cmbOrderType.Text == "Market Order")
+                    {
+                        isOrderPlaced = client.MarketOrderSell(stockOrderViewModel);
+                    }
+                    else if (this.cmbOrderType.Text == "Limit Order")
+                    {
+                        stockOrderViewModel.IsLimitOrder = true;
+                        isOrderPlaced = client.LimitOrderSell(stockOrderViewModel);
+                    }
 
                     if (isOrderPlaced)
                     {
@@ -181,7 +200,7 @@ namespace StockExchangePresentation
                         UserHomeWindow userWindow = new UserHomeWindow();
                         userWindow.Show();
                         //Close Current window
-                        Application.Current.Windows[0].Close();
+                        this.Close();
                     }
                     else
                     {
@@ -227,9 +246,21 @@ namespace StockExchangePresentation
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-			Application.Current.Windows[1].Close();
+			this.Close();
 		}
 
         private void btnLogin_Click(object sender, RoutedEventArgs e) { }
-    }
+
+		private void cmbOrderType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+            if (this.cmbOrderType.Text == "Market Order")
+            {
+                this.txtStockPrice.IsReadOnly = false;
+            }
+            else if (this.cmbOrderType.Text == "Limit Order")
+            {
+                this.txtStockPrice.IsReadOnly = true;
+            }
+        }
+	}
 }

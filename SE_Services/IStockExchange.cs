@@ -36,5 +36,9 @@ namespace StockExchangeApp
         List<StockViewModel> GetPortfolioStocks(int userId);
         [OperationContract]
         List<StockOrderViewModel> GetStockOrderHistory(int userId);
+        [OperationContract]
+        bool LimitOrderBuy(StockOrderViewModel stockOrder);
+        [OperationContract]
+        bool LimitOrderSell(StockOrderViewModel stockOrder);
     }
 }
