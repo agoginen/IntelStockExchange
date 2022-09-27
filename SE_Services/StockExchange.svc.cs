@@ -243,7 +243,9 @@ namespace SE_Services
         private int GetTotalStockCount(Stock stock)
 		{
             int count = 0;
-            var userStocks = stock.UserStocks.Where(x => x.UserId == GetCurrentUserId()).ToList();
+            var userStocks = stock.UserStocks
+                                  .Where(x => x.UserId == GetCurrentUserId())
+                                  .ToList();
             if(userStocks.Count > 0)
 			{
 				foreach (var userStock in userStocks)
@@ -301,7 +303,8 @@ namespace SE_Services
                     var recentOrder = ctx.StockOrders.Add(stockOrderEntity);
 
                     var oldUserStock = ctx.UserStocks
-                                        .Where(x => x.StockId == recentOrder.StockId && x.UserId == recentOrder.UserId)
+                                        .Where(x => x.StockId == recentOrder.StockId
+                                                 && x.UserId == recentOrder.UserId)
                                         .FirstOrDefault(); ;
                     //First Purchase
                     if (oldUserStock == null || oldUserStock.Id == 0)
@@ -402,10 +405,11 @@ namespace SE_Services
             using (var ctx = new IntelStockExchange())
 			{
                 var day = DateTime.Now.DayOfWeek.ToString();
+
                 var marketTimings = ctx.MarketTimings
                                        .FirstOrDefault(x => x.Day.ToString() == day);
 
-				if (DateTime.Now.TimeOfDay > marketTimings.StartTime && DateTime.Now.TimeOfDay < marketTimings.CloseTime && marketTimings.IsActive)
+				if (marketTimings.IsActive && (DateTime.Now.TimeOfDay > marketTimings.StartTime && DateTime.Now.TimeOfDay < marketTimings.CloseTime))
 				{
                     var stocks = ctx.Stocks.ToList();
 
@@ -536,7 +540,8 @@ namespace SE_Services
                                          .Add(stockOrderEntity);
 
                     var oldUserStock = ctx.UserStocks
-                                        .Where(x => x.StockId == recentOrder.StockId && x.UserId == recentOrder.UserId)
+                                        .Where(x => x.StockId == recentOrder.StockId
+                                                 && x.UserId == recentOrder.UserId)
                                         .FirstOrDefault();
 
 					if (oldUserStock == null || oldUserStock.Id == 0)
@@ -750,7 +755,8 @@ namespace SE_Services
                                     .First(x => x.Id == pendingOrder.Id);
 
                 var oldUserStock = context.UserStocks
-                                      .Where(x => x.StockId == pendingOrder.StockId && x.UserId == pendingOrder.UserId)
+                                      .Where(x => x.StockId == pendingOrder.StockId
+                                               && x.UserId == pendingOrder.UserId)
                                       .FirstOrDefault(); ;
                 //First Purchase
                 if (oldUserStock == null || oldUserStock.Id == 0)
@@ -856,6 +862,29 @@ namespace SE_Services
                 }
 
                 context.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Gets Market Timing for today
+        /// </summary>
+        /// <returns></returns>
+        public MarketTimingViewModel GetMarketTimingForToday()
+		{
+            using (var context = new IntelStockExchange())
+			{
+                var day = DateTime.Now.DayOfWeek.ToString();
+                var marketTiming = context.MarketTimings
+                                           .Where(x => x.Day.ToString() == day)
+                                           .Select(x => new MarketTimingViewModel()
+										   {
+                                               Day = x.Day,
+                                               StartTime = x.StartTime,
+                                               CloseTime = x.CloseTime,
+                                               Id = x.Id
+										   })
+                                           .FirstOrDefault();
+                return marketTiming;
             }
         }
     }

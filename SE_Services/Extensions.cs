@@ -9,7 +9,9 @@ namespace SE_Services
         // updates the user's time to live
         public static void RefreshUser(this Dictionary<int, Tuple<string, DateTime>> dict, string userName)
         {
-            var id = dict.Where(e => e.Value.Item1 == userName).FirstOrDefault().Key;
+            var id = dict.Where(e => e.Value.Item1 == userName)
+                         .FirstOrDefault()
+                         .Key;
             dict.RefreshUser(id);
         }
 

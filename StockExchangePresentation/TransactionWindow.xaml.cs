@@ -21,6 +21,7 @@ namespace StockExchangePresentation
         private int _stockCount { get; set; }
         private string _orderType { get; set; }
         private string _transaction { get; set; }
+        private MarketTimingViewModel _marketTimingViewModel { get; set; }
 
         public string StockName
         {
@@ -109,10 +110,22 @@ namespace StockExchangePresentation
             _stockName = stockName;
             _stockPrice = stockPrice;
             _transaction = transaction;
+            _marketTimingViewModel = GetMarketTiming();
             InitializeComponent();
         }
 
 		public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Gets Market Timing For today
+        /// </summary>
+        /// <returns></returns>
+        private MarketTimingViewModel GetMarketTiming()
+		{
+            StockExchangeOrderClient client = new StockExchangeOrderClient();
+            var marketTiming = client.GetMarketTimingForToday();
+            return marketTiming;
+        }
 
         /// <summary>
         /// This is triggered when user clicks on Buy or Sell Stock
@@ -123,13 +136,59 @@ namespace StockExchangePresentation
         {
             if (_stockCount > 0)
             {
-                if (_transaction == "Buy")
+                if (_marketTimingViewModel.IsActive && (_marketTimingViewModel.StartTime > DateTime.Now.TimeOfDay && _marketTimingViewModel.CloseTime < DateTime.Now.TimeOfDay)) 
                 {
-                    StockExchangeOrderClient client = new StockExchangeOrderClient();
-                    var balanceAmount = client.GetBalance(client.GetCurrentUserId());
-
-                    if (balanceAmount > _stockPrice * _stockCount)
+                    if (_transaction == "Buy")
                     {
+                        StockExchangeOrderClient client = new StockExchangeOrderClient();
+                        var balanceAmount = client.GetBalance(client.GetCurrentUserId());
+
+                        if (balanceAmount > _stockPrice * _stockCount)
+                        {
+                            var stockOrderViewModel = new StockOrderViewModel
+                            {
+                                StockId = _stockId,
+                                UserId = client.GetCurrentUserId(),
+                                OrderStockPrice = _stockPrice,
+                                IsLimitOrder = false,
+                                StockCount = _stockCount
+                            };
+
+                            var isOrderPlaced = false;
+
+                            if (this.cmbOrderType.Text == "Market Order")
+                            {
+                                isOrderPlaced = client.MarketOrderBuy(stockOrderViewModel);
+                            }
+                            else if (this.cmbOrderType.Text == "Limit Order")
+                            {
+                                stockOrderViewModel.IsLimitOrder = true;
+                                isOrderPlaced = client.LimitOrderBuy(stockOrderViewModel);
+                            }
+
+                            client.Close();
+
+                            if (isOrderPlaced)
+                            {
+                                //Open Mainwindow
+                                UserHomeWindow userWindow = new UserHomeWindow();
+                                userWindow.Show();
+                                //Close Current window
+                                this.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("There is no Stock Volume to support your Stock Count", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                        }
+                        else
+                            MessageBox.Show("Your Balance is low to place order. Please deposit Money and try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    }
+                    else if (_transaction == "Sell")
+                    {
+                        StockExchangeOrderClient client = new StockExchangeOrderClient();
+
                         var stockOrderViewModel = new StockOrderViewModel
                         {
                             StockId = _stockId,
@@ -143,14 +202,13 @@ namespace StockExchangePresentation
 
                         if (this.cmbOrderType.Text == "Market Order")
                         {
-                            isOrderPlaced = client.MarketOrderBuy(stockOrderViewModel);
+                            isOrderPlaced = client.MarketOrderSell(stockOrderViewModel);
                         }
-                        else if(this.cmbOrderType.Text == "Limit Order") {
+                        else if (this.cmbOrderType.Text == "Limit Order")
+                        {
                             stockOrderViewModel.IsLimitOrder = true;
-                            isOrderPlaced = client.LimitOrderBuy(stockOrderViewModel);
+                            isOrderPlaced = client.LimitOrderSell(stockOrderViewModel);
                         }
-
-                        client.Close();
 
                         if (isOrderPlaced)
                         {
@@ -162,55 +220,22 @@ namespace StockExchangePresentation
                         }
                         else
                         {
-                            MessageBox.Show("There is no Stock Volume to support your Stock Count", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show("You dont own enough stocks to support the sell", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     }
                     else
-                        MessageBox.Show("Your Balance is low to place order. Please deposit Money and try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                }
-                else if (_transaction == "Sell")
-                {
-                    StockExchangeOrderClient client = new StockExchangeOrderClient();
-
-                    var stockOrderViewModel = new StockOrderViewModel
                     {
-                        StockId = _stockId,
-                        UserId = client.GetCurrentUserId(),
-                        OrderStockPrice = _stockPrice,
-                        IsLimitOrder = false,
-                        StockCount = _stockCount
-                    };
-
-                    var isOrderPlaced = false;
-
-                    if (this.cmbOrderType.Text == "Market Order")
-                    {
-                        isOrderPlaced = client.MarketOrderSell(stockOrderViewModel);
-                    }
-                    else if (this.cmbOrderType.Text == "Limit Order")
-                    {
-                        stockOrderViewModel.IsLimitOrder = true;
-                        isOrderPlaced = client.LimitOrderSell(stockOrderViewModel);
-                    }
-
-                    if (isOrderPlaced)
-                    {
-                        //Open Mainwindow
-                        UserHomeWindow userWindow = new UserHomeWindow();
-                        userWindow.Show();
-                        //Close Current window
-                        this.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("You dont own enough stocks to support the sell", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("You have selected 0 stocks to place order.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
 				else
 				{
-                    MessageBox.Show("You have selected 0 stocks to place order.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Cant place order, Market is closed.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+            }
+			else
+			{
+                MessageBox.Show("Cant Place order for 0 stocks.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

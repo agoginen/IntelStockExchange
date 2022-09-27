@@ -42,5 +42,7 @@ namespace StockExchangeApp
         bool LimitOrderSell(StockOrderViewModel stockOrder);
         [OperationContract]
         void CancelPendingOrder(int pendingOrderId);
+        [OperationContract]
+        MarketTimingViewModel GetMarketTimingForToday();
     }
 }

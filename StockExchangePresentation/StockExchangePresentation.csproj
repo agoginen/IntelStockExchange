@@ -205,6 +205,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\SE_Services.ViewModels.MarketTimingViewModel.datasource" />
     <None Include="Properties\DataSources\SE_Services.ViewModels.StockOrderViewModel.datasource" />
     <None Include="Properties\DataSources\SE_Services.ViewModels.StockViewModel.datasource" />
     <None Include="Properties\DataSources\SE_Services.ViewModels.UserViewModel.datasource" />

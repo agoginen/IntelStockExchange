@@ -1191,6 +1191,12 @@ namespace StockExchangePresentation.StockExchangeServices {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/CancelPendingOrder", ReplyAction="http://tempuri.org/IStockExchangeOrder/CancelPendingOrderResponse")]
         System.Threading.Tasks.Task CancelPendingOrderAsync(int pendingOrderId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetMarketTimingForToday", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetMarketTimingForTodayResponse")]
+        SE_Services.ViewModels.MarketTimingViewModel GetMarketTimingForToday();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetMarketTimingForToday", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetMarketTimingForTodayResponse")]
+        System.Threading.Tasks.Task<SE_Services.ViewModels.MarketTimingViewModel> GetMarketTimingForTodayAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1354,6 +1360,14 @@ namespace StockExchangePresentation.StockExchangeServices {
         
         public System.Threading.Tasks.Task CancelPendingOrderAsync(int pendingOrderId) {
             return base.Channel.CancelPendingOrderAsync(pendingOrderId);
+        }
+        
+        public SE_Services.ViewModels.MarketTimingViewModel GetMarketTimingForToday() {
+            return base.Channel.GetMarketTimingForToday();
+        }
+        
+        public System.Threading.Tasks.Task<SE_Services.ViewModels.MarketTimingViewModel> GetMarketTimingForTodayAsync() {
+            return base.Channel.GetMarketTimingForTodayAsync();
         }
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/SE_Services.ViewModels" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/SE_Services.ViewModels" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/SE_Services.ViewModels" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/SE_Services.ViewModels" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:4416/StockExchange.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:complexType name="UserViewModel">
     <xs:sequence>
       <xs:element minOccurs="0" name="Id" type="xs:int" />
@@ -16,6 +17,7 @@
   <xs:element name="ArrayOfStockViewModel" nillable="true" type="tns:ArrayOfStockViewModel" />
   <xs:complexType name="StockViewModel">
     <xs:sequence>
+      <xs:element minOccurs="0" name="AverageShareCost" type="xs:decimal" />
       <xs:element minOccurs="0" name="CurrentValue" type="xs:decimal" />
       <xs:element minOccurs="0" name="DateTimeAdded" type="xs:dateTime" />
       <xs:element minOccurs="0" name="DateTimeDeleted" nillable="true" type="xs:dateTime" />
@@ -74,4 +76,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfStockOrderViewModel" nillable="true" type="tns:ArrayOfStockOrderViewModel" />
+  <xs:complexType name="MarketTimingViewModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CloseTime" type="ser:duration" />
+      <xs:element minOccurs="0" name="Day" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="IsActive" type="xs:boolean" />
+      <xs:element minOccurs="0" name="StartTime" type="ser:duration" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MarketTimingViewModel" nillable="true" type="tns:MarketTimingViewModel" />
 </xs:schema>
