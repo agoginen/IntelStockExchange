@@ -633,6 +633,7 @@ namespace SE_Services
                                                         StartPrice = x.Stock.StartPrice,
                                                         Id = x.Id,
                                                         ExecutedPrice = x.StockOrder.OrderStockPrice,
+                                                        AverageShareCost = x.StockOrder.NewAverageStockPrice.Value,
                                                         CurrentValue = x.Stock.Price * x.StockCount,
                                                         Gain = x.StockCount == 0 ? 0 : (x.Stock.Price * x.StockCount) - (x.StockOrder.NewAverageStockPrice * x.StockCount),
                                                         GainPercetage= x.StockCount == 0 ? 0 : (((x.Stock.Price * x.StockCount) - (x.StockOrder.NewAverageStockPrice * x.StockCount))/(x.StockCount * x.StockOrder.NewAverageStockPrice))

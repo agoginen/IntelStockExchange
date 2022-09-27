@@ -179,6 +179,7 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Stock" Binding="{Binding StockName}" Width="*" />
                             <DataGridTextColumn Header="Current Price" Binding="{Binding Price, StringFormat=\{0:C2\}}" Width="*"/>
+                            <DataGridTextColumn Header="YourAverageShareCost" Binding="{Binding AverageShareCost, StringFormat=\{0:C2\}}" Width="*"/>
                             <DataGridTextColumn Header="High Price(Today)" Binding="{Binding HighPrice, StringFormat=\{0:C2\}}" Width="*"/>
                             <DataGridTextColumn Header="Low Price(Today)" Binding="{Binding LowPrice, StringFormat=\{0:C2\}}" Width="*"/>
                             <DataGridTextColumn Header="Your Shares(Today)" Binding="{Binding StockCount}" Width="*"/>

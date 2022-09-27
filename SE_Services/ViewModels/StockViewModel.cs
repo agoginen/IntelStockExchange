@@ -30,6 +30,8 @@ namespace SE_Services.ViewModels
 
         public decimal MarketCapitalization { get; set; }
 
+        public decimal AverageShareCost { get; set; }
+
         public decimal? Gain { get; set; }
         
         public decimal? GainPercetage { get; set; }
