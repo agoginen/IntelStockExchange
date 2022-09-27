@@ -1185,6 +1185,12 @@ namespace StockExchangePresentation.StockExchangeServices {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/LimitOrderSell", ReplyAction="http://tempuri.org/IStockExchangeOrder/LimitOrderSellResponse")]
         System.Threading.Tasks.Task<bool> LimitOrderSellAsync(SE_Services.ViewModels.StockOrderViewModel stockOrder);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/CancelPendingOrder", ReplyAction="http://tempuri.org/IStockExchangeOrder/CancelPendingOrderResponse")]
+        void CancelPendingOrder(int pendingOrderId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/CancelPendingOrder", ReplyAction="http://tempuri.org/IStockExchangeOrder/CancelPendingOrderResponse")]
+        System.Threading.Tasks.Task CancelPendingOrderAsync(int pendingOrderId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1340,6 +1346,14 @@ namespace StockExchangePresentation.StockExchangeServices {
         
         public System.Threading.Tasks.Task<bool> LimitOrderSellAsync(SE_Services.ViewModels.StockOrderViewModel stockOrder) {
             return base.Channel.LimitOrderSellAsync(stockOrder);
+        }
+        
+        public void CancelPendingOrder(int pendingOrderId) {
+            base.Channel.CancelPendingOrder(pendingOrderId);
+        }
+        
+        public System.Threading.Tasks.Task CancelPendingOrderAsync(int pendingOrderId) {
+            return base.Channel.CancelPendingOrderAsync(pendingOrderId);
         }
     }
 }

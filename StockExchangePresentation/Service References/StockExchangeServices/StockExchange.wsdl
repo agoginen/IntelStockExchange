@@ -104,6 +104,12 @@
   <wsdl:message name="IStockExchangeOrder_LimitOrderSell_OutputMessage">
     <wsdl:part name="parameters" element="tns:LimitOrderSellResponse" />
   </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_CancelPendingOrder_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelPendingOrder" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_CancelPendingOrder_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelPendingOrderResponse" />
+  </wsdl:message>
   <wsdl:portType name="IStockExchangeOrder">
     <wsdl:operation name="Register">
       <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/Register" message="tns:IStockExchangeOrder_Register_InputMessage" />
@@ -168,6 +174,10 @@
     <wsdl:operation name="LimitOrderSell">
       <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/LimitOrderSell" message="tns:IStockExchangeOrder_LimitOrderSell_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/LimitOrderSellResponse" message="tns:IStockExchangeOrder_LimitOrderSell_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelPendingOrder">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/CancelPendingOrder" message="tns:IStockExchangeOrder_CancelPendingOrder_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/CancelPendingOrderResponse" message="tns:IStockExchangeOrder_CancelPendingOrder_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IStockExchangeOrder" type="tns:IStockExchangeOrder">
@@ -309,6 +319,15 @@
     </wsdl:operation>
     <wsdl:operation name="LimitOrderSell">
       <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/LimitOrderSell" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelPendingOrder">
+      <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/CancelPendingOrder" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

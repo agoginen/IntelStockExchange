@@ -216,4 +216,16 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="CancelPendingOrder">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pendingOrderId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelPendingOrderResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

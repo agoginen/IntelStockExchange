@@ -183,6 +183,48 @@
                             <DataGridTextColumn Header="Order Type" Binding="{Binding OrderType}" Width="*"/>
                             <DataGridTextColumn Header="Order Status" Binding="{Binding OrderStatus}" Width="*"/>
                             <DataGridTextColumn Header="Transaction Type" Binding="{Binding BuySellType}" Width="*"/>
+                            <DataGridTemplateColumn Header="Actions" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button x:Name="btnCancel" 
+                                                    Command="{Binding Path=DataContext.Cancel, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding}"
+                                                    BorderThickness="0"
+                                                    Content="Cancel Order"
+                                                    Foreground="White"
+                                                    FontSize="12"
+                                                    FontFamily="Montserrat"
+                                                    Cursor="Hand"                           
+                                                    Margin="0,8,0,0">
+
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Setter Property="Background" Value="#462AD8"/>
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#28AEED"/>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border Width="83" Height="33" CornerRadius="18" Background="{TemplateBinding Background}">
+                                                            <ContentPresenter VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                            </Button>
+                                        </StackPanel>
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding CanOrderBeCanceled}" Value="false">
+                                                <Setter Property="Visibility" TargetName="btnCancel" Value="Hidden"/>
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate >
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

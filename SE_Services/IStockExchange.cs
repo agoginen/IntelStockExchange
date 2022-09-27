@@ -40,5 +40,7 @@ namespace StockExchangeApp
         bool LimitOrderBuy(StockOrderViewModel stockOrder);
         [OperationContract]
         bool LimitOrderSell(StockOrderViewModel stockOrder);
+        [OperationContract]
+        void CancelPendingOrder(int pendingOrderId);
     }
 }

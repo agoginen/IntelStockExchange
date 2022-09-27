@@ -670,9 +670,10 @@ namespace SE_Services
                                     IsLimitOrder = x.IsLimitOrder,
                                     IsOrderExecuted = x.IsOrderExecuted,
                                     UserId = x.UserId,
-                                    OrderStatus = x.IsOrderExecuted ? "Completed Order" : "Pending Order",
+                                    OrderStatus = x.IsOrderExecuted ? "Completed Order" : (x.IsActive ? "Pending Order" : "Canceled Order"),
                                     OrderType = x.IsLimitOrder ? "Limit Order" : "Market Order",
-                                    BuySellType = x.IsBuyOrder ? "Buy" : "Sell"
+                                    BuySellType = x.IsBuyOrder ? "Buy" : "Sell",
+                                    CanOrderBeCanceled = !x.IsOrderExecuted && x.IsActive
                                 })
                                 .ToList();
                 }
@@ -834,7 +835,7 @@ namespace SE_Services
                     var balanceEntity = new Balance
                     {
                         Balance1 = stockOrder.StockCount * stockOrder.OrderStockPrice,
-                        IsWithdraw = true,
+                        IsWithdraw = false,
                         DateTimeAdded = DateTime.Now,
                         UserId = stockOrder.UserId
                     };

@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using SE_Services.ViewModels;
+using StockExchangePresentation.Commands;
 using StockExchangePresentation.StockExchangeServices;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -14,6 +15,8 @@ namespace StockExchangePresentation.ViewModel
 		public ICommand Accounting { get; set; }
 		public ICommand Home { get; set; }
 		public ICommand Portfolio { get; set; }
+		public ICommand Cancel { get; set; }
+
 		private ObservableCollection<StockOrderViewModel> _stockOrders;
 		public ObservableCollection<StockOrderViewModel> StockOrders
 		{
@@ -32,6 +35,22 @@ namespace StockExchangePresentation.ViewModel
 			Accounting = new RelayCommand(AccountingCommand);
 			Home = new RelayCommand(HomeCommand);
 			Portfolio = new RelayCommand(PortfolioCommand);
+			Cancel = new DelegateCommand(CancelCommand);
+		}
+
+		/// <summary>
+		/// Cancels limit order
+		/// </summary>
+		/// <param name="param"></param>
+		private void CancelCommand(object param)
+		{
+			StockOrderViewModel stockOrder = param as StockOrderViewModel;
+			if (stockOrder != null)
+			{
+				StockExchangeOrderClient client = new StockExchangeOrderClient();
+				client.CancelPendingOrder(stockOrder.Id);
+				client.Close();
+			}
 		}
 
 		/// <summary>
@@ -99,6 +118,5 @@ namespace StockExchangePresentation.ViewModel
 				_stockOrders.Add(s);
 			}
 		}
-
 	}
 }

@@ -20,6 +20,8 @@ namespace SE_Services.ViewModels
 
         public bool IsOrderExecuted { get; set; }
 
+        public bool CanOrderBeCanceled { get; set; }
+
         public string OrderStatus { get; set; }
 
         public int UserId { get; set; }
