@@ -63,9 +63,11 @@
   <ItemGroup>
     <Compile Include="Balance.cs" />
     <Compile Include="IntelStockExchange.cs" />
+    <Compile Include="MarketTiming.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stock.cs" />
     <Compile Include="StockOrder.cs" />
+    <Compile Include="sysdiagram.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserStock.cs" />
   </ItemGroup>

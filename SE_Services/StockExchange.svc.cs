@@ -401,23 +401,34 @@ namespace SE_Services
 		{
             using (var ctx = new IntelStockExchange())
 			{
-                var stocks = ctx.Stocks.ToList();
+                var day = DateTime.Now.DayOfWeek.ToString();
+                var marketTimings = ctx.MarketTimings
+                                       .FirstOrDefault(x => x.Day.ToString() == day);
 
-                foreach (var s in stocks)
-                {
-                    s.Price = StockPriceGenerator(s.Price);
+				if (DateTime.Now.TimeOfDay > marketTimings.StartTime && DateTime.Now.TimeOfDay < marketTimings.CloseTime && marketTimings.IsActive)
+				{
+                    var stocks = ctx.Stocks.ToList();
 
-                    if (!s.HighPrice.HasValue || s.Price > s.HighPrice.Value)
-                        s.HighPrice = s.Price;
+                    foreach (var s in stocks)
+                    {
+                        s.Price = StockPriceGenerator(s.Price);
 
-                    if(!s.LowPrice.HasValue || s.Price < s.LowPrice.Value)
-                        s.LowPrice = s.Price;
+                        if (!s.HighPrice.HasValue || s.Price > s.HighPrice.Value)
+                            s.HighPrice = s.Price;
 
-                    if(!s.DateTimeUpdated.HasValue || s.DateTimeUpdated.Value.Date != DateTime.Now.Date)
-                        s.StartPrice = s.Price;
+                        if (!s.LowPrice.HasValue || s.Price < s.LowPrice.Value)
+                            s.LowPrice = s.Price;
 
-                    s.DateTimeUpdated = DateTime.Now;
-                    ctx.SaveChanges();
+                        if (!s.DateTimeUpdated.HasValue || s.DateTimeUpdated.Value.Date != DateTime.Now.Date)
+						{
+                            s.StartPrice = s.Price;
+                            s.HighPrice = s.Price;
+                            s.LowPrice = s.Price;
+                        }
+
+                        s.DateTimeUpdated = DateTime.Now;
+                        ctx.SaveChanges();
+                    }
                 }
             }
 

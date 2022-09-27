@@ -13,8 +13,10 @@ namespace SE_Entities
 		}
 
 		public virtual DbSet<Balance> Balances { get; set; }
+		public virtual DbSet<MarketTiming> MarketTimings { get; set; }
 		public virtual DbSet<StockOrder> StockOrders { get; set; }
 		public virtual DbSet<Stock> Stocks { get; set; }
+		public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
 		public virtual DbSet<User> Users { get; set; }
 		public virtual DbSet<UserStock> UserStocks { get; set; }
 
@@ -23,6 +25,10 @@ namespace SE_Entities
 			modelBuilder.Entity<Balance>()
 				.Property(e => e.Balance1)
 				.HasPrecision(19, 4);
+
+			modelBuilder.Entity<MarketTiming>()
+				.Property(e => e.Day)
+				.IsUnicode(false);
 
 			modelBuilder.Entity<StockOrder>()
 				.Property(e => e.OrderStockPrice)
