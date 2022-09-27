@@ -881,7 +881,8 @@ namespace SE_Services
                                                Day = x.Day,
                                                StartTime = x.StartTime,
                                                CloseTime = x.CloseTime,
-                                               Id = x.Id
+                                               Id = x.Id,
+                                               IsActive = x.IsActive
 										   })
                                            .FirstOrDefault();
                 return marketTiming;
