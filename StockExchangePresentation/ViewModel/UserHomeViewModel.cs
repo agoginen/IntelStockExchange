@@ -105,16 +105,23 @@ namespace StockExchangePresentation.ViewModel
 		/// </summary>
 		private void WithdrawCommand()
 		{
-			StockExchangeOrderClient client = new StockExchangeOrderClient();
-			var balanceViewModel = new BalanceViewModel
+			if(_newBalance > GetBalance())
 			{
-				Balance = _newBalance,
-				IsWithdraw = true,
-				DateTimeAdded = DateTime.Now,
-				UserId = client.GetCurrentUserId()
-			};
-			client.BalanceTransaction(balanceViewModel);
-			AccountingCommand();
+				MessageBox.Show("You dont have enough balance to WithDraw", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+			else
+			{
+				StockExchangeOrderClient client = new StockExchangeOrderClient();
+				var balanceViewModel = new BalanceViewModel
+				{
+					Balance = _newBalance,
+					IsWithdraw = true,
+					DateTimeAdded = DateTime.Now,
+					UserId = client.GetCurrentUserId()
+				};
+				client.BalanceTransaction(balanceViewModel);
+				AccountingCommand();
+			}
 		}
 
 		/// <summary>
