@@ -44,5 +44,11 @@ namespace StockExchangeApp
         void CancelPendingOrder(int pendingOrderId);
         [OperationContract]
         MarketTimingViewModel GetMarketTimingForToday();
+        [OperationContract]
+        List<MarketTimingViewModel> GetAllMarketTimings();
+        [OperationContract]
+        void UpdateMarketTimings(string StartTime, string CloseTime);
+        [OperationContract]
+        void UpdateMarketDays(bool m, bool t, bool w, bool th, bool f, bool sat, bool sun);
     }
 }

@@ -86,4 +86,10 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="MarketTimingViewModel" nillable="true" type="tns:MarketTimingViewModel" />
+  <xs:complexType name="ArrayOfMarketTimingViewModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MarketTimingViewModel" nillable="true" type="tns:MarketTimingViewModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMarketTimingViewModel" nillable="true" type="tns:ArrayOfMarketTimingViewModel" />
 </xs:schema>

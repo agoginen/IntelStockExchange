@@ -11,6 +11,11 @@ namespace StockExchangePresentation
 	/// </summary>
 	public partial class AdminWindow : Window
 	{
+		public AdminWindow()
+		{
+			InitializeComponent();
+        }
+
 		//Event Handler To allow only integers
 		private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
 		{
@@ -25,12 +30,8 @@ namespace StockExchangePresentation
 			e.Handled = !regex.IsMatch((sender as TextBox).Text.Insert((sender as TextBox).SelectionStart, e.Text));
 		}
 
-		public AdminWindow()
-		{
-			InitializeComponent();
-        }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+		private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
                 DragMove();
@@ -47,5 +48,5 @@ namespace StockExchangePresentation
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e) { }
-    }
+	}
 }

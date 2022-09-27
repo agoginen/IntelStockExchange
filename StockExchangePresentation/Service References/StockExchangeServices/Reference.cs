@@ -1197,6 +1197,24 @@ namespace StockExchangePresentation.StockExchangeServices {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetMarketTimingForToday", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetMarketTimingForTodayResponse")]
         System.Threading.Tasks.Task<SE_Services.ViewModels.MarketTimingViewModel> GetMarketTimingForTodayAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetAllMarketTimings", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetAllMarketTimingsResponse")]
+        System.Collections.Generic.List<SE_Services.ViewModels.MarketTimingViewModel> GetAllMarketTimings();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/GetAllMarketTimings", ReplyAction="http://tempuri.org/IStockExchangeOrder/GetAllMarketTimingsResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.MarketTimingViewModel>> GetAllMarketTimingsAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/UpdateMarketTimings", ReplyAction="http://tempuri.org/IStockExchangeOrder/UpdateMarketTimingsResponse")]
+        void UpdateMarketTimings(string StartTime, string CloseTime);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/UpdateMarketTimings", ReplyAction="http://tempuri.org/IStockExchangeOrder/UpdateMarketTimingsResponse")]
+        System.Threading.Tasks.Task UpdateMarketTimingsAsync(string StartTime, string CloseTime);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/UpdateMarketDays", ReplyAction="http://tempuri.org/IStockExchangeOrder/UpdateMarketDaysResponse")]
+        void UpdateMarketDays(bool m, bool t, bool w, bool th, bool f, bool sat, bool sun);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockExchangeOrder/UpdateMarketDays", ReplyAction="http://tempuri.org/IStockExchangeOrder/UpdateMarketDaysResponse")]
+        System.Threading.Tasks.Task UpdateMarketDaysAsync(bool m, bool t, bool w, bool th, bool f, bool sat, bool sun);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1368,6 +1386,30 @@ namespace StockExchangePresentation.StockExchangeServices {
         
         public System.Threading.Tasks.Task<SE_Services.ViewModels.MarketTimingViewModel> GetMarketTimingForTodayAsync() {
             return base.Channel.GetMarketTimingForTodayAsync();
+        }
+        
+        public System.Collections.Generic.List<SE_Services.ViewModels.MarketTimingViewModel> GetAllMarketTimings() {
+            return base.Channel.GetAllMarketTimings();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<SE_Services.ViewModels.MarketTimingViewModel>> GetAllMarketTimingsAsync() {
+            return base.Channel.GetAllMarketTimingsAsync();
+        }
+        
+        public void UpdateMarketTimings(string StartTime, string CloseTime) {
+            base.Channel.UpdateMarketTimings(StartTime, CloseTime);
+        }
+        
+        public System.Threading.Tasks.Task UpdateMarketTimingsAsync(string StartTime, string CloseTime) {
+            return base.Channel.UpdateMarketTimingsAsync(StartTime, CloseTime);
+        }
+        
+        public void UpdateMarketDays(bool m, bool t, bool w, bool th, bool f, bool sat, bool sun) {
+            base.Channel.UpdateMarketDays(m, t, w, th, f, sat, sun);
+        }
+        
+        public System.Threading.Tasks.Task UpdateMarketDaysAsync(bool m, bool t, bool w, bool th, bool f, bool sat, bool sun) {
+            return base.Channel.UpdateMarketDaysAsync(m, t, w, th, f, sat, sun);
         }
     }
 }

@@ -887,5 +887,78 @@ namespace SE_Services
                 return marketTiming;
             }
         }
+
+        /// <summary>
+        /// Gets All Market Timings
+        /// </summary>
+        /// <returns></returns>
+        public List<MarketTimingViewModel> GetAllMarketTimings()
+		{
+            using (var context = new IntelStockExchange())
+            {
+                var day = DateTime.Now.DayOfWeek.ToString();
+                var marketTiming = context.MarketTimings
+                                           .Select(x => new MarketTimingViewModel()
+                                           {
+                                               Day = x.Day,
+                                               StartTime = x.StartTime,
+                                               CloseTime = x.CloseTime,
+                                               Id = x.Id,
+                                               IsActive = x.IsActive
+                                           })
+                                           .ToList();
+                return marketTiming;
+            }
+        }
+
+        /// <summary>
+        /// Updates Market Timings
+        /// </summary>
+        /// <param name="StartTime"></param>
+        /// <param name="CloseTime"></param>
+        public void UpdateMarketTimings(string StartTime, string CloseTime)
+		{
+            using (var context = new IntelStockExchange())
+			{
+                var marketTimings = context.MarketTimings
+                                           .ToList();
+				foreach (var market in marketTimings)
+				{
+                    market.StartTime = TimeSpan.Parse(StartTime);
+                    market.CloseTime = TimeSpan.Parse(CloseTime);
+                }
+
+                context.SaveChanges();
+			}
+        }
+
+        /// <summary>
+        /// Updates Market Days
+        /// </summary>
+        /// <param name="m"></param>
+        /// <param name="t"></param>
+        /// <param name="w"></param>
+        /// <param name="th"></param>
+        /// <param name="f"></param>
+        /// <param name="sat"></param>
+        /// <param name="sun"></param>
+        public void UpdateMarketDays(bool m,bool t, bool w, bool th, bool f, bool sat, bool sun)
+        {
+            using (var context = new IntelStockExchange())
+            {
+                var marketTimings = context.MarketTimings
+                                           .ToList();
+
+                marketTimings.FirstOrDefault(x => x.Day == "Monday").IsActive = m;
+                marketTimings.FirstOrDefault(x => x.Day == "Tuesday").IsActive = t;
+                marketTimings.FirstOrDefault(x => x.Day == "Wednesday").IsActive = w;
+                marketTimings.FirstOrDefault(x => x.Day == "Thursday").IsActive = th;
+                marketTimings.FirstOrDefault(x => x.Day == "Friday").IsActive = f;
+                marketTimings.FirstOrDefault(x => x.Day == "Saturday").IsActive = sat;
+                marketTimings.FirstOrDefault(x => x.Day == "Sunday").IsActive = sun;
+
+                context.SaveChanges();
+            }
+        }
     }
 }

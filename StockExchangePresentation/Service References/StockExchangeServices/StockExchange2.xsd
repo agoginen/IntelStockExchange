@@ -240,4 +240,47 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetAllMarketTimings">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllMarketTimingsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/SE_Services.ViewModels" minOccurs="0" name="GetAllMarketTimingsResult" nillable="true" type="q14:ArrayOfMarketTimingViewModel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateMarketTimings">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="StartTime" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CloseTime" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateMarketTimingsResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateMarketDays">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="m" type="xs:boolean" />
+        <xs:element minOccurs="0" name="t" type="xs:boolean" />
+        <xs:element minOccurs="0" name="w" type="xs:boolean" />
+        <xs:element minOccurs="0" name="th" type="xs:boolean" />
+        <xs:element minOccurs="0" name="f" type="xs:boolean" />
+        <xs:element minOccurs="0" name="sat" type="xs:boolean" />
+        <xs:element minOccurs="0" name="sun" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateMarketDaysResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

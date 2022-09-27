@@ -116,6 +116,24 @@
   <wsdl:message name="IStockExchangeOrder_GetMarketTimingForToday_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetMarketTimingForTodayResponse" />
   </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_GetAllMarketTimings_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllMarketTimings" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_GetAllMarketTimings_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllMarketTimingsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_UpdateMarketTimings_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMarketTimings" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_UpdateMarketTimings_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMarketTimingsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_UpdateMarketDays_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMarketDays" />
+  </wsdl:message>
+  <wsdl:message name="IStockExchangeOrder_UpdateMarketDays_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMarketDaysResponse" />
+  </wsdl:message>
   <wsdl:portType name="IStockExchangeOrder">
     <wsdl:operation name="Register">
       <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/Register" message="tns:IStockExchangeOrder_Register_InputMessage" />
@@ -188,6 +206,18 @@
     <wsdl:operation name="GetMarketTimingForToday">
       <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/GetMarketTimingForToday" message="tns:IStockExchangeOrder_GetMarketTimingForToday_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/GetMarketTimingForTodayResponse" message="tns:IStockExchangeOrder_GetMarketTimingForToday_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllMarketTimings">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/GetAllMarketTimings" message="tns:IStockExchangeOrder_GetAllMarketTimings_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/GetAllMarketTimingsResponse" message="tns:IStockExchangeOrder_GetAllMarketTimings_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMarketTimings">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/UpdateMarketTimings" message="tns:IStockExchangeOrder_UpdateMarketTimings_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/UpdateMarketTimingsResponse" message="tns:IStockExchangeOrder_UpdateMarketTimings_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMarketDays">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockExchangeOrder/UpdateMarketDays" message="tns:IStockExchangeOrder_UpdateMarketDays_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockExchangeOrder/UpdateMarketDaysResponse" message="tns:IStockExchangeOrder_UpdateMarketDays_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IStockExchangeOrder" type="tns:IStockExchangeOrder">
@@ -347,6 +377,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetMarketTimingForToday">
       <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/GetMarketTimingForToday" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllMarketTimings">
+      <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/GetAllMarketTimings" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMarketTimings">
+      <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/UpdateMarketTimings" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMarketDays">
+      <soap:operation soapAction="http://tempuri.org/IStockExchangeOrder/UpdateMarketDays" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

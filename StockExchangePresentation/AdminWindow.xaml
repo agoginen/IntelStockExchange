@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StockExchangePresentation"
         xmlns:viewmodel="clr-namespace:StockExchangePresentation.ViewModel"
-        Title="Admin Window" Height="550" Width="800"
+        Title="Admin Window" Height="1000" Width="1000"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -67,7 +67,7 @@
                                FontFamily="Montserrat"
                                Grid.Column="0"
                                VerticalAlignment="Center"
-                               Margin="690,0,0,0">
+                               Margin="880,0,0,0">
                         <TextBlock.InputBindings>
                             <MouseBinding Command="{Binding LogoutCommand}" MouseAction="LeftClick" />
                         </TextBlock.InputBindings>
@@ -143,11 +143,13 @@
 
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="4*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
-                    <DataGrid Grid.Row="0" Name="StockGrid" ItemsSource="{Binding Stocks}"  Margin="5"
+                    <DataGrid Grid.Row="0" Name="StockGrid"
+                              ItemsSource="{Binding Stocks}"
+                              Margin="5"
                               AutoGenerateColumns="False"
                               AlternationCount="2" 
                               AlternatingRowBackground="WhiteSmoke"
@@ -165,82 +167,180 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="btnAddStock" 
-                            Command="{Binding AddStock}"
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Market Opening Time"
+                               Foreground="DarkGray"
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"                             
+                               Margin="0,55,0,0"/>
+
+                            <TextBox x:Name="txtMarketOpenTime"
+                             FontSize="13"
+                             PreviewTextInput="NumberValidationTextBox"
+                             FontWeight="Medium"
+                             Foreground="Black"
+                             CaretBrush="LightGray"
+                             BorderBrush="DarkGray"
+                             BorderThickness="0,0,0,2"
+                             Height="28"
+                             VerticalContentAlignment="Center"
+                             Margin="30,10,30,0"
+                             Padding="20,0,0,0"
+                             Text="{Binding MarketOpenTime}">
+                            </TextBox>
+
+                            <TextBlock Text="Market Closing Time"
+                               Foreground="DarkGray"
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Montserrat"                             
+                               Margin="0,10,0,0"/>
+
+                            <TextBox x:Name="txtMarketCloseTime"
+                             FontSize="13"
+                             PreviewTextInput="NumberValidationTextBox"
+                             FontWeight="Medium"
+                             Foreground="Black"
+                             CaretBrush="LightGray"
+                             BorderBrush="DarkGray"
+                             BorderThickness="0,0,0,2"
+                             Height="28"
+                             VerticalContentAlignment="Center"
+                             Margin="30,10,30,50"
+                             Padding="20,0,0,0"
+                             Text="{Binding MarketCloseTime}">
+                            </TextBox>
+                            
+                            <Button x:Name="btnAddMarketTime" 
+                            Command="{Binding AddMarketTimingsCommand}"
                             BorderThickness="0"
-                            Content="Stock View"
+                            Content="Update Market Timing"
                             Foreground="White"
                             FontSize="12"
                             FontFamily="Montserrat"
-                            Cursor="Hand"                           
-                            Grid.Column="0">
+                            Cursor="Hand">
 
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Background" Value="#462AD8"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#28AEED"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#462AD8"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#28AEED"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
 
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Width="150" Height="40"
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="150" Height="40"
                                         CornerRadius="20"
                                         Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center"
+                                            <ContentPresenter VerticalAlignment="Center"
                                                       HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-
-                        <Button x:Name="EditMarketTiming" 
-                            Command="{Binding EditMarketTiming}"
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1"
+                                    Margin="50,0,0,0">
+                            <CheckBox IsChecked="{Binding Monday}"
+                                      FontWeight="Bold"
+                                      Foreground="White"
+                                      Margin="30,10,0,0" >
+                                Monday
+                            </CheckBox>
+                            
+                            <CheckBox IsChecked="{Binding Tuesday}"
+                                      FontWeight="Bold"
+                                      Foreground="White"
+                                      Margin="30,10,0,0">
+                                Tuesday
+                            </CheckBox>
+                            
+                            <CheckBox IsChecked="{Binding Wednesday}"
+                                      FontWeight="Bold"
+                                      Foreground="White"
+                                      Margin="30,10,0,0">
+                                Wednesday
+                            </CheckBox>
+                            
+                            <CheckBox IsChecked="{Binding Thursday}"
+                                      FontWeight="Bold"
+                                      Foreground="White"
+                                      Margin="30,10,0,0">
+                                Thursday
+                            </CheckBox>
+                            
+                            <CheckBox IsChecked="{Binding Friday}"
+                                      FontWeight="Bold"
+                                      Foreground="White"
+                                      Margin="30,10,0,0">
+                                Friday
+                            </CheckBox>
+                            
+                            <CheckBox IsChecked="{Binding Saturday}"
+                                      FontWeight="Bold"
+                                      Foreground="White"
+                                      Margin="30,10,0,0">
+                                Saturday
+                            </CheckBox>
+                            
+                            <CheckBox IsChecked="{Binding Sunday}"
+                                      FontWeight="Bold"
+                                      Foreground="White"
+                                      Margin="30,10,0,35">
+                                Sunday
+                            </CheckBox>
+                            
+                            <Button x:Name="txtMarketOpenDays" 
+                            Command="{Binding AddMarketDaysCommand}"
                             BorderThickness="0"
-                            Content="Market Timing View"
+                            Content="Update Market Days"
                             Foreground="White"
                             FontSize="12"
                             FontFamily="Montserrat"
                             Cursor="Hand"                           
                             Grid.Column="1">
 
-                            <Button.Style>
-                                <Style TargetType="Button">
-                                    <Setter Property="Background" Value="#462AD8"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#28AEED"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#462AD8"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#28AEED"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
 
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Width="150" Height="40"
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Width="150" Height="40"
                                         CornerRadius="20"
                                         Background="{TemplateBinding Background}">
-                                        <ContentPresenter VerticalAlignment="Center"
+                                            <ContentPresenter VerticalAlignment="Center"
                                                       HorizontalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
                     </Grid>
 
                     <Grid Grid.Row="2">
-                        <StackPanel Width="220" Orientation="Vertical">
+                        <StackPanel Width="220"
+                                    Orientation="Vertical"
+                                    Visibility="{Binding IsAddStockVisible}"
+                                    Margin="0,15,0,0">
 
                             <TextBlock Text="Stock Name"
                                Foreground="DarkGray"
                                FontSize="12"
                                FontWeight="Medium"
-                               FontFamily="Montserrat"                             
-                               Margin="0,5,0,0"/>
+                               FontFamily="Montserrat"/>
 
                             <TextBox x:Name="txtStockName"
                              Text="{Binding StockName}"
